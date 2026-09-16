@@ -1572,3 +1572,250 @@ body,
 /* =========================================================
    v18 — sonu
    ========================================================= */
+
+/* =========================================================
+   v19 — görsel çeşitliliği + görünür siyah-beyaz geçiş
+   ========================================================= */
+
+/* ---------- 6'LI GÖRSEL RİTMİ ---------- */
+.story-scene.scene-landscape-left,
+.story-scene.scene-landscape-right,
+.story-scene.scene-portrait-left,
+.story-scene.scene-portrait-right,
+.story-scene.scene-square-left,
+.story-scene.scene-square-right {
+  display: grid !important;
+  align-items: center !important;
+  width: min(1180px, calc(100% - (var(--gutter) * 2))) !important;
+  column-gap: clamp(48px, 6vw, 90px) !important;
+}
+
+.scene-landscape-left,
+.scene-landscape-right {
+  grid-template-columns: minmax(0, 1.08fr) minmax(330px, .92fr) !important;
+}
+
+.scene-landscape-left .scene-media,
+.scene-landscape-right .scene-media {
+  width: 100% !important;
+  height: auto !important;
+  aspect-ratio: 16 / 10 !important;
+  max-height: none !important;
+}
+
+.scene-landscape-right {
+  grid-template-columns: minmax(330px, .92fr) minmax(0, 1.08fr) !important;
+}
+
+.scene-landscape-right .scene-copy {
+  order: 1 !important;
+}
+
+.scene-landscape-right .scene-media {
+  order: 2 !important;
+}
+
+.scene-portrait-left,
+.scene-portrait-right {
+  width: min(1060px, calc(100% - (var(--gutter) * 2))) !important;
+  grid-template-columns: minmax(280px, .72fr) minmax(0, 1.28fr) !important;
+}
+
+.scene-portrait-left .scene-media,
+.scene-portrait-right .scene-media {
+  width: min(100%, 420px) !important;
+  height: auto !important;
+  aspect-ratio: 4 / 5 !important;
+  max-height: none !important;
+}
+
+.scene-portrait-left .scene-media {
+  justify-self: end !important;
+}
+
+.scene-portrait-right {
+  grid-template-columns: minmax(0, 1.28fr) minmax(280px, .72fr) !important;
+}
+
+.scene-portrait-right .scene-copy {
+  order: 1 !important;
+}
+
+.scene-portrait-right .scene-media {
+  order: 2 !important;
+  justify-self: start !important;
+}
+
+.scene-square-left,
+.scene-square-right {
+  width: min(1040px, calc(100% - (var(--gutter) * 2))) !important;
+  grid-template-columns: minmax(300px, .82fr) minmax(0, 1.18fr) !important;
+}
+
+.scene-square-left .scene-media,
+.scene-square-right .scene-media {
+  width: min(100%, 455px) !important;
+  height: auto !important;
+  aspect-ratio: 1 / 1 !important;
+  max-height: none !important;
+}
+
+.scene-square-left .scene-media {
+  justify-self: end !important;
+}
+
+.scene-square-right {
+  grid-template-columns: minmax(0, 1.18fr) minmax(300px, .82fr) !important;
+}
+
+.scene-square-right .scene-copy {
+  order: 1 !important;
+}
+
+.scene-square-right .scene-media {
+  order: 2 !important;
+  justify-self: start !important;
+}
+
+/* Her varyantta metin aynı merkezleme mantığını korur. */
+.scene-landscape-left .scene-copy,
+.scene-landscape-right .scene-copy,
+.scene-portrait-left .scene-copy,
+.scene-portrait-right .scene-copy,
+.scene-square-left .scene-copy,
+.scene-square-right .scene-copy {
+  align-self: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  gap: clamp(16px, 1.4vw, 20px) !important;
+  max-width: 560px !important;
+}
+
+/* ---------- SİYAH-BEYAZ -> RENK: ESKİ KURALLARI EZ ---------- */
+.scroll-color-image {
+  filter: grayscale(1) saturate(0) contrast(1.06) brightness(.93) !important;
+  transform: scale(1.006) !important;
+  transition:
+    filter 1.6s cubic-bezier(.22, 1, .36, 1),
+    transform .9s var(--ease-out) !important;
+}
+
+.story-scene.is-color-revealed .scroll-color-image {
+  filter: grayscale(0) saturate(1) contrast(1.01) brightness(1) !important;
+}
+
+/* Hover renge geçişi başlatmaz; yalnızca zaten renklenmiş fotoğrafı hafif yakınlaştırır. */
+.story-scene:not(.is-color-revealed):hover .scroll-color-image {
+  filter: grayscale(1) saturate(0) contrast(1.06) brightness(.93) !important;
+  transform: scale(1.006) !important;
+}
+
+.story-scene.is-color-revealed:hover .scroll-color-image {
+  filter: grayscale(0) saturate(1.035) contrast(1.02) brightness(1.01) !important;
+  transform: scale(1.018) !important;
+}
+
+.scene-media,
+.scene-media:hover,
+.story-scene:hover .scene-media {
+  transform: none !important;
+}
+
+/* ---------- LOAD MORE: focus/anchor sıçraması olmasın ---------- */
+.story-stream,
+.story-scene,
+.load-more-wrap,
+.load-more {
+  overflow-anchor: none !important;
+}
+
+.load-more:focus,
+.load-more:focus-visible,
+.load-more:active {
+  scroll-margin: 0 !important;
+}
+
+/* ---------- MOBİLDE DE ORAN ÇEŞİTLİLİĞİ ---------- */
+@media (max-width: 760px) {
+  .story-scene.scene-landscape-left,
+  .story-scene.scene-landscape-right,
+  .story-scene.scene-portrait-left,
+  .story-scene.scene-portrait-right,
+  .story-scene.scene-square-left,
+  .story-scene.scene-square-right {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  .scene-landscape-left .scene-media,
+  .scene-landscape-right .scene-media,
+  .scene-portrait-left .scene-media,
+  .scene-portrait-right .scene-media,
+  .scene-square-left .scene-media,
+  .scene-square-right .scene-media {
+    order: 1 !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+  }
+
+  .scene-landscape-left .scene-media,
+  .scene-landscape-right .scene-media {
+    width: calc(100vw - 28px) !important;
+    aspect-ratio: 16 / 10 !important;
+  }
+
+  .scene-portrait-left .scene-media,
+  .scene-portrait-right .scene-media {
+    width: min(calc(100vw - 62px), 390px) !important;
+    aspect-ratio: 4 / 5 !important;
+  }
+
+  .scene-square-left .scene-media,
+  .scene-square-right .scene-media {
+    width: min(calc(100vw - 42px), 430px) !important;
+    aspect-ratio: 1 / 1 !important;
+  }
+
+  .scene-landscape-left .scene-copy,
+  .scene-landscape-right .scene-copy,
+  .scene-portrait-left .scene-copy,
+  .scene-portrait-right .scene-copy,
+  .scene-square-left .scene-copy,
+  .scene-square-right .scene-copy {
+    order: 2 !important;
+    width: 100% !important;
+    max-width: none !important;
+    padding: 19px 19px 0 !important;
+  }
+
+  .scroll-color-image,
+  .story-scene:not(.is-color-revealed):hover .scroll-color-image {
+    transform: scale(1.003) !important;
+  }
+
+  .story-scene.is-color-revealed:hover .scroll-color-image {
+    transform: scale(1.008) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scroll-color-image,
+  .story-scene.is-color-revealed .scroll-color-image,
+  .story-scene:hover .scroll-color-image {
+    filter: grayscale(0) saturate(1) contrast(1.01) brightness(1) !important;
+    transition: none !important;
+  }
+}
+
+/* =========================================================
+   v19 — sonu
+   ========================================================= */
+
+/* v19.1 — filter geçiş süresini eski yüksek özgüllüklü kurallara karşı garanti et */
+.story-scene .scene-media .scroll-color-image {
+  transition:
+    filter 1.6s cubic-bezier(.22, 1, .36, 1),
+    transform .9s var(--ease-out) !important;
+}

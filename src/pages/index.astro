@@ -50,11 +50,21 @@ const entriesWithSummary = await Promise.all(
   })
 );
 
+/*
+  V19: aynı görsel kompozisyonu art arda kullanmıyoruz.
+  6'lı ritim: yatay-sol → portre-sağ → kare-sol → yatay-sağ → portre-sol → kare-sağ.
+*/
 const sceneClass = (index: number) => {
-  const position = index % 4;
-  if (position === 1) return 'scene-split is-reversed';
-  if (position === 2) return 'scene-portrait';
-  return 'scene-split';
+  const sequence = [
+    'scene-landscape-left',
+    'scene-portrait-right',
+    'scene-square-left',
+    'scene-landscape-right',
+    'scene-portrait-left',
+    'scene-square-right',
+  ];
+
+  return sequence[index % sequence.length];
 };
 
 const titleClass = (title: string) => {
@@ -93,6 +103,7 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
               <source media="(max-width: 700px)" srcset={entry.data.mobileCover} />
             )}
             <img
+              class="scroll-color-image"
               src={entry.data.cover}
               alt=""
               loading={index < 2 ? 'eager' : 'lazy'}
@@ -135,8 +146,7 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
     let activeFilter = 'all';
     let limit = 6;
     let revealObserver;
-    let hasUserScrolled = false;
-    let colorTicking = false;
+    let scrollStarted = false;
 
     function matchesFilter(scene) {
       return activeFilter === 'all' || scene.dataset.kind === activeFilter;
@@ -155,6 +165,50 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
       loadMore.hidden = visibleScenes().length >= matchingScenes().length;
     }
 
+    function resetColor(scene) {
+      scene.classList.remove('is-color-revealed');
+      const img = scene.querySelector('.scroll-color-image');
+      if (!img) return;
+
+      // Inline başlangıç değeri: eski CSS katmanları bunu yanlışlıkla renklendiremez.
+      img.style.filter = 'grayscale(1) saturate(0) contrast(1.06) brightness(.93)';
+    }
+
+    function revealColor(scene) {
+      if (scene.classList.contains('is-color-revealed')) return;
+      const img = scene.querySelector('.scroll-color-image');
+      if (!img) return;
+
+      scene.classList.add('is-color-revealed');
+      img.style.filter = 'grayscale(0) saturate(1) contrast(1.01) brightness(1)';
+    }
+
+    function updateColorsFromScroll() {
+      if (reduceMotion) {
+        visibleScenes().forEach(revealColor);
+        return;
+      }
+
+      if (!scrollStarted) return;
+
+      const viewportHeight = window.innerHeight || document.documentElement.clientHeight;
+
+      visibleScenes().forEach((scene) => {
+        if (scene.classList.contains('is-color-revealed')) return;
+
+        const media = scene.querySelector('.scene-media');
+        if (!media) return;
+
+        const rect = media.getBoundingClientRect();
+
+        // Görsel ekranın alt %76 çizgisine geldiğinde renklenmeye başlar.
+        // İlk görsel de sayfa açılır açılmaz renklenmez; gerçek bir scroll gerekir.
+        const entersColorZone = rect.top <= viewportHeight * 0.76 && rect.bottom > viewportHeight * 0.10;
+
+        if (entersColorZone) revealColor(scene);
+      });
+    }
+
     function setupRevealObserver() {
       revealObserver?.disconnect();
 
@@ -164,6 +218,7 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
 
       if (reduceMotion) {
         candidates.forEach((scene) => scene.classList.add('is-revealed'));
+        visibleScenes().forEach(revealColor);
         return;
       }
 
@@ -176,75 +231,12 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
           });
         },
         {
-          threshold: 0.12,
-          rootMargin: '0px 0px -6% 0px',
+          threshold: 0.10,
+          rootMargin: '0px 0px -5% 0px',
         }
       );
 
       candidates.forEach((scene) => revealObserver.observe(scene));
-    }
-
-    function setImageColorProgress(scene, progress) {
-      const img = scene.querySelector('.scene-media img');
-      if (!img) return;
-
-      const previous = Number(scene.dataset.colorProgress || 0);
-      const next = Math.max(previous, Math.min(1, Math.max(0, progress)));
-      scene.dataset.colorProgress = String(next);
-
-      const gray = 1 - next;
-      const saturation = 0.03 + (0.94 * next);
-      const brightness = 0.965 + (0.035 * next);
-      const contrast = 1.045 - (0.035 * next);
-
-      img.style.setProperty('--gray', gray.toFixed(3));
-      img.style.setProperty('--sat', saturation.toFixed(3));
-      img.style.setProperty('--bright', brightness.toFixed(3));
-      img.style.setProperty('--contrast', contrast.toFixed(3));
-    }
-
-    function resetImageColor(scene) {
-      scene.dataset.colorProgress = '0';
-      const img = scene.querySelector('.scene-media img');
-      if (!img) return;
-      img.style.setProperty('--gray', '1');
-      img.style.setProperty('--sat', '.03');
-      img.style.setProperty('--bright', '.965');
-      img.style.setProperty('--contrast', '1.045');
-    }
-
-    function updateImageColorsFromScroll() {
-      colorTicking = false;
-      if (reduceMotion) return;
-
-      const vh = window.innerHeight || document.documentElement.clientHeight;
-
-      visibleScenes().forEach((scene) => {
-        const media = scene.querySelector('.scene-media');
-        if (!media) return;
-
-        if (!hasUserScrolled) {
-          resetImageColor(scene);
-          return;
-        }
-
-        const rect = media.getBoundingClientRect();
-        const center = rect.top + rect.height / 2;
-
-        // Görsel ekranın alt %90 bandından orta %52 bandına ilerledikçe
-        // siyah-beyazdan kendi rengine kademeli ve sürekli döner.
-        const start = vh * 0.90;
-        const end = vh * 0.52;
-        const progress = (start - center) / (start - end);
-
-        setImageColorProgress(scene, progress);
-      });
-    }
-
-    function requestColorUpdate() {
-      if (colorTicking) return;
-      colorTicking = true;
-      requestAnimationFrame(updateImageColorsFromScroll);
     }
 
     function renderFilter() {
@@ -254,7 +246,7 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
       scenes.forEach((scene) => {
         scene.hidden = true;
         scene.classList.remove('is-revealed');
-        resetImageColor(scene);
+        resetColor(scene);
       });
 
       matches.slice(0, limit).forEach((scene) => {
@@ -273,61 +265,41 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
       }
     }
 
-    function restoreScrollY(y) {
-      const root = document.documentElement;
-      const body = document.body;
-      const previousRootBehavior = root.style.scrollBehavior;
-      const previousBodyBehavior = body.style.scrollBehavior;
+    function showNextBatch(event) {
+      event?.preventDefault();
 
-      root.style.scrollBehavior = 'auto';
-      body.style.scrollBehavior = 'auto';
-      window.scrollTo(0, y);
-      root.style.scrollBehavior = previousRootBehavior;
-      body.style.scrollBehavior = previousBodyBehavior;
-    }
+      // Focus'u butondan kaldırmak kritik: buton aşağı taşındığında tarayıcı
+      // focused elementi takip edip sayfayı aşağı kaydırmasın.
+      loadMore?.blur();
 
-    function showNextBatch() {
       const matches = matchingScenes();
-      const currentCount = visibleScenes().length;
-      const nextBatch = matches.slice(currentCount, currentCount + 6);
+      const currentVisible = visibleScenes().length;
+      const nextBatch = matches.slice(currentVisible, currentVisible + 6);
 
       if (!nextBatch.length) {
         updateLoadMore();
         return;
       }
 
-      // Focus edilen buton aşağı taşındığında tarayıcı onu takip edip
-      // sayfayı sona kaydırabiliyor. Önce odağı bırakıyoruz.
-      loadMore?.blur();
-      if (document.activeElement instanceof HTMLElement) {
-        document.activeElement.blur();
-      }
-
       const savedY = window.scrollY;
 
       nextBatch.forEach((scene) => {
-        scene.hidden = false;
+        resetColor(scene);
         scene.classList.remove('is-revealed');
-        resetImageColor(scene);
+        scene.hidden = false;
       });
 
-      limit = currentCount + nextBatch.length;
+      limit = currentVisible + nextBatch.length;
       updateLoadMore();
       setupRevealObserver();
 
-      // İçerik açılırken görünüm kesinlikle bulunduğu yerde kalır.
+      // Focus/anchor kaynaklı olası tarayıcı düzeltmesini iki frame boyunca iptal et.
       requestAnimationFrame(() => {
-        if (Math.abs(window.scrollY - savedY) > 1) {
-          restoreScrollY(savedY);
-        }
-        requestColorUpdate();
+        window.scrollTo({ top: savedY, left: 0, behavior: 'auto' });
+        requestAnimationFrame(() => {
+          window.scrollTo({ top: savedY, left: 0, behavior: 'auto' });
+        });
       });
-
-      setTimeout(() => {
-        if (Math.abs(window.scrollY - savedY) > 1) {
-          restoreScrollY(savedY);
-        }
-      }, 80);
     }
 
     filters.forEach((button) => {
@@ -344,27 +316,21 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
       });
     });
 
-    loadMore?.addEventListener('mousedown', (event) => {
-      // Butonun focus-scroll anchor olmasını baştan engelle.
-      event.preventDefault();
-    });
-
     loadMore?.addEventListener('click', showNextBatch);
 
     window.addEventListener(
       'scroll',
       () => {
-        hasUserScrolled = true;
-        requestColorUpdate();
+        if (!scrollStarted && window.scrollY > 12) scrollStarted = true;
+        updateColorsFromScroll();
       },
       { passive: true }
     );
 
-    window.addEventListener('resize', requestColorUpdate);
-
+    // İlk durumda görünen tüm görseller kesin siyah-beyaz.
     scenes.forEach((scene, index) => {
       scene.hidden = index >= limit;
-      resetImageColor(scene);
+      resetColor(scene);
     });
 
     updateLoadMore();
