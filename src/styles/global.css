@@ -1532,3 +1532,475 @@ a { color: inherit; }
    v13 — sonu
    ========================================================= */
 
+/* =========================================================
+   v14 — masthead + clean content + stronger contrast
+   sadece tür + başlık + CTA
+   ========================================================= */
+
+:root {
+  --paper: #f0e4d2 !important;
+  --paper-light: #f7efe4 !important;
+  --ink: #18342b !important;
+  --ink-soft: #514a42 !important;
+  --rose: #8f4b42 !important;
+  --teal: #41685e !important;
+  --saffron: #a87b3f !important;
+  --line: rgba(24,52,43,.14) !important;
+}
+
+/* ---------- GERÇEK HEADER / MASTHEAD ---------- */
+
+.site-header {
+  position: relative !important;
+  z-index: 40 !important;
+  width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background:
+    radial-gradient(circle at 18% 18%, rgba(143,75,66,.09), transparent 28rem),
+    radial-gradient(circle at 82% 28%, rgba(65,104,94,.09), transparent 30rem),
+    #e7d8c2 !important;
+  border-bottom: 1px solid rgba(24,52,43,.11) !important;
+}
+
+.site-header-inner {
+  width: min(1240px, calc(100% - 72px)) !important;
+  min-height: 150px !important;
+  margin: 0 auto !important;
+  padding: 30px 0 26px !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: space-between !important;
+  gap: 42px !important;
+}
+
+.site-identity {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 9px !important;
+}
+
+.brand {
+  grid-column: auto !important;
+  color: var(--ink) !important;
+  font-family: var(--serif) !important;
+  font-size: clamp(2.45rem, 4vw, 4.7rem) !important;
+  font-weight: 400 !important;
+  line-height: .92 !important;
+  letter-spacing: -.06em !important;
+}
+
+.site-tagline {
+  margin: 0 !important;
+  color: #62584d !important;
+  font-family: var(--sans) !important;
+  font-size: .69rem !important;
+  font-weight: 500 !important;
+  line-height: 1.35 !important;
+  letter-spacing: .075em !important;
+}
+
+.main-nav {
+  grid-column: auto !important;
+  justify-self: auto !important;
+  align-self: flex-end !important;
+  padding-bottom: 5px !important;
+  gap: 28px !important;
+  font-size: .68rem !important;
+}
+
+.main-nav a {
+  color: #453f38 !important;
+  font-weight: 500 !important;
+}
+
+/* ---------- FİLTRELER ---------- */
+
+.archive-tools {
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 35 !important;
+  background: rgba(240,228,210,.92) !important;
+  border-bottom: 1px solid rgba(24,52,43,.08) !important;
+}
+
+.filter {
+  color: #61584f !important;
+  font-size: .64rem !important;
+  font-weight: 500 !important;
+}
+
+.filter.is-active,
+.filter:hover {
+  color: var(--ink) !important;
+}
+
+/* ---------- İÇERİK: SADECE TÜR + BAŞLIK + CTA ---------- */
+
+.scene-meta {
+  margin: 0 0 14px !important;
+}
+
+.type-tag {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+  width: fit-content !important;
+  min-height: 30px !important;
+  padding: 6px 12px !important;
+  border-radius: 999px !important;
+  font-family: var(--sans) !important;
+  font-size: .67rem !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  letter-spacing: .045em !important;
+  text-transform: lowercase !important;
+}
+
+.type-tag::before {
+  content: "" !important;
+  display: inline-block !important;
+  flex: 0 0 auto !important;
+}
+
+/* şiir: küçük mücevher/rozet */
+.story-scene[data-type="şiir"] .type-tag {
+  color: #7f3f37 !important;
+  border: 1px solid rgba(143,75,66,.28) !important;
+  background: rgba(143,75,66,.10) !important;
+}
+
+.story-scene[data-type="şiir"] .type-tag::before {
+  width: 7px !important;
+  height: 7px !important;
+  border: 1px solid currentColor !important;
+  border-radius: 2px !important;
+  transform: rotate(45deg) !important;
+}
+
+/* düz yazı: iki küçük satır */
+.story-scene[data-type="düz yazı"] .type-tag {
+  color: #315a50 !important;
+  border: 1px solid rgba(65,104,94,.28) !important;
+  background: rgba(65,104,94,.10) !important;
+}
+
+.story-scene[data-type="düz yazı"] .type-tag::before {
+  width: 12px !important;
+  height: 2px !important;
+  background: currentColor !important;
+  box-shadow: 0 4px 0 currentColor !important;
+  border-radius: 2px !important;
+  transform: translateY(-2px) !important;
+}
+
+/* açıklama tamamen gizli — eski markup kalırsa bile görünmesin */
+.scene-copy > p {
+  display: none !important;
+}
+
+/* daha net tipografi */
+.scene-copy h2,
+.scene-copy h2 a {
+  color: var(--ink) !important;
+}
+
+.scene-copy h2 {
+  font-weight: 400 !important;
+  text-shadow: none !important;
+}
+
+/* ---------- CTA: NET, DAVETKÂR ---------- */
+
+.read-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  min-width: 146px !important;
+  min-height: 44px !important;
+  margin-top: 22px !important;
+  padding: 11px 17px 11px 18px !important;
+  border: 1px solid var(--ink) !important;
+  border-radius: 999px !important;
+  background: var(--ink) !important;
+  color: var(--paper-light) !important;
+  font-family: var(--sans) !important;
+  font-size: .69rem !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  letter-spacing: .055em !important;
+  text-decoration: none !important;
+  box-shadow: 0 5px 14px rgba(24,52,43,.10) !important;
+  transition:
+    transform .34s cubic-bezier(.22,1,.36,1),
+    background .28s ease,
+    border-color .28s ease,
+    box-shadow .34s ease !important;
+}
+
+.read-link:hover {
+  transform: translateY(-3px) !important;
+  background: var(--rose) !important;
+  border-color: var(--rose) !important;
+  box-shadow:
+    0 10px 26px rgba(24,52,43,.14),
+    0 2px 8px rgba(143,75,66,.12) !important;
+}
+
+.cta-arrow {
+  font-size: 1rem !important;
+  transition: transform .34s cubic-bezier(.22,1,.36,1) !important;
+}
+
+.read-link:hover .cta-arrow {
+  transform: translateX(4px) !important;
+}
+
+/* ---------- GÖRSELLER: ZARİF DERİNLİK ---------- */
+
+.scene-media {
+  border-radius: 2px !important;
+  box-shadow:
+    0 18px 44px rgba(58,43,31,.11),
+    0 3px 10px rgba(58,43,31,.06) !important;
+  transition:
+    transform .46s cubic-bezier(.22,1,.36,1),
+    box-shadow .46s ease !important;
+}
+
+.scene-media::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 3 !important;
+  pointer-events: none !important;
+  border: 1px solid rgba(255,255,255,.16) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.18),
+    inset 0 -24px 48px rgba(22,34,29,.025) !important;
+}
+
+.scene-media::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.12) 0%,
+      rgba(255,255,255,0) 38%
+    ) !important;
+  opacity: .55 !important;
+  transition: opacity .5s ease !important;
+}
+
+.story-scene:hover .scene-media {
+  transform: translateY(-3px) !important;
+  box-shadow:
+    0 26px 58px rgba(58,43,31,.15),
+    0 5px 16px rgba(58,43,31,.08) !important;
+}
+
+.scene-media img {
+  filter: saturate(.94) contrast(1.01) brightness(.99) !important;
+  transition:
+    transform 1.15s cubic-bezier(.22,1,.36,1),
+    filter .65s ease !important;
+}
+
+.story-scene:hover .scene-media img {
+  filter: saturate(1.02) contrast(1.02) brightness(1.015) !important;
+}
+
+/* ---------- BOYUT KURALI: SADECE İLK GÖRSEL HERO ---------- */
+
+.scene-hero {
+  padding-top: clamp(34px, 4.5vh, 56px) !important;
+}
+
+.scene-hero .scene-media {
+  width: 100% !important;
+  height: min(70svh, 740px) !important;
+}
+
+/* geri kalan hiçbir görsel hero ölçüsüne ulaşmaz */
+.scene-split .scene-media,
+.scene-split.is-reversed .scene-media {
+  width: 100% !important;
+  height: min(52svh, 520px) !important;
+  max-height: 520px !important;
+}
+
+.scene-portrait .scene-media {
+  width: min(100%, 420px) !important;
+  height: min(62svh, 620px) !important;
+  max-height: 620px !important;
+}
+
+.scene-split,
+.scene-portrait {
+  padding-top: clamp(44px, 6vh, 70px) !important;
+  padding-bottom: clamp(44px, 6vh, 70px) !important;
+}
+
+/* Hero metni de daha kompakt */
+.scene-hero .scene-copy {
+  width: min(690px, 100%) !important;
+  padding-top: 26px !important;
+}
+
+/* ---------- REVEAL ---------- */
+
+.story-scene {
+  opacity: 0 !important;
+  transform: translateY(14px) !important;
+  transition:
+    opacity .72s cubic-bezier(.22,1,.36,1),
+    transform .78s cubic-bezier(.22,1,.36,1) !important;
+}
+
+.story-scene.is-revealed {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.scene-media,
+.scene-copy .scene-meta,
+.scene-copy h2,
+.scene-copy .read-link {
+  opacity: 0 !important;
+  transform: translateY(10px) !important;
+  transition:
+    opacity .72s cubic-bezier(.22,1,.36,1),
+    transform .82s cubic-bezier(.22,1,.36,1) !important;
+}
+
+.story-scene.is-revealed .scene-media {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition-delay: .02s !important;
+}
+
+.story-scene.is-revealed .scene-copy .scene-meta {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition-delay: .10s !important;
+}
+
+.story-scene.is-revealed .scene-copy h2 {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition-delay: .17s !important;
+}
+
+.story-scene.is-revealed .scene-copy .read-link {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition-delay: .24s !important;
+}
+
+/* ---------- MOBİL ---------- */
+
+@media (max-width: 760px) {
+
+  .site-header-inner {
+    width: calc(100% - 28px) !important;
+    min-height: 112px !important;
+    padding: 20px 0 17px !important;
+    align-items: flex-end !important;
+    gap: 20px !important;
+  }
+
+  .brand {
+    font-size: clamp(2rem, 10vw, 2.65rem) !important;
+  }
+
+  .site-tagline {
+    font-size: .58rem !important;
+    letter-spacing: .055em !important;
+  }
+
+  .main-nav {
+    gap: 14px !important;
+    padding-bottom: 2px !important;
+    font-size: .56rem !important;
+  }
+
+  .scene-copy {
+    padding: 17px 18px 0 !important;
+  }
+
+  .type-tag {
+    min-height: 28px !important;
+    padding: 6px 10px !important;
+    font-size: .62rem !important;
+  }
+
+  .read-link {
+    min-width: 150px !important;
+    min-height: 46px !important;
+    margin-top: 20px !important;
+    font-size: .68rem !important;
+  }
+
+  /* ilk görsel mobilde de tek büyük hero */
+  .scene-hero .scene-media {
+    width: 100vw !important;
+    height: 58svh !important;
+    max-height: 620px !important;
+  }
+
+  /* diğerleri belirgin biçimde daha küçük */
+  .scene-split .scene-media,
+  .scene-split.is-reversed .scene-media {
+    width: calc(100vw - 28px) !important;
+    height: 46svh !important;
+    max-height: 520px !important;
+    margin: 0 auto !important;
+  }
+
+  .scene-portrait .scene-media {
+    width: min(calc(100vw - 56px), 390px) !important;
+    height: 56svh !important;
+    max-height: 580px !important;
+    margin: 0 auto !important;
+  }
+
+  .scene-media {
+    box-shadow:
+      0 14px 28px rgba(58,43,31,.10),
+      0 3px 8px rgba(58,43,31,.05) !important;
+  }
+
+  .story-scene:hover .scene-media {
+    transform: none !important;
+  }
+
+  .scene-media img,
+  .story-scene:hover .scene-media img {
+    transform: scale(1.003) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-scene,
+  .scene-media,
+  .scene-copy .scene-meta,
+  .scene-copy h2,
+  .scene-copy .read-link,
+  .scene-media img,
+  .cta-arrow {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* =========================================================
+   v14 — sonu
+   ========================================================= */
+

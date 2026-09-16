@@ -18,7 +18,7 @@ content:
       fields: [title, type, date, published]
       primary: title
       sort: [date, title]
-      search: [title, excerpt]
+      search: [title]
       default:
         sort: date
         order: desc
@@ -69,11 +69,6 @@ content:
           media: images
           rename: safe
           extensions: [jpg, jpeg, png, webp, avif]
-      - name: excerpt
-        label: kısa giriş
-        type: text
-        required: false
-        description: ana sayfada görselin yanında kısa bir cümle; zorunlu değil.
       - name: featured
         label: öne çıkan
         type: boolean
@@ -90,6 +85,25 @@ content:
           media: images
           rename: safe
           switcher: false
+
+
+  - name: site
+    label: site başlığı
+    type: file
+    path: src/data/pages/site.md
+    operations:
+      delete: false
+    fields:
+      - name: title
+        label: site adı
+        type: string
+        required: true
+        description: küçük harf kullan.
+      - name: tagline
+        label: header alt satırı
+        type: string
+        required: false
+        description: kısa ve isteğe bağlı bir tanım.
 
   - name: hakkinda
     label: hakkında

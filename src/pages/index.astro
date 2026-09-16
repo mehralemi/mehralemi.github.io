@@ -5,21 +5,14 @@ import { getCollection } from 'astro:content';
 const entries = (await getCollection('yazilar', ({ data }) => data.published))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const formatDate = (date: Date) =>
-  new Intl.DateTimeFormat('tr-TR', {
-    day: 'numeric',
-    month: 'long',
-    year: 'numeric',
-  }).format(date).toLocaleLowerCase('tr-TR');
 
 const sceneClass = (index: number) => {
-  // V12: tek grid üzerinde yalnızca üç düzen.
-  // Her altıncı içerik hero olarak ritmi yeniden başlatır.
-  if (index % 6 === 0) return 'scene-hero';
+  if (index === 0) return 'scene-hero';
 
-  const remainder = index % 6;
-  if (remainder === 2 || remainder === 5) return 'scene-portrait';
-  return remainder === 3 ? 'scene-split is-reversed' : 'scene-split';
+  const position = index % 4;
+  if (position === 2) return 'scene-portrait';
+  if (position === 0) return 'scene-split is-reversed';
+  return 'scene-split';
 };
 
 const titleClass = (title: string) => {
@@ -34,12 +27,6 @@ const titleClass = (title: string) => {
       <button class="filter is-active" type="button" data-filter="hepsi">hepsi</button>
       <button class="filter" type="button" data-filter="şiir">şiir</button>
       <button class="filter" type="button" data-filter="düz yazı">düz yazı</button>
-    </div>
-
-    <div class="scene-counter" aria-hidden="true">
-      <span class="scene-current">01</span>
-      <span class="scene-divider"></span>
-      <span class="scene-total">00</span>
     </div>
   </div>
 
@@ -66,27 +53,17 @@ const titleClass = (title: string) => {
 
         <div class="scene-copy">
           <div class="scene-meta">
-            <span>{entry.data.type}</span>
-            <span>·</span>
-            <time datetime={entry.data.date.toISOString()}>{formatDate(entry.data.date)}</time>
-            <span>·</span>
-            <span>{String(index + 1).padStart(2, '0')}</span>
+            <span class="type-tag">{entry.data.type}</span>
           </div>
 
           <h2 class={titleClass(entry.data.title)}>
             <a href={`/yazilar/${entry.id}/`}>{entry.data.title}</a>
           </h2>
 
-          {entry.data.excerpt && <p>{entry.data.excerpt}</p>}
-
           <a class="read-link" href={`/yazilar/${entry.id}/`}>
-            <span>yazıyı oku</span>
+            <span>metni oku</span>
             <span class="cta-arrow" aria-hidden="true">→</span>
           </a>
-        </div>
-
-        <div class="scene-index" aria-hidden="true">
-          {String(index + 1).padStart(2, '0')}
         </div>
       </article>
     ))}
@@ -100,13 +77,10 @@ const titleClass = (title: string) => {
     const scenes = Array.from(document.querySelectorAll('.story-scene'));
     const filters = Array.from(document.querySelectorAll('.filter'));
     const loadMore = document.querySelector('.load-more');
-    const currentEl = document.querySelector('.scene-current');
-    const totalEl = document.querySelector('.scene-total');
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     let activeFilter = 'hepsi';
     let limit = 6;
-    let sceneObserver;
     let revealObserver;
     let parallaxFrame = 0;
 
@@ -118,12 +92,6 @@ const titleClass = (title: string) => {
 
     function visibleScenes() {
       return matchingScenes().filter((scene) => !scene.hidden);
-    }
-
-    function updateCounterTotal() {
-      const total = matchingScenes().length;
-      if (totalEl) totalEl.textContent = String(total).padStart(2, '0');
-      if (currentEl && total === 0) currentEl.textContent = '00';
     }
 
     function setupRevealObserver() {
@@ -146,34 +114,6 @@ const titleClass = (title: string) => {
       );
 
       visibleScenes().forEach((scene) => revealObserver.observe(scene));
-    }
-
-    function setupCurrentSceneObserver() {
-      sceneObserver?.disconnect();
-
-      const activeScenes = matchingScenes();
-      if (!activeScenes.length) return;
-
-      sceneObserver = new IntersectionObserver(
-        (entries) => {
-          const visible = entries
-            .filter((entry) => entry.isIntersecting)
-            .sort((a, b) => b.intersectionRatio - a.intersectionRatio);
-
-          if (!visible.length) return;
-
-          const scene = visible[0].target;
-          const index = activeScenes.indexOf(scene) + 1;
-          if (currentEl && index > 0) currentEl.textContent = String(index).padStart(2, '0');
-
-          activeScenes.forEach((item) => {
-            item.classList.toggle('is-current', item === scene);
-          });
-        },
-        { threshold: [0.28, 0.48, 0.68], rootMargin: '-12% 0px -16% 0px' }
-      );
-
-      visibleScenes().forEach((scene) => sceneObserver.observe(scene));
     }
 
     function updateParallax() {
@@ -214,9 +154,7 @@ const titleClass = (title: string) => {
 
       if (loadMore) loadMore.hidden = matches.length <= limit;
 
-      updateCounterTotal();
       setupRevealObserver();
-      setupCurrentSceneObserver();
       scheduleParallax();
 
       if (scrollTop) {
