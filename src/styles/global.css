@@ -1243,3 +1243,292 @@ a { color: inherit; }
    v12 — continuous editorial stream sonu
    ========================================================= */
 
+/* =========================================================
+   v13 — closer copy + visible tags + stronger CTA + refined motion
+   ========================================================= */
+
+/* ---------- META / TÜR ETİKETİ ---------- */
+
+.scene-meta {
+  margin: 0 0 13px !important;
+}
+
+.type-tag {
+  display: inline-flex !important;
+  align-items: center !important;
+  width: fit-content !important;
+  min-height: 28px !important;
+  padding: 5px 10px 5px !important;
+  border: 1px solid rgba(151,86,76,.22) !important;
+  border-radius: 999px !important;
+  background: rgba(151,86,76,.075) !important;
+  color: #8f5148 !important;
+  font-family: var(--sans) !important;
+  font-size: .64rem !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  letter-spacing: .045em !important;
+  text-transform: lowercase !important;
+}
+
+/* ---------- BAŞLIK + AÇIKLAMA DAHA YAKIN ---------- */
+
+.scene-copy {
+  align-content: start !important;
+}
+
+.scene-copy h2 {
+  margin-bottom: 0 !important;
+}
+
+.scene-copy > p {
+  margin-top: 12px !important;
+  max-width: 34ch !important;
+}
+
+/* hero'da açıklama artık sağa kaçmıyor; başlığın hemen altında */
+.scene-hero .scene-copy {
+  display: block !important;
+  width: min(760px, 100%) !important;
+  padding-top: 24px !important;
+}
+
+.scene-hero .scene-meta,
+.scene-hero .scene-copy h2,
+.scene-hero .scene-copy > p,
+.scene-hero .read-link {
+  grid-column: auto !important;
+  grid-row: auto !important;
+}
+
+.scene-hero .scene-copy > p {
+  margin-top: 14px !important;
+  max-width: 36ch !important;
+}
+
+.scene-hero .read-link {
+  margin-top: 20px !important;
+}
+
+/* split ve portrait'te de metin bloğu daha kompakt */
+.scene-split .scene-copy,
+.scene-portrait .scene-copy {
+  max-width: 620px !important;
+}
+
+.scene-split .scene-copy > p,
+.scene-portrait .scene-copy > p {
+  margin-top: 13px !important;
+  max-width: 33ch !important;
+}
+
+/* ---------- CTA ---------- */
+
+.read-link {
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 12px !important;
+  min-height: 42px !important;
+  min-width: 138px !important;
+  padding: 10px 16px 10px 17px !important;
+  border: 1px solid rgba(32,53,47,.22) !important;
+  border-radius: 999px !important;
+  background: rgba(255,255,255,.16) !important;
+  color: var(--ink) !important;
+  font-family: var(--sans) !important;
+  font-size: .68rem !important;
+  font-weight: 500 !important;
+  line-height: 1 !important;
+  letter-spacing: .055em !important;
+  text-decoration: none !important;
+  transition:
+    transform .32s cubic-bezier(.22,1,.36,1),
+    background .28s ease,
+    color .28s ease,
+    border-color .28s ease,
+    box-shadow .32s ease !important;
+}
+
+.read-link::after {
+  display: none !important;
+}
+
+.read-link:hover {
+  transform: translateY(-2px) !important;
+  background: var(--ink) !important;
+  border-color: var(--ink) !important;
+  color: var(--paper-light) !important;
+  box-shadow: 0 8px 24px rgba(32,53,47,.09) !important;
+}
+
+.cta-arrow {
+  display: inline-block !important;
+  font-size: 1rem !important;
+  line-height: 1 !important;
+  transform: translateX(0) !important;
+  transition: transform .34s cubic-bezier(.22,1,.36,1) !important;
+}
+
+.read-link:hover .cta-arrow {
+  transform: translateX(4px) !important;
+}
+
+/* ---------- GÖRSEL HOVER ---------- */
+
+.scene-media {
+  position: relative !important;
+  isolation: isolate !important;
+}
+
+.scene-media::before {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  z-index: 2 !important;
+  pointer-events: none !important;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,0) 58%,
+      rgba(20,30,26,.035) 100%
+    ) !important;
+  opacity: 0 !important;
+  transition: opacity .48s ease !important;
+}
+
+.scene-media img {
+  filter: saturate(.92) contrast(.98) !important;
+  transform: translate3d(0, var(--parallax-y, 0px), 0) scale(1.006) !important;
+  transition:
+    transform 1.2s cubic-bezier(.22,1,.36,1),
+    filter .65s ease !important;
+}
+
+.story-scene:hover .scene-media img {
+  transform: translate3d(0, var(--parallax-y, 0px), 0) scale(1.022) !important;
+  filter: saturate(1) contrast(1) !important;
+}
+
+.story-scene:hover .scene-media::before {
+  opacity: 1 !important;
+}
+
+/* ---------- REVEAL / STAGGER ---------- */
+
+.story-scene {
+  opacity: 0 !important;
+  transform: translateY(16px) !important;
+  transition:
+    opacity .72s cubic-bezier(.22,1,.36,1),
+    transform .78s cubic-bezier(.22,1,.36,1) !important;
+}
+
+.story-scene.is-revealed {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+.scene-media,
+.scene-copy .scene-meta,
+.scene-copy h2,
+.scene-copy > p,
+.scene-copy .read-link {
+  opacity: 0 !important;
+  transform: translateY(12px) !important;
+  transition:
+    opacity .72s cubic-bezier(.22,1,.36,1),
+    transform .82s cubic-bezier(.22,1,.36,1) !important;
+}
+
+.story-scene.is-revealed .scene-media {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition-delay: .02s !important;
+}
+
+.story-scene.is-revealed .scene-copy .scene-meta {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition-delay: .10s !important;
+}
+
+.story-scene.is-revealed .scene-copy h2 {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition-delay: .16s !important;
+}
+
+.story-scene.is-revealed .scene-copy > p {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition-delay: .22s !important;
+}
+
+.story-scene.is-revealed .scene-copy .read-link {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+  transition-delay: .28s !important;
+}
+
+/* ---------- MOBİL ---------- */
+
+@media (max-width: 760px) {
+
+  .scene-copy {
+    padding-top: 17px !important;
+  }
+
+  .scene-copy > p,
+  .scene-hero .scene-copy > p,
+  .scene-split .scene-copy > p,
+  .scene-portrait .scene-copy > p {
+    margin-top: 11px !important;
+    max-width: 31ch !important;
+  }
+
+  .type-tag {
+    min-height: 26px !important;
+    padding: 5px 9px !important;
+    font-size: .60rem !important;
+  }
+
+  .read-link {
+    min-height: 44px !important;
+    min-width: 148px !important;
+    margin-top: 18px !important;
+    padding: 11px 17px !important;
+    background: rgba(255,255,255,.20) !important;
+  }
+
+  /* mobilde görsel hover/parallax yok ama reveal korunur */
+  .scene-media img,
+  .story-scene:hover .scene-media img {
+    transform: scale(1.003) !important;
+    filter: saturate(.96) contrast(.99) !important;
+  }
+
+  .scene-media::before {
+    display: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-scene,
+  .scene-media,
+  .scene-copy .scene-meta,
+  .scene-copy h2,
+  .scene-copy > p,
+  .scene-copy .read-link,
+  .scene-media img,
+  .cta-arrow {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* =========================================================
+   v13 — sonu
+   ========================================================= */
+
