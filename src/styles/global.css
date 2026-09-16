@@ -14,8 +14,8 @@
 
   --serif: "Literata", Georgia, serif;
   --sans: "Inter", Arial, sans-serif;
-
   --ease-out: cubic-bezier(.22, 1, .36, 1);
+
   --content-max: 1240px;
   --gutter: clamp(18px, 4vw, 54px);
 }
@@ -53,6 +53,10 @@ a {
   -webkit-tap-highlight-color: transparent;
 }
 
+button {
+  font: inherit;
+}
+
 .paper-noise {
   position: fixed;
   inset: 0;
@@ -78,9 +82,9 @@ a {
 
 .site-header-inner {
   width: min(var(--content-max), calc(100% - (var(--gutter) * 2)));
-  min-height: 112px;
+  min-height: 94px;
   margin: 0 auto;
-  padding: 22px 0 18px;
+  padding: 18px 0 15px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -89,23 +93,16 @@ a {
 
 .brand {
   font-family: var(--serif);
-  font-size: clamp(1.72rem, 2.25vw, 2.35rem);
+  font-size: clamp(1.68rem, 2.15vw, 2.2rem);
   font-weight: 400;
   line-height: 1;
-  letter-spacing: -.052em;
+  letter-spacing: -.036em;
   text-decoration: none;
   color: var(--ink);
 }
 
-.header-rule {
-  display: block;
-  width: 46px;
-  height: 1px;
-  margin: 13px 0 11px;
-  background: rgba(120, 101, 89, .34);
-}
-
 .main-nav {
+  margin-top: 13px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -147,7 +144,7 @@ a {
   top: 0;
   z-index: 35;
   width: 100%;
-  background: rgba(241, 230, 213, .91);
+  background: rgba(241, 230, 213, .92);
   border-top: 1px solid var(--line-soft);
   border-bottom: 1px solid var(--line-soft);
   backdrop-filter: blur(15px);
@@ -167,7 +164,7 @@ a {
 .filter {
   appearance: none;
   border: 1px solid transparent;
-  border-radius: 999px;
+  border-radius: 7px;
   padding: 7px 12px;
   background: transparent;
   color: var(--accent-mid);
@@ -177,13 +174,11 @@ a {
   transition:
     color .25s ease,
     background .25s ease,
-    border-color .25s ease,
-    transform .3s var(--ease-out);
+    border-color .25s ease;
 }
 
 .filter:hover {
-  transform: translateY(-1px);
-  border-color: rgba(120, 101, 89, .20);
+  border-color: rgba(120, 101, 89, .22);
 }
 
 .filter.is-active {
@@ -203,26 +198,23 @@ a {
 }
 
 /* =========================================================
-   ARCHIVE
+   ARCHIVE / SHARED
    ========================================================= */
 
 .story-stream {
   width: 100%;
+  overflow-anchor: none;
 }
 
 .story-scene {
   position: relative;
   width: min(var(--content-max), calc(100% - (var(--gutter) * 2)));
   margin: 0 auto;
-  padding: clamp(58px, 8vh, 92px) 0;
+  padding: clamp(58px, 7.5vh, 88px) 0;
   display: grid;
   align-items: center;
   column-gap: clamp(42px, 6vw, 90px);
-  opacity: 0;
-  transform: translateY(18px);
-  transition:
-    opacity .75s var(--ease-out),
-    transform .82s var(--ease-out);
+  overflow-anchor: none;
 }
 
 .story-scene::after {
@@ -235,30 +227,23 @@ a {
   background: var(--line-soft);
 }
 
-.story-scene.is-revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
-
 .story-scene[hidden] {
   display: none !important;
 }
 
-/* görsel */
+/* ---------- MEDIA ---------- */
+
 .scene-media {
   position: relative;
   display: block;
   overflow: hidden;
   isolation: isolate;
-  border-radius: 3px;
+  border-radius: 5px;
   background: #d9cbbb;
   text-decoration: none;
   box-shadow:
     0 18px 44px rgba(59, 45, 34, .10),
     0 3px 10px rgba(59, 45, 34, .045);
-  transition:
-    transform .48s var(--ease-out),
-    box-shadow .48s ease;
 }
 
 .scene-media picture,
@@ -268,18 +253,11 @@ a {
   height: 100%;
 }
 
-.scene-media img {
-  --parallax-y: 0px;
+.scroll-color-image {
   object-fit: cover;
-  filter: grayscale(1) saturate(.08) contrast(1.04) brightness(.96);
-  transform: translate3d(0, var(--parallax-y), 0) scale(1.012);
-  transition:
-    filter 1.45s cubic-bezier(.22, 1, .36, 1),
-    transform 1.2s var(--ease-out);
-}
-
-.story-scene.is-colorized .scene-media img {
-  filter: grayscale(0) saturate(.94) contrast(1.01) brightness(1);
+  filter: grayscale(1) saturate(0) contrast(1.055) brightness(.93);
+  transform: scale(1.006);
+  transition: filter .14s linear;
 }
 
 .scene-media::before {
@@ -291,11 +269,10 @@ a {
   background:
     linear-gradient(
       135deg,
-      rgba(255, 255, 255, .16) 0%,
+      rgba(255, 255, 255, .14) 0%,
       rgba(255, 255, 255, 0) 34%
     );
   opacity: .48;
-  transition: opacity .5s ease;
 }
 
 .scene-media::after {
@@ -304,90 +281,56 @@ a {
   inset: 0;
   z-index: 3;
   pointer-events: none;
-  border: 1px solid rgba(255, 255, 255, .14);
+  border: 1px solid rgba(255, 255, 255, .13);
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, .18),
+    inset 0 1px 0 rgba(255, 255, 255, .17),
     inset 0 -30px 56px rgba(25, 35, 30, .025);
 }
 
-.story-scene.is-colorized:hover .scene-media {
-  transform: translateY(-4px);
+/* Hover görseli taşımaz ve rengini değiştirmez. */
+.scene-media,
+.scene-media:hover {
+  transform: none;
+}
+
+.scene-media:hover {
   box-shadow:
-    0 28px 64px rgba(59, 45, 34, .145),
-    0 6px 18px rgba(59, 45, 34, .07);
+    0 23px 52px rgba(59, 45, 34, .13),
+    0 4px 13px rgba(59, 45, 34, .06);
 }
 
-.story-scene.is-colorized:hover .scene-media img {
-  filter: grayscale(0) saturate(1.03) contrast(1.02) brightness(1.015);
-  transform: translate3d(0, var(--parallax-y), 0) scale(1.026);
-}
+/* ---------- COPY ---------- */
 
-.story-scene.is-colorized:hover .scene-media::before {
-  opacity: .78;
-}
-
-/* içerik */
 .scene-copy {
-  position: relative;
-  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: clamp(15px, 1.45vw, 19px);
   max-width: 590px;
-}
-
-.scene-meta,
-.scene-copy h2,
-.scene-summary,
-.read-link {
-  opacity: 0;
-  transform: translateY(11px);
-  transition:
-    opacity .68s var(--ease-out),
-    transform .78s var(--ease-out);
-}
-
-.story-scene.is-revealed .scene-meta {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: .10s;
-}
-
-.story-scene.is-revealed .scene-copy h2 {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: .17s;
-}
-
-.story-scene.is-revealed .scene-summary {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: .23s;
-}
-
-.story-scene.is-revealed .read-link {
-  opacity: 1;
-  transform: translateY(0);
-  transition-delay: .29s;
-}
-
-/* tür */
-.scene-meta,
-.reading-meta {
-  margin: 0 0 17px;
+  align-self: center;
 }
 
 .type-tag {
+  appearance: none;
   display: inline-flex;
   align-items: center;
   min-height: 30px;
   padding: 6px 12px;
   border: 1px solid;
-  border-radius: 999px;
+  border-radius: 7px;
+  background: transparent;
   font: 500 .66rem/1 var(--sans);
   letter-spacing: .04em;
   text-transform: lowercase;
+  cursor: pointer;
+  transition:
+    color .24s ease,
+    background .24s ease,
+    border-color .24s ease;
 }
 
-.story-scene[data-kind="poem"] .type-tag,
-.reading-page .type-tag {
+.story-scene[data-kind="poem"] .type-tag {
   color: var(--poem);
   background: rgba(155, 90, 76, .085);
   border-color: rgba(155, 90, 76, .28);
@@ -399,40 +342,49 @@ a {
   border-color: rgba(79, 113, 102, .28);
 }
 
-/* başlık */
+.story-scene[data-kind="poem"] .type-tag:hover {
+  background: rgba(155, 90, 76, .15);
+  border-color: rgba(155, 90, 76, .46);
+}
+
+.story-scene[data-kind="prose"] .type-tag:hover {
+  background: rgba(79, 113, 102, .15);
+  border-color: rgba(79, 113, 102, .46);
+}
+
 .scene-copy h2 {
   margin: 0;
-  max-width: 10.5ch;
+  max-width: 10.8ch;
   color: var(--ink);
-  font-size: clamp(3.05rem, 4.9vw, 6rem);
+  font-size: clamp(3rem, 4.75vw, 5.85rem);
   font-weight: 400;
-  line-height: .98;
-  letter-spacing: -.064em;
+  line-height: 1.055;
+  letter-spacing: -.024em;
   text-wrap: balance;
 }
 
 .scene-copy h2.title-medium {
-  max-width: 11ch;
-  font-size: clamp(2.8rem, 4.5vw, 5.5rem);
+  max-width: 11.2ch;
+  font-size: clamp(2.78rem, 4.42vw, 5.4rem);
 }
 
 .scene-copy h2.title-long {
   max-width: 12ch;
-  font-size: clamp(2.5rem, 4vw, 5rem);
-  line-height: 1;
+  font-size: clamp(2.48rem, 4vw, 4.95rem);
+  line-height: 1.065;
 }
 
 .scene-copy h2 a {
   color: inherit;
   text-decoration: none;
+  letter-spacing: inherit;
 }
 
-/* 6 satırlık özet alanı */
 .scene-summary {
   display: -webkit-box;
-  min-height: calc(1.62em * 6);
   max-width: 36ch;
-  margin: 21px 0 0;
+  max-height: calc(1.62em * 6);
+  margin: 0;
   overflow: hidden;
   color: var(--ink-soft);
   font-size: clamp(.94rem, 1.02vw, 1.02rem);
@@ -442,7 +394,8 @@ a {
   line-clamp: 6;
 }
 
-/* CTA */
+/* ---------- CTA ---------- */
+
 .read-link {
   display: inline-flex;
   align-items: center;
@@ -450,109 +403,230 @@ a {
   gap: 13px;
   min-width: 150px;
   min-height: 46px;
-  margin-top: 23px;
   padding: 11px 18px;
-  border: 1px solid var(--accent-mid);
-  border-radius: 999px;
-  background: var(--accent-mid);
+  border: 1px solid;
+  border-radius: 7px;
   color: var(--paper-light);
   font: 500 .69rem/1 var(--sans);
   letter-spacing: .05em;
   text-decoration: none;
-  box-shadow: 0 5px 14px rgba(73, 59, 49, .08);
+  transform: scale(1);
   transition:
-    transform .34s var(--ease-out),
-    background .28s ease,
-    border-color .28s ease,
-    box-shadow .34s ease;
+    transform .28s var(--ease-out),
+    filter .28s ease,
+    box-shadow .30s ease;
 }
 
+.story-scene[data-kind="poem"] .read-link {
+  background: var(--poem);
+  border-color: var(--poem);
+  box-shadow: 0 5px 14px rgba(125, 64, 54, .10);
+}
+
+.story-scene[data-kind="prose"] .read-link {
+  background: var(--prose);
+  border-color: var(--prose);
+  box-shadow: 0 5px 14px rgba(54, 91, 80, .10);
+}
+
+/* Tüm CTA'lar AYNI hover davranışı:
+   hafif büyüme + kendi renginin koyulaşması. */
 .read-link:hover,
 .read-link:focus-visible {
-  transform: translateY(-3px);
-  background: var(--ink);
-  border-color: var(--ink);
-  box-shadow:
-    0 12px 28px rgba(32, 54, 47, .15),
-    0 3px 9px rgba(32, 54, 47, .08);
+  transform: scale(1.038);
+  filter: brightness(.78) saturate(1.06);
+  box-shadow: 0 13px 30px rgba(42, 45, 39, .20);
 }
 
 .cta-arrow {
   font-size: 1rem;
   line-height: 1;
-  transition: transform .34s var(--ease-out);
+  transition: transform .28s var(--ease-out);
 }
 
 .read-link:hover .cta-arrow,
 .read-link:focus-visible .cta-arrow {
-  transform: translateX(4px);
+  transform: translateX(5px);
 }
 
-/* ilk ve tek büyük hero */
-.scene-hero {
-  grid-template-columns: 1fr;
-  padding-top: clamp(38px, 5vh, 64px);
+/* =========================================================
+   DESKTOP VARIETY
+   ========================================================= */
+
+/* Landscape */
+.scene-landscape-left,
+.scene-landscape-right {
+  grid-template-columns: minmax(0, 1.08fr) minmax(350px, .92fr);
 }
 
-.scene-hero .scene-media {
+.scene-landscape-left .scene-media,
+.scene-landscape-right .scene-media {
   width: 100%;
-  height: min(68svh, 730px);
+  aspect-ratio: 16 / 9;
+  max-height: 510px;
 }
 
-.scene-hero .scene-copy {
-  width: min(650px, 100%);
-  padding-top: 30px;
-}
-
-/* normal içerik */
-.scene-split {
-  grid-template-columns: minmax(0, 1.06fr) minmax(330px, .94fr);
-}
-
-.scene-split .scene-media {
-  width: 100%;
-  height: min(50svh, 500px);
-  max-height: 500px;
-}
-
-.scene-split.is-reversed {
-  grid-template-columns: minmax(330px, .94fr) minmax(0, 1.06fr);
-}
-
-.scene-split.is-reversed .scene-copy {
+.scene-landscape-right .scene-copy {
   order: 1;
 }
 
-.scene-split.is-reversed .scene-media {
+.scene-landscape-right .scene-media {
   order: 2;
 }
 
-.scene-portrait {
-  width: min(1080px, calc(100% - (var(--gutter) * 2)));
-  grid-template-columns: minmax(250px, .72fr) minmax(0, 1.28fr);
+/* Portrait */
+.scene-portrait-left,
+.scene-portrait-right {
+  width: min(1110px, calc(100% - (var(--gutter) * 2)));
+  grid-template-columns: minmax(300px, .78fr) minmax(0, 1.22fr);
 }
 
-.scene-portrait .scene-media {
-  width: min(100%, 420px);
-  height: min(60svh, 610px);
-  max-height: 610px;
+.scene-portrait-left .scene-media,
+.scene-portrait-right .scene-media {
+  width: min(100%, 430px);
+  aspect-ratio: 4 / 5;
+}
+
+.scene-portrait-left .scene-media {
   justify-self: end;
 }
 
-/* load more */
+.scene-portrait-right .scene-copy {
+  order: 1;
+}
+
+.scene-portrait-right .scene-media {
+  order: 2;
+  justify-self: start;
+}
+
+/* Square */
+.scene-square-left,
+.scene-square-right {
+  width: min(1150px, calc(100% - (var(--gutter) * 2)));
+  grid-template-columns: minmax(350px, .88fr) minmax(0, 1.12fr);
+}
+
+.scene-square-left .scene-media,
+.scene-square-right .scene-media {
+  width: min(100%, 490px);
+  aspect-ratio: 1 / 1;
+}
+
+.scene-square-left .scene-media {
+  justify-self: end;
+}
+
+.scene-square-right .scene-copy {
+  order: 1;
+}
+
+.scene-square-right .scene-media {
+  order: 2;
+  justify-self: start;
+}
+
+/* =========================================================
+   STAGGERED REVEAL — DESKTOP + MOBILE
+   ========================================================= */
+
+/* Her sahnede yönü belirle. */
+.scene-landscape-left,
+.scene-portrait-left,
+.scene-square-left {
+  --media-x: -52px;
+  --copy-x: 38px;
+}
+
+.scene-landscape-right,
+.scene-portrait-right,
+.scene-square-right {
+  --media-x: 52px;
+  --copy-x: -38px;
+}
+
+/* Başlangıç */
+.story-scene .scene-media,
+.story-scene .type-tag,
+.story-scene .scene-copy h2,
+.story-scene .scene-summary,
+.story-scene .read-link {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.story-scene .scene-media {
+  transform: translateX(var(--media-x));
+  transition:
+    opacity .72s var(--ease-out),
+    transform .84s var(--ease-out),
+    box-shadow .28s ease;
+}
+
+.story-scene .type-tag,
+.story-scene .scene-copy h2,
+.story-scene .scene-summary,
+.story-scene .read-link {
+  transform: translateX(var(--copy-x));
+  transition:
+    opacity .60s var(--ease-out),
+    transform .74s var(--ease-out);
+}
+
+/* Kademeli geliş */
+.story-scene.is-revealed .scene-media {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.story-scene.is-revealed .type-tag {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: .08s;
+}
+
+.story-scene.is-revealed .scene-copy h2 {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: .16s;
+}
+
+.story-scene.is-revealed .scene-summary {
+  opacity: 1;
+  transform: translateX(0);
+  transition-delay: .24s;
+}
+
+.story-scene.is-revealed .read-link {
+  opacity: 1;
+  transform: scale(1) translateX(0);
+  transition-delay: .32s;
+}
+
+/* CTA reveal sonrası hover scale'ı çalışsın */
+.story-scene.is-revealed .read-link:hover,
+.story-scene.is-revealed .read-link:focus-visible {
+  transform: scale(1.038) translateX(0);
+}
+
+/* =========================================================
+   LOAD MORE
+   ========================================================= */
+
 .load-more-wrap {
   width: min(var(--content-max), calc(100% - (var(--gutter) * 2)));
   margin: 48px auto 28px;
   display: flex;
   justify-content: center;
+  overflow-anchor: none;
 }
 
 .load-more {
   min-width: 210px;
   min-height: 44px;
   padding: 11px 20px;
-  border: 1px solid rgba(120, 101, 89, .28);
-  border-radius: 999px;
+  border: 1px solid rgba(120, 101, 89, .30);
+  border-radius: 7px;
   background: transparent;
   color: var(--accent-mid);
   font: 500 .66rem/1 var(--sans);
@@ -561,12 +635,13 @@ a {
   transition:
     color .25s ease,
     background .25s ease,
-    transform .3s var(--ease-out);
+    border-color .25s ease;
 }
 
-.load-more:hover {
-  transform: translateY(-2px);
-  background: rgba(120, 101, 89, .08);
+.load-more:hover,
+.load-more:focus-visible {
+  background: rgba(120, 101, 89, .10);
+  border-color: rgba(120, 101, 89, .48);
   color: var(--ink);
 }
 
@@ -589,9 +664,11 @@ a {
 
 .reading-meta {
   display: flex;
+  margin-bottom: 17px;
 }
 
 .reading-page .type-tag {
+  cursor: default;
   color: var(--accent-mid);
   background: rgba(120, 101, 89, .08);
   border-color: rgba(120, 101, 89, .25);
@@ -603,8 +680,8 @@ a {
   color: var(--ink);
   font-size: clamp(2.65rem, 6vw, 5.3rem);
   font-weight: 400;
-  line-height: 1;
-  letter-spacing: -.058em;
+  line-height: 1.055;
+  letter-spacing: -.024em;
   text-wrap: balance;
 }
 
@@ -617,7 +694,7 @@ a {
   width: 100%;
   max-height: 72svh;
   object-fit: cover;
-  border-radius: 3px;
+  border-radius: 5px;
   box-shadow: 0 18px 44px rgba(59, 45, 34, .09);
 }
 
@@ -692,7 +769,7 @@ a {
   width: 100%;
   max-height: 70svh;
   object-fit: cover;
-  border-radius: 3px;
+  border-radius: 5px;
   box-shadow: 0 18px 44px rgba(59, 45, 34, .09);
 }
 
@@ -727,25 +804,21 @@ button:focus-visible {
 }
 
 /* =========================================================
-   MOBILE
+   MOBILE — orderly variety
    ========================================================= */
 
 @media (max-width: 760px) {
   .site-header-inner {
-    min-height: 104px;
-    padding: 18px 0 15px;
+    min-height: 88px;
+    padding: 16px 0 13px;
   }
 
   .brand {
-    font-size: 1.72rem;
-  }
-
-  .header-rule {
-    width: 38px;
-    margin: 11px 0 10px;
+    font-size: 1.68rem;
   }
 
   .main-nav {
+    margin-top: 12px;
     gap: 22px;
     font-size: .60rem;
   }
@@ -760,17 +833,24 @@ button:focus-visible {
     font-size: .59rem;
   }
 
+  /*
+    Mobilde final yerleşim TEK, düzenli eksende.
+    Çeşitlilik yalnızca görsel oranı ve kontrollü genişlikten gelir.
+  */
   .story-scene,
-  .scene-hero,
-  .scene-split,
-  .scene-split.is-reversed,
-  .scene-portrait {
+  .scene-landscape-left,
+  .scene-landscape-right,
+  .scene-portrait-left,
+  .scene-portrait-right,
+  .scene-square-left,
+  .scene-square-right {
     width: 100%;
     margin: 0;
     padding: 48px 0 58px;
     display: flex;
     flex-direction: column;
     gap: 0;
+    overflow: hidden;
   }
 
   .story-scene::after {
@@ -778,49 +858,46 @@ button:focus-visible {
     right: 18px;
   }
 
-  .scene-hero {
-    padding-top: 26px;
+  /* landscape: geniş */
+  .scene-landscape-left .scene-media,
+  .scene-landscape-right .scene-media {
+    order: 1;
+    align-self: center;
+    width: calc(100vw - 30px);
+    max-width: 620px;
+    aspect-ratio: 16 / 10;
   }
 
-  .scene-hero .scene-media {
+  /* portrait: daha dar ve uzun */
+  .scene-portrait-left .scene-media,
+  .scene-portrait-right .scene-media {
     order: 1;
-    width: 100vw;
-    height: 54svh;
-    max-height: 600px;
-    margin: 0 calc(50% - 50vw);
+    align-self: center;
+    width: min(76vw, 340px);
+    aspect-ratio: 4 / 5;
   }
 
-  .scene-split .scene-media,
-  .scene-split.is-reversed .scene-media {
+  /* square: orta genişlik */
+  .scene-square-left .scene-media,
+  .scene-square-right .scene-media {
     order: 1;
-    width: calc(100vw - 28px);
-    height: 43svh;
-    max-height: 500px;
-    margin: 0 auto;
-  }
-
-  .scene-portrait .scene-media {
-    order: 1;
-    width: min(calc(100vw - 54px), 390px);
-    height: 54svh;
-    max-height: 560px;
-    margin: 0 auto;
+    align-self: center;
+    width: min(88vw, 400px);
+    aspect-ratio: 1 / 1;
   }
 
   .scene-copy,
-  .scene-hero .scene-copy,
-  .scene-split .scene-copy,
-  .scene-split.is-reversed .scene-copy,
-  .scene-portrait .scene-copy {
+  .scene-landscape-left .scene-copy,
+  .scene-landscape-right .scene-copy,
+  .scene-portrait-left .scene-copy,
+  .scene-portrait-right .scene-copy,
+  .scene-square-left .scene-copy,
+  .scene-square-right .scene-copy {
     order: 2;
     width: 100%;
     max-width: none;
-    margin: 0;
-    padding: 19px 19px 0;
-  }
-
-  .scene-meta {
-    margin-bottom: 14px;
+    padding: 20px 20px 0;
+    gap: 15px;
   }
 
   .type-tag {
@@ -833,20 +910,20 @@ button:focus-visible {
   .scene-copy h2.title-short,
   .scene-copy h2.title-medium,
   .scene-copy h2.title-long {
-    max-width: 11ch;
-    font-size: clamp(2.45rem, 11.7vw, 3.9rem);
-    line-height: .99;
+    max-width: 11.5ch;
+    font-size: clamp(2.38rem, 11.2vw, 3.8rem);
+    line-height: 1.06;
+    letter-spacing: -.02em;
   }
 
   .scene-copy h2.title-long {
-    max-width: 11.8ch;
-    font-size: clamp(2.2rem, 10.5vw, 3.45rem);
+    max-width: 12ch;
+    font-size: clamp(2.18rem, 10.2vw, 3.4rem);
   }
 
   .scene-summary {
-    min-height: calc(1.58em * 6);
-    max-width: 33ch;
-    margin-top: 17px;
+    max-width: 34ch;
+    max-height: calc(1.58em * 6);
     font-size: .94rem;
     line-height: 1.58;
   }
@@ -854,7 +931,21 @@ button:focus-visible {
   .read-link {
     min-width: 154px;
     min-height: 46px;
-    margin-top: 20px;
+  }
+
+  /* Mobil reveal daha kısa mesafe; nihai hizalar düzenli kalır. */
+  .scene-landscape-left,
+  .scene-portrait-left,
+  .scene-square-left {
+    --media-x: -28px;
+    --copy-x: 24px;
+  }
+
+  .scene-landscape-right,
+  .scene-portrait-right,
+  .scene-square-right {
+    --media-x: 28px;
+    --copy-x: -24px;
   }
 
   .scene-media {
@@ -863,13 +954,10 @@ button:focus-visible {
       0 3px 8px rgba(59, 45, 34, .04);
   }
 
-  .story-scene.is-colorized:hover .scene-media {
-    transform: none;
-  }
-
-  .scene-media img,
-  .story-scene.is-colorized:hover .scene-media img {
-    transform: scale(1.004);
+  .scene-media:hover {
+    box-shadow:
+      0 14px 30px rgba(59, 45, 34, .09),
+      0 3px 8px rgba(59, 45, 34, .04);
   }
 
   .load-more-wrap {
@@ -915,1205 +1003,23 @@ button:focus-visible {
     scroll-behavior: auto;
   }
 
-  .story-scene,
-  .scene-meta,
-  .scene-copy h2,
-  .scene-summary,
-  .read-link,
-  .scene-media,
-  .scene-media img,
-  .cta-arrow,
-  .main-nav a::after,
-  .filter,
-  .load-more {
+  .story-scene .scene-media,
+  .story-scene .type-tag,
+  .story-scene .scene-copy h2,
+  .story-scene .scene-summary,
+  .story-scene .read-link {
+    opacity: 1 !important;
+    transform: none !important;
     transition: none !important;
   }
 
-  .story-scene,
-  .scene-meta,
-  .scene-copy h2,
-  .scene-summary,
-  .read-link {
-    opacity: 1 !important;
-    transform: none !important;
-  }
-
-  .scene-media img {
+  .scroll-color-image {
     filter: none !important;
-    transform: none !important;
-  }
-}
-
-/* =========================================================
-   v16 — harmonized editorial
-   hero yok / tür-rengi CTA / yuvarlatılmış dörtgen dil
-   ========================================================= */
-
-:root {
-  --radius-ui: 6px;
-  --radius-image: 4px;
-}
-
-/* ---------- HEADER: sade, kutusuz, çizgisiz ---------- */
-.site-header {
-  background: transparent !important;
-  border: 0 !important;
-}
-
-.site-header-inner {
-  min-height: 108px !important;
-  padding: 22px 0 20px !important;
-  gap: 20px !important;
-}
-
-.header-rule {
-  display: none !important;
-}
-
-.brand {
-  font-size: clamp(1.72rem, 2.15vw, 2.25rem) !important;
-}
-
-.main-nav {
-  gap: 30px !important;
-}
-
-/* ---------- GENEL UI DİLİ: kapsül değil, yumuşak dörtgen ---------- */
-.filter,
-.type-tag,
-.read-link,
-.load-more {
-  border-radius: var(--radius-ui) !important;
-}
-
-.scene-media,
-.reading-cover img,
-.about-portrait img {
-  border-radius: var(--radius-image) !important;
-}
-
-/* filtreler de aynı tasarım ailesinde */
-.filter {
-  padding: 7px 11px !important;
-}
-
-/* ---------- HERO / ÖNE ÇIKAN YAZI YOK ---------- */
-.scene-hero {
-  grid-template-columns: minmax(0, 1.06fr) minmax(330px, .94fr) !important;
-  padding: clamp(58px, 8vh, 92px) 0 !important;
-}
-
-.scene-hero .scene-media {
-  width: 100% !important;
-  height: min(50svh, 500px) !important;
-  max-height: 500px !important;
-}
-
-.scene-hero .scene-copy {
-  width: auto !important;
-  padding-top: 0 !important;
-}
-
-/* ---------- İÇERİK BOŞLUKLARI VE DİKEY ORTALAMA ---------- */
-.story-scene {
-  align-items: center !important;
-  padding-top: clamp(62px, 8.5vh, 96px) !important;
-  padding-bottom: clamp(62px, 8.5vh, 96px) !important;
-}
-
-.scene-copy,
-.scene-hero .scene-copy,
-.scene-split .scene-copy,
-.scene-portrait .scene-copy {
-  align-self: center !important;
-  display: flex !important;
-  flex-direction: column !important;
-  align-items: flex-start !important;
-  justify-content: center !important;
-  gap: 18px !important;
-  max-width: 590px !important;
-  margin: 0 !important;
-  padding-top: 0 !important;
-}
-
-.scene-meta,
-.reading-meta {
-  margin: 0 !important;
-}
-
-.scene-copy h2,
-.scene-summary,
-.read-link {
-  margin: 0 !important;
-}
-
-.scene-summary {
-  min-height: calc(1.62em * 6) !important;
-  max-width: 36ch !important;
-}
-
-/* ---------- TÜR: simgesiz, yumuşak dörtgen ---------- */
-.type-tag {
-  min-height: 29px !important;
-  padding: 6px 11px !important;
-  border-radius: var(--radius-ui) !important;
-  font-size: .65rem !important;
-  letter-spacing: .04em !important;
-}
-
-/* ---------- CTA: tür ile aynı renk ---------- */
-.read-link {
-  min-width: 150px !important;
-  min-height: 45px !important;
-  padding: 11px 17px !important;
-  color: var(--paper-light) !important;
-  box-shadow: 0 5px 14px rgba(61, 47, 38, .09) !important;
-}
-
-.story-scene[data-kind="poem"] .read-link {
-  background: var(--poem) !important;
-  border-color: var(--poem) !important;
-}
-
-.story-scene[data-kind="prose"] .read-link {
-  background: var(--prose) !important;
-  border-color: var(--prose) !important;
-}
-
-.story-scene[data-kind="poem"] .read-link:hover,
-.story-scene[data-kind="poem"] .read-link:focus-visible {
-  background: #85483e !important;
-  border-color: #85483e !important;
-  box-shadow: 0 12px 28px rgba(133, 72, 62, .17) !important;
-}
-
-.story-scene[data-kind="prose"] .read-link:hover,
-.story-scene[data-kind="prose"] .read-link:focus-visible {
-  background: #3f6258 !important;
-  border-color: #3f6258 !important;
-  box-shadow: 0 12px 28px rgba(63, 98, 88, .17) !important;
-}
-
-/* ---------- SADECE GÖRSELLER SİYAH-BEYAZ -> RENK ---------- */
-/* Yazı, etiket ve buton renkleri her zaman tam renkli kalır. */
-.scene-media img {
-  filter: grayscale(1) saturate(0) contrast(1.04) brightness(.96) !important;
-  transition:
-    filter 1.55s cubic-bezier(.22, 1, .36, 1),
-    transform 1.2s var(--ease-out) !important;
-}
-
-.story-scene.is-colorized .scene-media img {
-  filter: grayscale(0) saturate(.96) contrast(1.01) brightness(1) !important;
-}
-
-.story-scene.is-colorized:hover .scene-media img {
-  filter: grayscale(0) saturate(1.04) contrast(1.02) brightness(1.015) !important;
-}
-
-/* ---------- GÖRSEL ÖLÇÜLERİ: hiçbir öne çıkan / dev hero yok ---------- */
-.scene-split,
-.scene-split.is-reversed {
-  grid-template-columns: minmax(0, 1.04fr) minmax(330px, .96fr) !important;
-}
-
-.scene-split.is-reversed {
-  grid-template-columns: minmax(330px, .96fr) minmax(0, 1.04fr) !important;
-}
-
-.scene-split .scene-media,
-.scene-split.is-reversed .scene-media {
-  height: min(49svh, 490px) !important;
-  max-height: 490px !important;
-}
-
-.scene-portrait {
-  width: min(1080px, calc(100% - (var(--gutter) * 2))) !important;
-  grid-template-columns: minmax(250px, .72fr) minmax(0, 1.28fr) !important;
-}
-
-.scene-portrait .scene-media {
-  width: min(100%, 410px) !important;
-  height: min(58svh, 590px) !important;
-  max-height: 590px !important;
-}
-
-/* ---------- LOAD MORE: ortak ara ton ---------- */
-.load-more {
-  color: var(--accent-mid) !important;
-  border-color: rgba(120, 101, 89, .34) !important;
-}
-
-.load-more:hover {
-  background: rgba(120, 101, 89, .09) !important;
-}
-
-/* ---------- MOBİL ---------- */
-@media (max-width: 760px) {
-  .site-header-inner {
-    min-height: 100px !important;
-    padding: 18px 0 16px !important;
-    gap: 17px !important;
-  }
-
-  .brand {
-    font-size: 1.7rem !important;
-  }
-
-  .main-nav {
-    gap: 24px !important;
-  }
-
-  .story-scene,
-  .scene-hero,
-  .scene-split,
-  .scene-split.is-reversed,
-  .scene-portrait {
-    padding: 52px 0 64px !important;
-  }
-
-  .scene-hero .scene-media,
-  .scene-split .scene-media,
-  .scene-split.is-reversed .scene-media {
-    order: 1 !important;
-    width: calc(100vw - 28px) !important;
-    height: 43svh !important;
-    max-height: 500px !important;
-    margin: 0 auto !important;
-  }
-
-  .scene-portrait .scene-media {
-    order: 1 !important;
-    width: min(calc(100vw - 54px), 390px) !important;
-    height: 53svh !important;
-    max-height: 550px !important;
-    margin: 0 auto !important;
-  }
-
-  .scene-copy,
-  .scene-hero .scene-copy,
-  .scene-split .scene-copy,
-  .scene-split.is-reversed .scene-copy,
-  .scene-portrait .scene-copy {
-    order: 2 !important;
-    width: 100% !important;
-    max-width: none !important;
-    padding: 21px 19px 0 !important;
-    gap: 16px !important;
-  }
-
-  .scene-summary {
-    min-height: calc(1.58em * 6) !important;
-    max-width: 33ch !important;
-  }
-
-  .read-link {
-    min-height: 45px !important;
-    min-width: 152px !important;
-  }
-}
-
-/* =========================================================
-   v16 — sonu
-   ========================================================= */
-
-/* =========================================================
-   v17 — scroll color + proportional copy + stable load-more
-   ========================================================= */
-
-/* Yeni içerik eklenirken Chrome'un scroll anchoring ile
-   görünümü zıplatmasını engelle. */
-.story-stream,
-.story-scene,
-.load-more-wrap {
-  overflow-anchor: none !important;
-}
-
-/* ---------- METİN BLOĞU: gerçek içerik yüksekliğine göre ---------- */
-
-/* Önceki sürümdeki sabit 6 satırlık min-height kısa özetlerde
-   CTA'yı gereksiz yere aşağı itiyordu. Artık 6 satır yalnızca üst sınır. */
-.scene-summary {
-  min-height: 0 !important;
-  height: auto !important;
-  max-height: calc(1.62em * 6) !important;
-  margin: 0 !important;
-  overflow: hidden !important;
-  display: -webkit-box !important;
-  -webkit-box-orient: vertical !important;
-  -webkit-line-clamp: 6 !important;
-  line-clamp: 6 !important;
-}
-
-/* TÜR + BAŞLIK + ÖZET + CTA tek bir kompakt grup.
-   Grup, yanındaki görselin ortasına oturur. */
-.scene-copy,
-.scene-hero .scene-copy,
-.scene-split .scene-copy,
-.scene-portrait .scene-copy {
-  align-self: center !important;
-  justify-self: stretch !important;
-  justify-content: center !important;
-  gap: clamp(15px, 1.45vw, 19px) !important;
-  min-height: 0 !important;
-}
-
-.scene-meta,
-.scene-copy h2,
-.scene-summary,
-.read-link {
-  margin: 0 !important;
-}
-
-/* İçerikler arası nefes daha dengeli; kısa özetlerde dev boşluk oluşmaz. */
-.story-scene {
-  padding-top: clamp(54px, 7vh, 82px) !important;
-  padding-bottom: clamp(54px, 7vh, 82px) !important;
-}
-
-/* ---------- GÖRSEL: sadece siyah-beyaz -> renk ---------- */
-
-/* İlk yüklemede kesin olarak siyah-beyaz. */
-.scene-media img {
-  filter: grayscale(1) saturate(0) contrast(1.045) brightness(.965) !important;
-  transform: scale(1.008) !important;
-  transition:
-    filter 1.75s cubic-bezier(.22, 1, .36, 1),
-    transform 1.05s var(--ease-out) !important;
-}
-
-/* Kullanıcı kaydırdığında JS sadece görsele bu sınıfı kazandırır. */
-.story-scene.is-colorized .scene-media img {
-  filter: grayscale(0) saturate(.97) contrast(1.01) brightness(1) !important;
-}
-
-/* Görsel kutusu hover'da YER DEĞİŞTİRMEZ. */
-.scene-media,
-.story-scene.is-colorized:hover .scene-media {
-  transform: none !important;
-  transition:
-    box-shadow .46s ease,
-    border-color .46s ease !important;
-}
-
-/* Hover'da yalnızca içerideki fotoğraf çok hafif büyür;
-   kutu yukarı zıplamaz. */
-.story-scene.is-colorized:hover .scene-media img {
-  transform: scale(1.022) !important;
-  filter: grayscale(0) saturate(1.045) contrast(1.025) brightness(1.012) !important;
-}
-
-.story-scene.is-colorized:hover .scene-media {
-  box-shadow:
-    0 24px 54px rgba(59, 45, 34, .145),
-    0 5px 15px rgba(59, 45, 34, .075) !important;
-}
-
-/* ---------- CTA: daha belirgin hover, ama zıplama yok ---------- */
-
-.read-link {
-  transform: scale(1) !important;
-  transition:
-    transform .28s var(--ease-out),
-    filter .28s ease,
-    box-shadow .32s ease,
-    border-color .28s ease !important;
-}
-
-.story-scene[data-kind="poem"] .read-link:hover,
-.story-scene[data-kind="poem"] .read-link:focus-visible {
-  transform: scale(1.045) !important;
-  background: var(--poem) !important;
-  border-color: var(--poem) !important;
-  filter: brightness(.84) saturate(1.16) !important;
-  box-shadow:
-    0 0 0 3px rgba(155, 90, 76, .14),
-    0 14px 32px rgba(125, 64, 54, .25) !important;
-}
-
-.story-scene[data-kind="prose"] .read-link:hover,
-.story-scene[data-kind="prose"] .read-link:focus-visible {
-  transform: scale(1.045) !important;
-  background: var(--prose) !important;
-  border-color: var(--prose) !important;
-  filter: brightness(.82) saturate(1.15) !important;
-  box-shadow:
-    0 0 0 3px rgba(79, 113, 102, .14),
-    0 14px 32px rgba(54, 91, 80, .25) !important;
-}
-
-.read-link:hover .cta-arrow,
-.read-link:focus-visible .cta-arrow {
-  transform: translateX(7px) !important;
-}
-
-/* ---------- LOAD MORE: stabil ve sakin ---------- */
-
-.load-more-wrap {
-  margin-top: 44px !important;
-}
-
-.load-more {
-  transform: none !important;
-}
-
-.load-more:hover,
-.load-more:focus-visible {
-  transform: none !important;
-  background: rgba(120, 101, 89, .11) !important;
-  border-color: rgba(120, 101, 89, .48) !important;
-  color: var(--ink) !important;
-}
-
-/* Yeni açılan içerikler viewport'a geldikçe yumuşakça belirir.
-   Daha önce görünen içerikler yeniden animasyona girmez. */
-.story-scene {
-  transition:
-    opacity .88s var(--ease-out),
-    transform .92s var(--ease-out) !important;
-}
-
-/* ---------- MOBİL ---------- */
-
-@media (max-width: 760px) {
-  .story-scene,
-  .scene-hero,
-  .scene-split,
-  .scene-split.is-reversed,
-  .scene-portrait {
-    padding-top: 48px !important;
-    padding-bottom: 58px !important;
-  }
-
-  .scene-copy,
-  .scene-hero .scene-copy,
-  .scene-split .scene-copy,
-  .scene-split.is-reversed .scene-copy,
-  .scene-portrait .scene-copy {
-    gap: 15px !important;
-  }
-
-  .scene-summary {
-    min-height: 0 !important;
-    max-height: calc(1.58em * 6) !important;
+    transition: none !important;
   }
 
   .read-link:hover,
   .read-link:focus-visible {
-    transform: scale(1.025) !important;
-  }
-
-  .scene-media,
-  .story-scene.is-colorized:hover .scene-media {
-    transform: none !important;
-  }
-
-  .scene-media img,
-  .story-scene.is-colorized:hover .scene-media img {
-    transform: scale(1.004) !important;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .scene-media img {
-    filter: none !important;
-  }
-
-  .read-link,
-  .read-link:hover,
-  .read-link:focus-visible,
-  .scene-media,
-  .story-scene.is-colorized:hover .scene-media {
     transform: none !important;
   }
 }
-
-/* =========================================================
-   v17 — sonu
-   ========================================================= */
-
-
-/* =========================================================
-   v18 — gerçek scroll renklenmesi + sabit yükleme + güvenli başlık
-   ========================================================= */
-
-/* Tarayıcının load-more butonunu takip ederek sayfayı sona kaydırmasını
-   engelle. Bu sürümde scroll konumunu JS de koruyor. */
-html,
-body,
-.story-stream,
-.story-scene,
-.load-more-wrap,
-.load-more {
-  overflow-anchor: none !important;
-}
-
-/* ---------- BAŞLIK: HARFLER BİRBİRİNE DEĞMESİN ---------- */
-.scene-copy h2,
-.scene-copy h2.title-short,
-.scene-copy h2.title-medium,
-.scene-copy h2.title-long {
-  letter-spacing: -.026em !important;
-  line-height: 1.055 !important;
-  font-kerning: normal !important;
-  font-feature-settings: "kern" 1, "liga" 1 !important;
-  text-rendering: optimizeLegibility !important;
-  overflow-wrap: normal !important;
-  word-break: normal !important;
-}
-
-.scene-copy h2.title-long {
-  letter-spacing: -.018em !important;
-  line-height: 1.07 !important;
-}
-
-/* Başlık ile özet arasındaki optik mesafe korunur. */
-.scene-copy,
-.scene-split .scene-copy,
-.scene-split.is-reversed .scene-copy,
-.scene-portrait .scene-copy {
-  gap: clamp(16px, 1.4vw, 20px) !important;
-}
-
-/* ---------- GERÇEK SCROLL-BAĞLI SİYAH-BEYAZ -> RENK ---------- */
-.scene-media img {
-  --gray: 1;
-  --sat: .03;
-  --bright: .965;
-  --contrast: 1.045;
-
-  filter:
-    grayscale(var(--gray))
-    saturate(var(--sat))
-    brightness(var(--bright))
-    contrast(var(--contrast)) !important;
-
-  transform: scale(1.008) !important;
-  transition:
-    filter .12s linear,
-    transform .72s var(--ease-out) !important;
-}
-
-/* Eski is-colorized sınıfları artık rengi belirlemez. Renk tamamen
-   scroll konumundan gelen CSS değişkenleriyle hesaplanır. */
-.story-scene.is-colorized .scene-media img,
-.story-scene:hover .scene-media img,
-.story-scene.is-colorized:hover .scene-media img {
-  filter:
-    grayscale(var(--gray))
-    saturate(var(--sat))
-    brightness(var(--bright))
-    contrast(var(--contrast)) !important;
-}
-
-/* Hover'da kutu kesinlikle yukarı/aşağı oynamaz. Yalnızca fotoğraf
-   kendi çerçevesi içinde çok hafif yaklaşır. */
-.scene-media,
-.scene-media:hover,
-.story-scene:hover .scene-media,
-.story-scene.is-colorized:hover .scene-media {
-  transform: none !important;
-}
-
-.story-scene:hover .scene-media img,
-.story-scene.is-colorized:hover .scene-media img {
-  transform: scale(1.018) !important;
-}
-
-/* ---------- LOAD MORE: SIFIR OTO-SCROLL ---------- */
-.load-more,
-.load-more:hover,
-.load-more:focus,
-.load-more:focus-visible,
-.load-more:active {
-  scroll-margin: 0 !important;
-  transform: none !important;
-}
-
-/* Yeni açılan içerikler bulundukları konumda sakin biçimde görünür. */
-.story-scene {
-  transition:
-    opacity .88s var(--ease-out),
-    transform .94s var(--ease-out) !important;
-}
-
-/* ---------- MOBİL ---------- */
-@media (max-width: 760px) {
-  .scene-copy h2,
-  .scene-copy h2.title-short,
-  .scene-copy h2.title-medium,
-  .scene-copy h2.title-long {
-    letter-spacing: -.018em !important;
-    line-height: 1.055 !important;
-  }
-
-  .scene-copy h2.title-long {
-    letter-spacing: -.012em !important;
-    line-height: 1.065 !important;
-  }
-
-  .scene-media img,
-  .story-scene:hover .scene-media img,
-  .story-scene.is-colorized:hover .scene-media img {
-    transform: scale(1.004) !important;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .scene-media img {
-    --gray: 0 !important;
-    --sat: .97 !important;
-    --bright: 1 !important;
-    --contrast: 1.01 !important;
-    transition: none !important;
-  }
-}
-
-/* =========================================================
-   v18 — sonu
-   ========================================================= */
-
-/* =========================================================
-   v19 — görsel çeşitliliği + görünür siyah-beyaz geçiş
-   ========================================================= */
-
-/* ---------- 6'LI GÖRSEL RİTMİ ---------- */
-.story-scene.scene-landscape-left,
-.story-scene.scene-landscape-right,
-.story-scene.scene-portrait-left,
-.story-scene.scene-portrait-right,
-.story-scene.scene-square-left,
-.story-scene.scene-square-right {
-  display: grid !important;
-  align-items: center !important;
-  width: min(1180px, calc(100% - (var(--gutter) * 2))) !important;
-  column-gap: clamp(48px, 6vw, 90px) !important;
-}
-
-.scene-landscape-left,
-.scene-landscape-right {
-  grid-template-columns: minmax(0, 1.08fr) minmax(330px, .92fr) !important;
-}
-
-.scene-landscape-left .scene-media,
-.scene-landscape-right .scene-media {
-  width: 100% !important;
-  height: auto !important;
-  aspect-ratio: 16 / 10 !important;
-  max-height: none !important;
-}
-
-.scene-landscape-right {
-  grid-template-columns: minmax(330px, .92fr) minmax(0, 1.08fr) !important;
-}
-
-.scene-landscape-right .scene-copy {
-  order: 1 !important;
-}
-
-.scene-landscape-right .scene-media {
-  order: 2 !important;
-}
-
-.scene-portrait-left,
-.scene-portrait-right {
-  width: min(1060px, calc(100% - (var(--gutter) * 2))) !important;
-  grid-template-columns: minmax(280px, .72fr) minmax(0, 1.28fr) !important;
-}
-
-.scene-portrait-left .scene-media,
-.scene-portrait-right .scene-media {
-  width: min(100%, 420px) !important;
-  height: auto !important;
-  aspect-ratio: 4 / 5 !important;
-  max-height: none !important;
-}
-
-.scene-portrait-left .scene-media {
-  justify-self: end !important;
-}
-
-.scene-portrait-right {
-  grid-template-columns: minmax(0, 1.28fr) minmax(280px, .72fr) !important;
-}
-
-.scene-portrait-right .scene-copy {
-  order: 1 !important;
-}
-
-.scene-portrait-right .scene-media {
-  order: 2 !important;
-  justify-self: start !important;
-}
-
-.scene-square-left,
-.scene-square-right {
-  width: min(1040px, calc(100% - (var(--gutter) * 2))) !important;
-  grid-template-columns: minmax(300px, .82fr) minmax(0, 1.18fr) !important;
-}
-
-.scene-square-left .scene-media,
-.scene-square-right .scene-media {
-  width: min(100%, 455px) !important;
-  height: auto !important;
-  aspect-ratio: 1 / 1 !important;
-  max-height: none !important;
-}
-
-.scene-square-left .scene-media {
-  justify-self: end !important;
-}
-
-.scene-square-right {
-  grid-template-columns: minmax(0, 1.18fr) minmax(300px, .82fr) !important;
-}
-
-.scene-square-right .scene-copy {
-  order: 1 !important;
-}
-
-.scene-square-right .scene-media {
-  order: 2 !important;
-  justify-self: start !important;
-}
-
-/* Her varyantta metin aynı merkezleme mantığını korur. */
-.scene-landscape-left .scene-copy,
-.scene-landscape-right .scene-copy,
-.scene-portrait-left .scene-copy,
-.scene-portrait-right .scene-copy,
-.scene-square-left .scene-copy,
-.scene-square-right .scene-copy {
-  align-self: center !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  gap: clamp(16px, 1.4vw, 20px) !important;
-  max-width: 560px !important;
-}
-
-/* ---------- SİYAH-BEYAZ -> RENK: ESKİ KURALLARI EZ ---------- */
-.scroll-color-image {
-  filter: grayscale(1) saturate(0) contrast(1.06) brightness(.93) !important;
-  transform: scale(1.006) !important;
-  transition:
-    filter 1.6s cubic-bezier(.22, 1, .36, 1),
-    transform .9s var(--ease-out) !important;
-}
-
-.story-scene.is-color-revealed .scroll-color-image {
-  filter: grayscale(0) saturate(1) contrast(1.01) brightness(1) !important;
-}
-
-/* Hover renge geçişi başlatmaz; yalnızca zaten renklenmiş fotoğrafı hafif yakınlaştırır. */
-.story-scene:not(.is-color-revealed):hover .scroll-color-image {
-  filter: grayscale(1) saturate(0) contrast(1.06) brightness(.93) !important;
-  transform: scale(1.006) !important;
-}
-
-.story-scene.is-color-revealed:hover .scroll-color-image {
-  filter: grayscale(0) saturate(1.035) contrast(1.02) brightness(1.01) !important;
-  transform: scale(1.018) !important;
-}
-
-.scene-media,
-.scene-media:hover,
-.story-scene:hover .scene-media {
-  transform: none !important;
-}
-
-/* ---------- LOAD MORE: focus/anchor sıçraması olmasın ---------- */
-.story-stream,
-.story-scene,
-.load-more-wrap,
-.load-more {
-  overflow-anchor: none !important;
-}
-
-.load-more:focus,
-.load-more:focus-visible,
-.load-more:active {
-  scroll-margin: 0 !important;
-}
-
-/* ---------- MOBİLDE DE ORAN ÇEŞİTLİLİĞİ ---------- */
-@media (max-width: 760px) {
-  .story-scene.scene-landscape-left,
-  .story-scene.scene-landscape-right,
-  .story-scene.scene-portrait-left,
-  .story-scene.scene-portrait-right,
-  .story-scene.scene-square-left,
-  .story-scene.scene-square-right {
-    display: flex !important;
-    flex-direction: column !important;
-    width: 100% !important;
-  }
-
-  .scene-landscape-left .scene-media,
-  .scene-landscape-right .scene-media,
-  .scene-portrait-left .scene-media,
-  .scene-portrait-right .scene-media,
-  .scene-square-left .scene-media,
-  .scene-square-right .scene-media {
-    order: 1 !important;
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-
-  .scene-landscape-left .scene-media,
-  .scene-landscape-right .scene-media {
-    width: calc(100vw - 28px) !important;
-    aspect-ratio: 16 / 10 !important;
-  }
-
-  .scene-portrait-left .scene-media,
-  .scene-portrait-right .scene-media {
-    width: min(calc(100vw - 62px), 390px) !important;
-    aspect-ratio: 4 / 5 !important;
-  }
-
-  .scene-square-left .scene-media,
-  .scene-square-right .scene-media {
-    width: min(calc(100vw - 42px), 430px) !important;
-    aspect-ratio: 1 / 1 !important;
-  }
-
-  .scene-landscape-left .scene-copy,
-  .scene-landscape-right .scene-copy,
-  .scene-portrait-left .scene-copy,
-  .scene-portrait-right .scene-copy,
-  .scene-square-left .scene-copy,
-  .scene-square-right .scene-copy {
-    order: 2 !important;
-    width: 100% !important;
-    max-width: none !important;
-    padding: 19px 19px 0 !important;
-  }
-
-  .scroll-color-image,
-  .story-scene:not(.is-color-revealed):hover .scroll-color-image {
-    transform: scale(1.003) !important;
-  }
-
-  .story-scene.is-color-revealed:hover .scroll-color-image {
-    transform: scale(1.008) !important;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .scroll-color-image,
-  .story-scene.is-color-revealed .scroll-color-image,
-  .story-scene:hover .scroll-color-image {
-    filter: grayscale(0) saturate(1) contrast(1.01) brightness(1) !important;
-    transition: none !important;
-  }
-}
-
-/* =========================================================
-   v19 — sonu
-   ========================================================= */
-
-/* v19.1 — filter geçiş süresini eski yüksek özgüllüklü kurallara karşı garanti et */
-.story-scene .scene-media .scroll-color-image {
-  transition:
-    filter 1.6s cubic-bezier(.22, 1, .36, 1),
-    transform .9s var(--ease-out) !important;
-}
-
-/* =========================================================
-   v20 — scroll-only color + directional reveal + mobile variety
-   ========================================================= */
-
-/* ---------------------------------------------------------
-   1) RENK GEÇİŞİ: hover değil, SADECE scroll
-   JS custom property'leri değiştirir.
-   --------------------------------------------------------- */
-
-.story-scene .scene-media .scroll-color-image,
-.story-scene:hover .scene-media .scroll-color-image,
-.story-scene.is-color-revealed .scene-media .scroll-color-image,
-.story-scene.is-color-revealed:hover .scene-media .scroll-color-image {
-  filter:
-    grayscale(var(--scroll-gray, 1))
-    saturate(var(--scroll-sat, 0))
-    contrast(var(--scroll-contrast, 1.055))
-    brightness(var(--scroll-bright, .94)) !important;
-
-  transform: scale(1.006) !important;
-
-  transition:
-    filter .16s linear,
-    transform .45s var(--ease-out) !important;
-}
-
-/* Hover görselin rengini, konumunu veya ölçeğini değiştirmez. */
-.scene-media,
-.scene-media:hover,
-.story-scene:hover .scene-media,
-.story-scene.is-color-revealed:hover .scene-media {
-  transform: none !important;
-}
-
-.story-scene:hover .scene-media .scroll-color-image,
-.story-scene.is-color-revealed:hover .scene-media .scroll-color-image {
-  transform: scale(1.006) !important;
-}
-
-/* Hover'da yalnızca gölge çok hafif derinleşebilir; renk etkisi yok. */
-.story-scene:hover .scene-media {
-  box-shadow:
-    0 22px 50px rgba(59, 45, 34, .125),
-    0 4px 12px rgba(59, 45, 34, .055) !important;
-}
-
-
-/* ---------------------------------------------------------
-   2) SAĞDAN / SOLDAN YÜKLENME ANİMASYONU
-   Görsel ve metin grubu karşılıklı gelir.
-   --------------------------------------------------------- */
-
-/* Eski çocuk bazlı stagger'ı kapat:
-   başlık + özet + CTA metin bloğunun içinde birlikte hareket eder. */
-.story-scene .scene-copy .scene-meta,
-.story-scene .scene-copy h2,
-.story-scene .scene-copy .scene-summary,
-.story-scene .scene-copy .read-link,
-.story-scene.is-revealed .scene-copy .scene-meta,
-.story-scene.is-revealed .scene-copy h2,
-.story-scene.is-revealed .scene-copy .scene-summary,
-.story-scene.is-revealed .scene-copy .read-link {
-  opacity: 1 !important;
-  transform: none !important;
-  transition-delay: 0s !important;
-}
-
-/* Scene'in kendisi artık X yönünde hareket etmez. */
-.story-scene,
-.story-scene.is-revealed {
-  opacity: 1 !important;
-  transform: none !important;
-}
-
-/* Asıl reveal medyada + copy grubunda. */
-.story-scene .scene-media,
-.story-scene .scene-copy {
-  opacity: 0 !important;
-  transition:
-    opacity .72s var(--ease-out),
-    transform .88s var(--ease-out) !important;
-  will-change: opacity, transform;
-}
-
-/* Görsel soldaysa: görsel soldan, metin sağdan */
-.scene-landscape-left .scene-media,
-.scene-portrait-left .scene-media,
-.scene-square-left .scene-media {
-  transform: translateX(-54px) !important;
-}
-
-.scene-landscape-left .scene-copy,
-.scene-portrait-left .scene-copy,
-.scene-square-left .scene-copy {
-  transform: translateX(54px) !important;
-}
-
-/* Görsel sağdaysa: görsel sağdan, metin soldan */
-.scene-landscape-right .scene-media,
-.scene-portrait-right .scene-media,
-.scene-square-right .scene-media {
-  transform: translateX(54px) !important;
-}
-
-.scene-landscape-right .scene-copy,
-.scene-portrait-right .scene-copy,
-.scene-square-right .scene-copy {
-  transform: translateX(-54px) !important;
-}
-
-/* Görünür alana gelince yerlerine otururlar. */
-.story-scene.is-revealed .scene-media,
-.story-scene.is-revealed .scene-copy {
-  opacity: 1 !important;
-  transform: translateX(0) !important;
-}
-
-/* Metin çok hafif gecikerek gelsin; dinamik ama sakin. */
-.story-scene.is-revealed .scene-copy {
-  transition-delay: .075s !important;
-}
-
-
-/* ---------------------------------------------------------
-   3) MOBİLDE GERÇEK GÖRSEL ÇEŞİTLİLİĞİ
-   Oran + genişlik + sağ/sol hizalama değişir.
-   --------------------------------------------------------- */
-
-@media (max-width: 760px) {
-
-  .story-scene.scene-landscape-left,
-  .story-scene.scene-landscape-right,
-  .story-scene.scene-portrait-left,
-  .story-scene.scene-portrait-right,
-  .story-scene.scene-square-left,
-  .story-scene.scene-square-right {
-    display: flex !important;
-    flex-direction: column !important;
-    width: 100% !important;
-    overflow: hidden !important;
-  }
-
-  /* landscape — geniş, sinematik */
-  .scene-landscape-left .scene-media,
-  .scene-landscape-right .scene-media {
-    width: calc(100vw - 28px) !important;
-    max-width: none !important;
-    aspect-ratio: 16 / 9 !important;
-  }
-
-  .scene-landscape-left .scene-media {
-    align-self: flex-start !important;
-    margin-left: 14px !important;
-    margin-right: auto !important;
-  }
-
-  .scene-landscape-right .scene-media {
-    align-self: flex-end !important;
-    margin-left: auto !important;
-    margin-right: 14px !important;
-  }
-
-  /* portrait — belirgin biçimde dar ve uzun */
-  .scene-portrait-left .scene-media,
-  .scene-portrait-right .scene-media {
-    width: min(72vw, 330px) !important;
-    max-width: 330px !important;
-    aspect-ratio: 3 / 4 !important;
-  }
-
-  .scene-portrait-left .scene-media {
-    align-self: flex-start !important;
-    margin-left: 22px !important;
-    margin-right: auto !important;
-  }
-
-  .scene-portrait-right .scene-media {
-    align-self: flex-end !important;
-    margin-left: auto !important;
-    margin-right: 22px !important;
-  }
-
-  /* square — orta genişlikte, sağ/sol varyasyonlu */
-  .scene-square-left .scene-media,
-  .scene-square-right .scene-media {
-    width: min(84vw, 390px) !important;
-    max-width: 390px !important;
-    aspect-ratio: 1 / 1 !important;
-  }
-
-  .scene-square-left .scene-media {
-    align-self: flex-start !important;
-    margin-left: 18px !important;
-    margin-right: auto !important;
-  }
-
-  .scene-square-right .scene-media {
-    align-self: flex-end !important;
-    margin-left: auto !important;
-    margin-right: 18px !important;
-  }
-
-  /* Mobil metin bloğu tam okunur kalır. */
-  .scene-landscape-left .scene-copy,
-  .scene-landscape-right .scene-copy,
-  .scene-portrait-left .scene-copy,
-  .scene-portrait-right .scene-copy,
-  .scene-square-left .scene-copy,
-  .scene-square-right .scene-copy {
-    width: 100% !important;
-    max-width: none !important;
-    padding: 20px 20px 0 !important;
-  }
-
-  /* Mobilde de sahne yönüne göre basit sağ/sol giriş. */
-  .scene-landscape-left .scene-media,
-  .scene-portrait-left .scene-media,
-  .scene-square-left .scene-media {
-    transform: translateX(-38px) !important;
-  }
-
-  .scene-landscape-left .scene-copy,
-  .scene-portrait-left .scene-copy,
-  .scene-square-left .scene-copy {
-    transform: translateX(38px) !important;
-  }
-
-  .scene-landscape-right .scene-media,
-  .scene-portrait-right .scene-media,
-  .scene-square-right .scene-media {
-    transform: translateX(38px) !important;
-  }
-
-  .scene-landscape-right .scene-copy,
-  .scene-portrait-right .scene-copy,
-  .scene-square-right .scene-copy {
-    transform: translateX(-38px) !important;
-  }
-
-  .story-scene.is-revealed .scene-media,
-  .story-scene.is-revealed .scene-copy {
-    transform: translateX(0) !important;
-  }
-
-  /* Scroll rengi mobilde de tamamen aynı mekanizmayı kullanır. */
-  .story-scene .scene-media .scroll-color-image,
-  .story-scene:hover .scene-media .scroll-color-image {
-    transform: scale(1.004) !important;
-  }
-}
-
-
-/* ---------------------------------------------------------
-   4) BAŞLIK GÜVENLİĞİ
-   Büyük Literata başlıklarda glif çarpışmasını önle.
-   --------------------------------------------------------- */
-
-.scene-copy h2,
-.scene-copy h2.title-medium,
-.scene-copy h2.title-long {
-  letter-spacing: -.035em !important;
-  line-height: 1.035 !important;
-}
-
-.scene-copy h2 a {
-  letter-spacing: inherit !important;
-}
-
-
-/* ---------------------------------------------------------
-   5) Reduced motion
-   --------------------------------------------------------- */
-
-@media (prefers-reduced-motion: reduce) {
-  .story-scene .scene-media,
-  .story-scene .scene-copy,
-  .story-scene.is-revealed .scene-media,
-  .story-scene.is-revealed .scene-copy {
-    opacity: 1 !important;
-    transform: none !important;
-    transition: none !important;
-  }
-
-  .story-scene .scene-media .scroll-color-image,
-  .story-scene:hover .scene-media .scroll-color-image {
-    --scroll-gray: 0 !important;
-    --scroll-sat: 1 !important;
-    --scroll-contrast: 1.01 !important;
-    --scroll-bright: 1 !important;
-    transition: none !important;
-  }
-}
-
-/* =========================================================
-   v20 — sonu
-   ========================================================= */
-

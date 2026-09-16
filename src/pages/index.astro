@@ -51,8 +51,9 @@ const entriesWithSummary = await Promise.all(
 );
 
 /*
-  V19: aynı görsel kompozisyonu art arda kullanmıyoruz.
-  6'lı ritim: yatay-sol → portre-sağ → kare-sol → yatay-sağ → portre-sol → kare-sağ.
+  Masaüstü ritmi:
+  yatay-sol → portre-sağ → kare-sol → yatay-sağ → portre-sol → kare-sağ
+  Mobilde nihai hizalar düzenlidir; sadece oran/genişlik çeşitlenir.
 */
 const sceneClass = (index: number) => {
   const sequence = [
@@ -113,9 +114,14 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
         </a>
 
         <div class="scene-copy">
-          <div class="scene-meta">
-            <span class="type-tag">{entry.data.type}</span>
-          </div>
+          <button
+            class="type-tag"
+            type="button"
+            data-type-filter={kindFor(entry.data.type)}
+            aria-label={`${entry.data.type} yazılarını göster`}
+          >
+            {entry.data.type}
+          </button>
 
           <h2 class={titleClass(entry.data.title)}>
             <a href={`/yazilar/${entry.id}/`}>{entry.data.title}</a>
@@ -136,258 +142,309 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
     <button class="load-more" type="button">daha fazlasını gör</button>
   </div>
 
-  <script>
-    const scenes = Array.from(document.querySelectorAll('.story-scene'));
-    const filters = Array.from(document.querySelectorAll('.filter'));
-    const loadMore = document.querySelector('.load-more');
-    const archiveTools = document.querySelector('.archive-tools');
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  <script is:inline>
+    (() => {
+      const scenes = Array.from(document.querySelectorAll('.story-scene'));
+      const topFilters = Array.from(document.querySelectorAll('.filter'));
+      const typeTags = Array.from(document.querySelectorAll('[data-type-filter]'));
+      const loadMore = document.querySelector('.load-more');
+      const archiveTools = document.querySelector('.archive-tools');
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    let activeFilter = 'all';
-    let limit = 6;
-    let revealObserver;
-    let scrollStarted = false;
-    let colorFrame = 0;
+      const PAGE_SIZE = 5;
+      let activeFilter = 'all';
+      let visibleCount = PAGE_SIZE;
+      let revealObserver = null;
+      let scrollRaf = 0;
+      let hasScrolled = false;
 
-    function matchesFilter(scene) {
-      return activeFilter === 'all' || scene.dataset.kind === activeFilter;
-    }
+      const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 
-    function matchingScenes() {
-      return scenes.filter(matchesFilter);
-    }
-
-    function visibleScenes() {
-      return matchingScenes().filter((scene) => !scene.hidden);
-    }
-
-    function updateLoadMore() {
-      if (!loadMore) return;
-      loadMore.hidden = visibleScenes().length >= matchingScenes().length;
-    }
-
-    function getImage(scene) {
-      return scene.querySelector('.scroll-color-image');
-    }
-
-    function resetColor(scene) {
-      const img = getImage(scene);
-      if (!img) return;
-
-      delete scene.dataset.colorStartScroll;
-      scene.dataset.colorProgress = '0';
-
-      img.style.setProperty('--scroll-gray', '1');
-      img.style.setProperty('--scroll-sat', '0');
-      img.style.setProperty('--scroll-contrast', '1.055');
-      img.style.setProperty('--scroll-bright', '.94');
-    }
-
-    function setColorProgress(scene, rawProgress) {
-      const img = getImage(scene);
-      if (!img) return;
-
-      const previous = Number(scene.dataset.colorProgress || 0);
-      const progress = Math.max(previous, Math.min(1, Math.max(0, rawProgress)));
-
-      scene.dataset.colorProgress = String(progress);
-
-      const gray = 1 - progress;
-      const sat = 0.05 + (0.95 * progress);
-      const contrast = 1.055 - (0.045 * progress);
-      const bright = 0.94 + (0.06 * progress);
-
-      img.style.setProperty('--scroll-gray', gray.toFixed(3));
-      img.style.setProperty('--scroll-sat', sat.toFixed(3));
-      img.style.setProperty('--scroll-contrast', contrast.toFixed(3));
-      img.style.setProperty('--scroll-bright', bright.toFixed(3));
-    }
-
-    function updateColorsFromScroll() {
-      colorFrame = 0;
-
-      if (reduceMotion) {
-        visibleScenes().forEach((scene) => setColorProgress(scene, 1));
-        return;
+      function matches(scene) {
+        return activeFilter === 'all' || scene.dataset.kind === activeFilter;
       }
 
-      if (!scrollStarted) return;
-
-      const viewportHeight =
-        window.innerHeight || document.documentElement.clientHeight;
-
-      const colorDistance = Math.max(
-        220,
-        Math.min(360, viewportHeight * 0.34)
-      );
-
-      visibleScenes().forEach((scene) => {
-        const media = scene.querySelector('.scene-media');
-        if (!media) return;
-
-        const rect = media.getBoundingClientRect();
-
-        // Tamamen ekran dışındaysa hesaplama yapma.
-        if (rect.bottom < 0 || rect.top > viewportHeight) return;
-
-        // Görsel alt bölgeden görünmeye başladığı anda kendi scroll başlangıcını alır.
-        // Böylece masaüstünde de mobildeki gibi scroll mesafesine bağlı renklenir.
-        if (
-          scene.dataset.colorStartScroll === undefined &&
-          rect.top <= viewportHeight * 0.84
-        ) {
-          scene.dataset.colorStartScroll = String(window.scrollY);
-        }
-
-        const start = Number(scene.dataset.colorStartScroll);
-        if (!Number.isFinite(start)) return;
-
-        const travelled = Math.max(0, window.scrollY - start);
-        setColorProgress(scene, travelled / colorDistance);
-      });
-    }
-
-    function requestColorUpdate() {
-      if (colorFrame) return;
-      colorFrame = requestAnimationFrame(updateColorsFromScroll);
-    }
-
-    function setupRevealObserver() {
-      revealObserver?.disconnect();
-
-      const candidates = visibleScenes().filter(
-        (scene) => !scene.classList.contains('is-revealed')
-      );
-
-      if (reduceMotion) {
-        candidates.forEach((scene) => scene.classList.add('is-revealed'));
-        visibleScenes().forEach((scene) => setColorProgress(scene, 1));
-        return;
+      function matchingScenes() {
+        return scenes.filter(matches);
       }
 
-      revealObserver = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (!entry.isIntersecting) return;
-            entry.target.classList.add('is-revealed');
-            revealObserver?.unobserve(entry.target);
-          });
-        },
-        {
-          threshold: 0.12,
-          rootMargin: '0px 0px -5% 0px',
-        }
-      );
+      function shownScenes() {
+        return matchingScenes().filter((scene) => !scene.hidden);
+      }
 
-      candidates.forEach((scene) => revealObserver.observe(scene));
-    }
+      function imageOf(scene) {
+        return scene.querySelector('.scroll-color-image');
+      }
 
-    function renderFilter() {
-      const matches = matchingScenes();
-      limit = 6;
+      function setImageProgress(scene, progress) {
+        const img = imageOf(scene);
+        if (!img) return;
 
-      scenes.forEach((scene) => {
-        scene.hidden = true;
-        scene.classList.remove('is-revealed');
-        resetColor(scene);
-      });
+        const oldProgress = Number(scene.dataset.colorProgress || 0);
+        const next = Math.max(oldProgress, clamp(progress, 0, 1));
+        scene.dataset.colorProgress = String(next);
 
-      matches.slice(0, limit).forEach((scene) => {
-        scene.hidden = false;
-      });
+        const gray = 1 - next;
+        const saturation = 0.02 + (0.98 * next);
+        const contrast = 1.055 - (0.045 * next);
+        const brightness = 0.93 + (0.07 * next);
 
-      updateLoadMore();
-      setupRevealObserver();
+        /*
+          Inline !important kullanıyoruz:
+          eski CSS kurallarının veya hover'ın filtreyi ezmesini teknik olarak engeller.
+        */
+        img.style.setProperty(
+          'filter',
+          `grayscale(${gray.toFixed(3)}) saturate(${saturation.toFixed(3)}) contrast(${contrast.toFixed(3)}) brightness(${brightness.toFixed(3)})`,
+          'important'
+        );
+      }
 
-      if (archiveTools) {
-        const y = window.scrollY + archiveTools.getBoundingClientRect().top;
-        window.scrollTo({
-          top: Math.max(0, y),
-          behavior: reduceMotion ? 'auto' : 'smooth',
+      function resetImage(scene) {
+        const img = imageOf(scene);
+        if (!img) return;
+
+        delete scene.dataset.colorStartScroll;
+        scene.dataset.colorProgress = '0';
+
+        img.style.setProperty(
+          'filter',
+          'grayscale(1) saturate(0) contrast(1.055) brightness(.93)',
+          'important'
+        );
+      }
+
+      function updateScrollColor() {
+        scrollRaf = 0;
+        if (!hasScrolled) return;
+
+        const vh = window.innerHeight || document.documentElement.clientHeight;
+        const travelNeeded = clamp(vh * 0.30, 210, 330);
+
+        shownScenes().forEach((scene) => {
+          const media = scene.querySelector('.scene-media');
+          if (!media) return;
+
+          const rect = media.getBoundingClientRect();
+
+          if (rect.bottom < 0 || rect.top > vh) return;
+
+          /*
+            Görsel ekranın alt okuma bandına girdiği anda başlangıç noktası alınır.
+            Sonraki 210–330px gerçek kullanıcı scroll mesafesinde siyah-beyazdan renge geçer.
+          */
+          if (
+            scene.dataset.colorStartScroll === undefined &&
+            rect.top <= vh * 0.88
+          ) {
+            scene.dataset.colorStartScroll = String(window.scrollY);
+          }
+
+          const start = Number(scene.dataset.colorStartScroll);
+          if (!Number.isFinite(start)) return;
+
+          const travelled = Math.max(0, window.scrollY - start);
+          setImageProgress(scene, travelled / travelNeeded);
         });
       }
-    }
 
-    function showNextBatch(event) {
-      event?.preventDefault();
-      loadMore?.blur();
-
-      const matches = matchingScenes();
-      const currentVisible = visibleScenes().length;
-      const nextBatch = matches.slice(currentVisible, currentVisible + 6);
-
-      if (!nextBatch.length) {
-        updateLoadMore();
-        return;
+      function requestScrollColor() {
+        if (scrollRaf) return;
+        scrollRaf = requestAnimationFrame(updateScrollColor);
       }
 
-      const savedY = window.scrollY;
-      const root = document.documentElement;
-      const previousBehavior = root.style.scrollBehavior;
-      root.style.scrollBehavior = 'auto';
+      function setupRevealObserver() {
+        if (revealObserver) revealObserver.disconnect();
 
-      nextBatch.forEach((scene) => {
-        resetColor(scene);
-        scene.classList.remove('is-revealed');
-        scene.hidden = false;
-      });
+        const candidates = shownScenes().filter(
+          (scene) => !scene.classList.contains('is-revealed')
+        );
 
-      limit = currentVisible + nextBatch.length;
-      updateLoadMore();
+        if (reduceMotion) {
+          candidates.forEach((scene) => scene.classList.add('is-revealed'));
+          shownScenes().forEach((scene) => setImageProgress(scene, 1));
+          return;
+        }
 
-      // Mevcut konumu kesin koru; yeni içerikler aşağıda kendi
-      // intersection animasyonlarıyla yüklenir.
-      window.scrollTo(0, savedY);
+        revealObserver = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (!entry.isIntersecting) return;
+              entry.target.classList.add('is-revealed');
+              revealObserver.unobserve(entry.target);
+            });
+          },
+          {
+            threshold: 0.12,
+            rootMargin: '0px 0px -5% 0px',
+          }
+        );
 
-      requestAnimationFrame(() => {
-        window.scrollTo(0, savedY);
+        candidates.forEach((scene) => revealObserver.observe(scene));
+      }
+
+      function updateFilterButtons() {
+        topFilters.forEach((button) => {
+          const active = button.dataset.filter === activeFilter;
+          button.classList.toggle('is-active', active);
+          button.setAttribute('aria-pressed', String(active));
+        });
+      }
+
+      function updateLoadMore() {
+        if (!loadMore) return;
+        loadMore.hidden = visibleCount >= matchingScenes().length;
+      }
+
+      function showCurrentSet({ resetReveal = false } = {}) {
+        const matches = matchingScenes();
+
+        scenes.forEach((scene) => {
+          const shouldShow =
+            matches.includes(scene) &&
+            matches.indexOf(scene) < visibleCount;
+
+          scene.hidden = !shouldShow;
+
+          if (shouldShow && resetReveal) {
+            scene.classList.remove('is-revealed');
+            resetImage(scene);
+          }
+        });
+
+        updateLoadMore();
+        setupRevealObserver();
+      }
+
+      function applyFilter(filter, scrollToArchive = false) {
+        activeFilter = filter;
+        visibleCount = PAGE_SIZE;
+
+        updateFilterButtons();
+        showCurrentSet({ resetReveal: true });
+
+        if (scrollToArchive && archiveTools) {
+          const top =
+            window.scrollY +
+            archiveTools.getBoundingClientRect().top;
+
+          window.scrollTo({
+            top: Math.max(0, top),
+            behavior: reduceMotion ? 'auto' : 'smooth',
+          });
+        }
+      }
+
+      function showMore(event) {
+        event.preventDefault();
+
+        if (loadMore) loadMore.blur();
+
+        const matches = matchingScenes();
+        const nextCount = Math.min(
+          visibleCount + PAGE_SIZE,
+          matches.length
+        );
+
+        if (nextCount === visibleCount) return;
+
+        const savedY = window.scrollY;
+
+        /*
+          Chrome/Safari'nin buton odağı ve scroll anchoring yüzünden
+          yeni içeriğin sonuna atlamasını engelliyoruz.
+        */
+        const root = document.documentElement;
+        const body = document.body;
+        const oldRootAnchor = root.style.overflowAnchor;
+        const oldBodyAnchor = body.style.overflowAnchor;
+        const oldBehavior = root.style.scrollBehavior;
+
+        root.style.overflowAnchor = 'none';
+        body.style.overflowAnchor = 'none';
+        root.style.scrollBehavior = 'auto';
+
+        const previouslyVisible = new Set(shownScenes());
+        visibleCount = nextCount;
+
+        const nowVisible = matchingScenes().slice(0, visibleCount);
+
+        nowVisible.forEach((scene) => {
+          scene.hidden = false;
+
+          if (!previouslyVisible.has(scene)) {
+            scene.classList.remove('is-revealed');
+            resetImage(scene);
+          }
+        });
+
+        updateLoadMore();
+
+        const restore = () => window.scrollTo(0, savedY);
+        restore();
 
         requestAnimationFrame(() => {
-          window.scrollTo(0, savedY);
-          root.style.scrollBehavior = previousBehavior;
-          setupRevealObserver();
-          requestColorUpdate();
+          restore();
+
+          requestAnimationFrame(() => {
+            restore();
+
+            root.style.overflowAnchor = oldRootAnchor;
+            body.style.overflowAnchor = oldBodyAnchor;
+            root.style.scrollBehavior = oldBehavior;
+
+            setupRevealObserver();
+          });
+        });
+      }
+
+      topFilters.forEach((button) => {
+        button.addEventListener('click', () => {
+          applyFilter(button.dataset.filter || 'all', false);
         });
       });
-    }
 
-    filters.forEach((button) => {
-      button.addEventListener('click', () => {
-        activeFilter = button.dataset.filter || 'all';
+      /*
+        İçerik üzerindeki tür etiketleri de artık gerçekten çalışır:
+        etikete basınca o türe filtreler ve arşivin üstüne döner.
+      */
+      typeTags.forEach((tag) => {
+        tag.addEventListener('click', () => {
+          applyFilter(tag.dataset.typeFilter || 'all', true);
+        });
+      });
 
-        filters.forEach((item) => {
-          const active = item === button;
-          item.classList.toggle('is-active', active);
-          item.setAttribute('aria-pressed', String(active));
+      if (loadMore) {
+        loadMore.addEventListener('mousedown', (event) => {
+          event.preventDefault();
         });
 
-        renderFilter();
+        loadMore.addEventListener('click', showMore);
+      }
+
+      window.addEventListener(
+        'scroll',
+        () => {
+          hasScrolled = true;
+          requestScrollColor();
+        },
+        { passive: true }
+      );
+
+      window.addEventListener('resize', requestScrollColor);
+
+      /*
+        İlk açılış: tam 5 içerik.
+        Bütün görseller kesin olarak siyah-beyaz başlar.
+      */
+      scenes.forEach((scene, index) => {
+        scene.hidden = index >= PAGE_SIZE;
+        resetImage(scene);
       });
-    });
 
-    loadMore?.addEventListener('click', showNextBatch);
-
-    window.addEventListener(
-      'scroll',
-      () => {
-        if (!scrollStarted && Math.abs(window.scrollY) > 8) {
-          scrollStarted = true;
-        }
-
-        requestColorUpdate();
-      },
-      { passive: true }
-    );
-
-    window.addEventListener('resize', requestColorUpdate);
-
-    // İlk görüntü: bütün görseller kesin siyah-beyaz.
-    scenes.forEach((scene, index) => {
-      scene.hidden = index >= limit;
-      resetColor(scene);
-    });
-
-    updateLoadMore();
-    setupRevealObserver();
+      updateFilterButtons();
+      updateLoadMore();
+      setupRevealObserver();
+    })();
   </script>
 </BaseLayout>
