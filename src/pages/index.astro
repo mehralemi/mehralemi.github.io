@@ -51,11 +51,9 @@ const entriesWithSummary = await Promise.all(
 );
 
 const sceneClass = (index: number) => {
-  if (index === 0) return 'scene-hero';
-
   const position = index % 4;
+  if (position === 1) return 'scene-split is-reversed';
   if (position === 2) return 'scene-portrait';
-  if (position === 0) return 'scene-split is-reversed';
   return 'scene-split';
 };
 

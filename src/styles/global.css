@@ -943,3 +943,277 @@ button:focus-visible {
     transform: none !important;
   }
 }
+
+/* =========================================================
+   v16 — harmonized editorial
+   hero yok / tür-rengi CTA / yuvarlatılmış dörtgen dil
+   ========================================================= */
+
+:root {
+  --radius-ui: 6px;
+  --radius-image: 4px;
+}
+
+/* ---------- HEADER: sade, kutusuz, çizgisiz ---------- */
+.site-header {
+  background: transparent !important;
+  border: 0 !important;
+}
+
+.site-header-inner {
+  min-height: 108px !important;
+  padding: 22px 0 20px !important;
+  gap: 20px !important;
+}
+
+.header-rule {
+  display: none !important;
+}
+
+.brand {
+  font-size: clamp(1.72rem, 2.15vw, 2.25rem) !important;
+}
+
+.main-nav {
+  gap: 30px !important;
+}
+
+/* ---------- GENEL UI DİLİ: kapsül değil, yumuşak dörtgen ---------- */
+.filter,
+.type-tag,
+.read-link,
+.load-more {
+  border-radius: var(--radius-ui) !important;
+}
+
+.scene-media,
+.reading-cover img,
+.about-portrait img {
+  border-radius: var(--radius-image) !important;
+}
+
+/* filtreler de aynı tasarım ailesinde */
+.filter {
+  padding: 7px 11px !important;
+}
+
+/* ---------- HERO / ÖNE ÇIKAN YAZI YOK ---------- */
+.scene-hero {
+  grid-template-columns: minmax(0, 1.06fr) minmax(330px, .94fr) !important;
+  padding: clamp(58px, 8vh, 92px) 0 !important;
+}
+
+.scene-hero .scene-media {
+  width: 100% !important;
+  height: min(50svh, 500px) !important;
+  max-height: 500px !important;
+}
+
+.scene-hero .scene-copy {
+  width: auto !important;
+  padding-top: 0 !important;
+}
+
+/* ---------- İÇERİK BOŞLUKLARI VE DİKEY ORTALAMA ---------- */
+.story-scene {
+  align-items: center !important;
+  padding-top: clamp(62px, 8.5vh, 96px) !important;
+  padding-bottom: clamp(62px, 8.5vh, 96px) !important;
+}
+
+.scene-copy,
+.scene-hero .scene-copy,
+.scene-split .scene-copy,
+.scene-portrait .scene-copy {
+  align-self: center !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  justify-content: center !important;
+  gap: 18px !important;
+  max-width: 590px !important;
+  margin: 0 !important;
+  padding-top: 0 !important;
+}
+
+.scene-meta,
+.reading-meta {
+  margin: 0 !important;
+}
+
+.scene-copy h2,
+.scene-summary,
+.read-link {
+  margin: 0 !important;
+}
+
+.scene-summary {
+  min-height: calc(1.62em * 6) !important;
+  max-width: 36ch !important;
+}
+
+/* ---------- TÜR: simgesiz, yumuşak dörtgen ---------- */
+.type-tag {
+  min-height: 29px !important;
+  padding: 6px 11px !important;
+  border-radius: var(--radius-ui) !important;
+  font-size: .65rem !important;
+  letter-spacing: .04em !important;
+}
+
+/* ---------- CTA: tür ile aynı renk ---------- */
+.read-link {
+  min-width: 150px !important;
+  min-height: 45px !important;
+  padding: 11px 17px !important;
+  color: var(--paper-light) !important;
+  box-shadow: 0 5px 14px rgba(61, 47, 38, .09) !important;
+}
+
+.story-scene[data-kind="poem"] .read-link {
+  background: var(--poem) !important;
+  border-color: var(--poem) !important;
+}
+
+.story-scene[data-kind="prose"] .read-link {
+  background: var(--prose) !important;
+  border-color: var(--prose) !important;
+}
+
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  background: #85483e !important;
+  border-color: #85483e !important;
+  box-shadow: 0 12px 28px rgba(133, 72, 62, .17) !important;
+}
+
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  background: #3f6258 !important;
+  border-color: #3f6258 !important;
+  box-shadow: 0 12px 28px rgba(63, 98, 88, .17) !important;
+}
+
+/* ---------- SADECE GÖRSELLER SİYAH-BEYAZ -> RENK ---------- */
+/* Yazı, etiket ve buton renkleri her zaman tam renkli kalır. */
+.scene-media img {
+  filter: grayscale(1) saturate(0) contrast(1.04) brightness(.96) !important;
+  transition:
+    filter 1.55s cubic-bezier(.22, 1, .36, 1),
+    transform 1.2s var(--ease-out) !important;
+}
+
+.story-scene.is-colorized .scene-media img {
+  filter: grayscale(0) saturate(.96) contrast(1.01) brightness(1) !important;
+}
+
+.story-scene.is-colorized:hover .scene-media img {
+  filter: grayscale(0) saturate(1.04) contrast(1.02) brightness(1.015) !important;
+}
+
+/* ---------- GÖRSEL ÖLÇÜLERİ: hiçbir öne çıkan / dev hero yok ---------- */
+.scene-split,
+.scene-split.is-reversed {
+  grid-template-columns: minmax(0, 1.04fr) minmax(330px, .96fr) !important;
+}
+
+.scene-split.is-reversed {
+  grid-template-columns: minmax(330px, .96fr) minmax(0, 1.04fr) !important;
+}
+
+.scene-split .scene-media,
+.scene-split.is-reversed .scene-media {
+  height: min(49svh, 490px) !important;
+  max-height: 490px !important;
+}
+
+.scene-portrait {
+  width: min(1080px, calc(100% - (var(--gutter) * 2))) !important;
+  grid-template-columns: minmax(250px, .72fr) minmax(0, 1.28fr) !important;
+}
+
+.scene-portrait .scene-media {
+  width: min(100%, 410px) !important;
+  height: min(58svh, 590px) !important;
+  max-height: 590px !important;
+}
+
+/* ---------- LOAD MORE: ortak ara ton ---------- */
+.load-more {
+  color: var(--accent-mid) !important;
+  border-color: rgba(120, 101, 89, .34) !important;
+}
+
+.load-more:hover {
+  background: rgba(120, 101, 89, .09) !important;
+}
+
+/* ---------- MOBİL ---------- */
+@media (max-width: 760px) {
+  .site-header-inner {
+    min-height: 100px !important;
+    padding: 18px 0 16px !important;
+    gap: 17px !important;
+  }
+
+  .brand {
+    font-size: 1.7rem !important;
+  }
+
+  .main-nav {
+    gap: 24px !important;
+  }
+
+  .story-scene,
+  .scene-hero,
+  .scene-split,
+  .scene-split.is-reversed,
+  .scene-portrait {
+    padding: 52px 0 64px !important;
+  }
+
+  .scene-hero .scene-media,
+  .scene-split .scene-media,
+  .scene-split.is-reversed .scene-media {
+    order: 1 !important;
+    width: calc(100vw - 28px) !important;
+    height: 43svh !important;
+    max-height: 500px !important;
+    margin: 0 auto !important;
+  }
+
+  .scene-portrait .scene-media {
+    order: 1 !important;
+    width: min(calc(100vw - 54px), 390px) !important;
+    height: 53svh !important;
+    max-height: 550px !important;
+    margin: 0 auto !important;
+  }
+
+  .scene-copy,
+  .scene-hero .scene-copy,
+  .scene-split .scene-copy,
+  .scene-split.is-reversed .scene-copy,
+  .scene-portrait .scene-copy {
+    order: 2 !important;
+    width: 100% !important;
+    max-width: none !important;
+    padding: 21px 19px 0 !important;
+    gap: 16px !important;
+  }
+
+  .scene-summary {
+    min-height: calc(1.58em * 6) !important;
+    max-width: 33ch !important;
+  }
+
+  .read-link {
+    min-height: 45px !important;
+    min-width: 152px !important;
+  }
+}
+
+/* =========================================================
+   v16 — sonu
+   ========================================================= */
+
