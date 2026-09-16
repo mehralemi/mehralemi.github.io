@@ -1819,3 +1819,301 @@ body,
     filter 1.6s cubic-bezier(.22, 1, .36, 1),
     transform .9s var(--ease-out) !important;
 }
+
+/* =========================================================
+   v20 — scroll-only color + directional reveal + mobile variety
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   1) RENK GEÇİŞİ: hover değil, SADECE scroll
+   JS custom property'leri değiştirir.
+   --------------------------------------------------------- */
+
+.story-scene .scene-media .scroll-color-image,
+.story-scene:hover .scene-media .scroll-color-image,
+.story-scene.is-color-revealed .scene-media .scroll-color-image,
+.story-scene.is-color-revealed:hover .scene-media .scroll-color-image {
+  filter:
+    grayscale(var(--scroll-gray, 1))
+    saturate(var(--scroll-sat, 0))
+    contrast(var(--scroll-contrast, 1.055))
+    brightness(var(--scroll-bright, .94)) !important;
+
+  transform: scale(1.006) !important;
+
+  transition:
+    filter .16s linear,
+    transform .45s var(--ease-out) !important;
+}
+
+/* Hover görselin rengini, konumunu veya ölçeğini değiştirmez. */
+.scene-media,
+.scene-media:hover,
+.story-scene:hover .scene-media,
+.story-scene.is-color-revealed:hover .scene-media {
+  transform: none !important;
+}
+
+.story-scene:hover .scene-media .scroll-color-image,
+.story-scene.is-color-revealed:hover .scene-media .scroll-color-image {
+  transform: scale(1.006) !important;
+}
+
+/* Hover'da yalnızca gölge çok hafif derinleşebilir; renk etkisi yok. */
+.story-scene:hover .scene-media {
+  box-shadow:
+    0 22px 50px rgba(59, 45, 34, .125),
+    0 4px 12px rgba(59, 45, 34, .055) !important;
+}
+
+
+/* ---------------------------------------------------------
+   2) SAĞDAN / SOLDAN YÜKLENME ANİMASYONU
+   Görsel ve metin grubu karşılıklı gelir.
+   --------------------------------------------------------- */
+
+/* Eski çocuk bazlı stagger'ı kapat:
+   başlık + özet + CTA metin bloğunun içinde birlikte hareket eder. */
+.story-scene .scene-copy .scene-meta,
+.story-scene .scene-copy h2,
+.story-scene .scene-copy .scene-summary,
+.story-scene .scene-copy .read-link,
+.story-scene.is-revealed .scene-copy .scene-meta,
+.story-scene.is-revealed .scene-copy h2,
+.story-scene.is-revealed .scene-copy .scene-summary,
+.story-scene.is-revealed .scene-copy .read-link {
+  opacity: 1 !important;
+  transform: none !important;
+  transition-delay: 0s !important;
+}
+
+/* Scene'in kendisi artık X yönünde hareket etmez. */
+.story-scene,
+.story-scene.is-revealed {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Asıl reveal medyada + copy grubunda. */
+.story-scene .scene-media,
+.story-scene .scene-copy {
+  opacity: 0 !important;
+  transition:
+    opacity .72s var(--ease-out),
+    transform .88s var(--ease-out) !important;
+  will-change: opacity, transform;
+}
+
+/* Görsel soldaysa: görsel soldan, metin sağdan */
+.scene-landscape-left .scene-media,
+.scene-portrait-left .scene-media,
+.scene-square-left .scene-media {
+  transform: translateX(-54px) !important;
+}
+
+.scene-landscape-left .scene-copy,
+.scene-portrait-left .scene-copy,
+.scene-square-left .scene-copy {
+  transform: translateX(54px) !important;
+}
+
+/* Görsel sağdaysa: görsel sağdan, metin soldan */
+.scene-landscape-right .scene-media,
+.scene-portrait-right .scene-media,
+.scene-square-right .scene-media {
+  transform: translateX(54px) !important;
+}
+
+.scene-landscape-right .scene-copy,
+.scene-portrait-right .scene-copy,
+.scene-square-right .scene-copy {
+  transform: translateX(-54px) !important;
+}
+
+/* Görünür alana gelince yerlerine otururlar. */
+.story-scene.is-revealed .scene-media,
+.story-scene.is-revealed .scene-copy {
+  opacity: 1 !important;
+  transform: translateX(0) !important;
+}
+
+/* Metin çok hafif gecikerek gelsin; dinamik ama sakin. */
+.story-scene.is-revealed .scene-copy {
+  transition-delay: .075s !important;
+}
+
+
+/* ---------------------------------------------------------
+   3) MOBİLDE GERÇEK GÖRSEL ÇEŞİTLİLİĞİ
+   Oran + genişlik + sağ/sol hizalama değişir.
+   --------------------------------------------------------- */
+
+@media (max-width: 760px) {
+
+  .story-scene.scene-landscape-left,
+  .story-scene.scene-landscape-right,
+  .story-scene.scene-portrait-left,
+  .story-scene.scene-portrait-right,
+  .story-scene.scene-square-left,
+  .story-scene.scene-square-right {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    overflow: hidden !important;
+  }
+
+  /* landscape — geniş, sinematik */
+  .scene-landscape-left .scene-media,
+  .scene-landscape-right .scene-media {
+    width: calc(100vw - 28px) !important;
+    max-width: none !important;
+    aspect-ratio: 16 / 9 !important;
+  }
+
+  .scene-landscape-left .scene-media {
+    align-self: flex-start !important;
+    margin-left: 14px !important;
+    margin-right: auto !important;
+  }
+
+  .scene-landscape-right .scene-media {
+    align-self: flex-end !important;
+    margin-left: auto !important;
+    margin-right: 14px !important;
+  }
+
+  /* portrait — belirgin biçimde dar ve uzun */
+  .scene-portrait-left .scene-media,
+  .scene-portrait-right .scene-media {
+    width: min(72vw, 330px) !important;
+    max-width: 330px !important;
+    aspect-ratio: 3 / 4 !important;
+  }
+
+  .scene-portrait-left .scene-media {
+    align-self: flex-start !important;
+    margin-left: 22px !important;
+    margin-right: auto !important;
+  }
+
+  .scene-portrait-right .scene-media {
+    align-self: flex-end !important;
+    margin-left: auto !important;
+    margin-right: 22px !important;
+  }
+
+  /* square — orta genişlikte, sağ/sol varyasyonlu */
+  .scene-square-left .scene-media,
+  .scene-square-right .scene-media {
+    width: min(84vw, 390px) !important;
+    max-width: 390px !important;
+    aspect-ratio: 1 / 1 !important;
+  }
+
+  .scene-square-left .scene-media {
+    align-self: flex-start !important;
+    margin-left: 18px !important;
+    margin-right: auto !important;
+  }
+
+  .scene-square-right .scene-media {
+    align-self: flex-end !important;
+    margin-left: auto !important;
+    margin-right: 18px !important;
+  }
+
+  /* Mobil metin bloğu tam okunur kalır. */
+  .scene-landscape-left .scene-copy,
+  .scene-landscape-right .scene-copy,
+  .scene-portrait-left .scene-copy,
+  .scene-portrait-right .scene-copy,
+  .scene-square-left .scene-copy,
+  .scene-square-right .scene-copy {
+    width: 100% !important;
+    max-width: none !important;
+    padding: 20px 20px 0 !important;
+  }
+
+  /* Mobilde de sahne yönüne göre basit sağ/sol giriş. */
+  .scene-landscape-left .scene-media,
+  .scene-portrait-left .scene-media,
+  .scene-square-left .scene-media {
+    transform: translateX(-38px) !important;
+  }
+
+  .scene-landscape-left .scene-copy,
+  .scene-portrait-left .scene-copy,
+  .scene-square-left .scene-copy {
+    transform: translateX(38px) !important;
+  }
+
+  .scene-landscape-right .scene-media,
+  .scene-portrait-right .scene-media,
+  .scene-square-right .scene-media {
+    transform: translateX(38px) !important;
+  }
+
+  .scene-landscape-right .scene-copy,
+  .scene-portrait-right .scene-copy,
+  .scene-square-right .scene-copy {
+    transform: translateX(-38px) !important;
+  }
+
+  .story-scene.is-revealed .scene-media,
+  .story-scene.is-revealed .scene-copy {
+    transform: translateX(0) !important;
+  }
+
+  /* Scroll rengi mobilde de tamamen aynı mekanizmayı kullanır. */
+  .story-scene .scene-media .scroll-color-image,
+  .story-scene:hover .scene-media .scroll-color-image {
+    transform: scale(1.004) !important;
+  }
+}
+
+
+/* ---------------------------------------------------------
+   4) BAŞLIK GÜVENLİĞİ
+   Büyük Literata başlıklarda glif çarpışmasını önle.
+   --------------------------------------------------------- */
+
+.scene-copy h2,
+.scene-copy h2.title-medium,
+.scene-copy h2.title-long {
+  letter-spacing: -.035em !important;
+  line-height: 1.035 !important;
+}
+
+.scene-copy h2 a {
+  letter-spacing: inherit !important;
+}
+
+
+/* ---------------------------------------------------------
+   5) Reduced motion
+   --------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .story-scene .scene-media,
+  .story-scene .scene-copy,
+  .story-scene.is-revealed .scene-media,
+  .story-scene.is-revealed .scene-copy {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .story-scene .scene-media .scroll-color-image,
+  .story-scene:hover .scene-media .scroll-color-image {
+    --scroll-gray: 0 !important;
+    --scroll-sat: 1 !important;
+    --scroll-contrast: 1.01 !important;
+    --scroll-bright: 1 !important;
+    transition: none !important;
+  }
+}
+
+/* =========================================================
+   v20 — sonu
+   ========================================================= */
+
