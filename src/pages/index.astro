@@ -1,10 +1,54 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
+import { readFile } from 'node:fs/promises';
 
 const entries = (await getCollection('yazilar', ({ data }) => data.published))
   .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
+const stripMarkdown = (value: string) =>
+  value
+    .replace(/^---[\s\S]*?---\s*/m, '')
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, ' ')
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, '$1')
+    .replace(/```[\s\S]*?```/g, ' ')
+    .replace(/`([^`]+)`/g, '$1')
+    .replace(/^#{1,6}\s+/gm, '')
+    .replace(/^>\s?/gm, '')
+    .replace(/[*_~]+/g, '')
+    .replace(/<[^>]+>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim();
+
+const cropSummary = (value: string, max = 520) => {
+  if (value.length <= max) return value;
+  const cropped = value.slice(0, max);
+  const lastSpace = cropped.lastIndexOf(' ');
+  return `${cropped.slice(0, lastSpace > 360 ? lastSpace : max).trim()}…`;
+};
+
+const entriesWithSummary = await Promise.all(
+  entries.map(async (entry) => {
+    let fallback = '';
+
+    if (!entry.data.excerpt?.trim()) {
+      try {
+        const raw = await readFile(
+          new URL(`../data/yazilar/${entry.data.slug}.md`, import.meta.url),
+          'utf8'
+        );
+        fallback = cropSummary(stripMarkdown(raw));
+      } catch {
+        fallback = '';
+      }
+    }
+
+    return {
+      entry,
+      summary: entry.data.excerpt?.trim() || fallback,
+    };
+  })
+);
 
 const sceneClass = (index: number) => {
   if (index === 0) return 'scene-hero';
@@ -20,21 +64,29 @@ const titleClass = (title: string) => {
   if (title.length >= 20) return 'title-medium';
   return 'title-short';
 };
+
+const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
 ---
 <BaseLayout title="mehr alemi" pageClass="archive-page">
   <div class="archive-tools">
     <div class="filters" role="group" aria-label="yazı türleri">
-      <button class="filter is-active" type="button" data-filter="hepsi">hepsi</button>
-      <button class="filter" type="button" data-filter="şiir">şiir</button>
-      <button class="filter" type="button" data-filter="düz yazı">düz yazı</button>
+      <button class="filter is-active" type="button" data-filter="all" aria-pressed="true">
+        hepsi
+      </button>
+      <button class="filter filter-poem" type="button" data-filter="poem" aria-pressed="false">
+        şiir
+      </button>
+      <button class="filter filter-prose" type="button" data-filter="prose" aria-pressed="false">
+        düz yazı
+      </button>
     </div>
   </div>
 
-  <section class="story-stream" data-visible-count="6" aria-live="polite">
-    {entries.map((entry, index) => (
+  <section class="story-stream" aria-live="polite">
+    {entriesWithSummary.map(({ entry, summary }, index) => (
       <article
-        class={`story-scene ${sceneClass(index)} ${entry.data.featured ? 'is-featured' : ''}`}
-        data-type={entry.data.type}
+        class={`story-scene ${sceneClass(index)}`}
+        data-kind={kindFor(entry.data.type)}
         data-index={index}
       >
         <a class="scene-media" href={`/yazilar/${entry.id}/`} aria-label={entry.data.title}>
@@ -60,6 +112,8 @@ const titleClass = (title: string) => {
             <a href={`/yazilar/${entry.id}/`}>{entry.data.title}</a>
           </h2>
 
+          <p class="scene-summary">{summary}</p>
+
           <a class="read-link" href={`/yazilar/${entry.id}/`}>
             <span>metni oku</span>
             <span class="cta-arrow" aria-hidden="true">→</span>
@@ -79,65 +133,56 @@ const titleClass = (title: string) => {
     const loadMore = document.querySelector('.load-more');
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    let activeFilter = 'hepsi';
+    let activeFilter = 'all';
     let limit = 6;
-    let revealObserver;
-    let parallaxFrame = 0;
+    let sceneObserver;
+
+    function matchesFilter(scene) {
+      return activeFilter === 'all' || scene.dataset.kind === activeFilter;
+    }
 
     function matchingScenes() {
-      return scenes.filter((scene) =>
-        activeFilter === 'hepsi' || scene.dataset.type === activeFilter
-      );
+      return scenes.filter(matchesFilter);
     }
 
     function visibleScenes() {
       return matchingScenes().filter((scene) => !scene.hidden);
     }
 
-    function setupRevealObserver() {
-      revealObserver?.disconnect();
+    function setupSceneObserver() {
+      sceneObserver?.disconnect();
+
+      const visible = visibleScenes();
 
       if (reduceMotion) {
-        visibleScenes().forEach((scene) => scene.classList.add('is-revealed'));
+        visible.forEach((scene) => {
+          scene.classList.add('is-revealed', 'is-colorized');
+        });
         return;
       }
 
-      revealObserver = new IntersectionObserver(
+      sceneObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
-            entry.target.classList.add('is-revealed');
-            revealObserver?.unobserve(entry.target);
+
+            const scene = entry.target;
+            scene.classList.add('is-revealed');
+
+            window.setTimeout(() => {
+              scene.classList.add('is-colorized');
+            }, 140);
+
+            sceneObserver?.unobserve(scene);
           });
         },
-        { threshold: 0.10, rootMargin: '0px 0px -8% 0px' }
+        {
+          threshold: 0.22,
+          rootMargin: '0px 0px -8% 0px',
+        }
       );
 
-      visibleScenes().forEach((scene) => revealObserver.observe(scene));
-    }
-
-    function updateParallax() {
-      parallaxFrame = 0;
-      if (reduceMotion || window.innerWidth < 761) return;
-
-      const viewportCenter = window.innerHeight / 2;
-      visibleScenes().forEach((scene) => {
-        const media = scene.querySelector('.scene-media img');
-        if (!media) return;
-
-        const rect = scene.getBoundingClientRect();
-        if (rect.bottom < -120 || rect.top > window.innerHeight + 120) return;
-
-        const sceneCenter = rect.top + rect.height / 2;
-        const distance = (sceneCenter - viewportCenter) / window.innerHeight;
-        const translate = Math.max(-5, Math.min(5, distance * -4));
-        media.style.setProperty('--parallax-y', `${translate}px`);
-      });
-    }
-
-    function scheduleParallax() {
-      if (parallaxFrame) return;
-      parallaxFrame = requestAnimationFrame(updateParallax);
+      visible.forEach((scene) => sceneObserver.observe(scene));
     }
 
     function renderArchive({ scrollTop = false } = {}) {
@@ -145,47 +190,47 @@ const titleClass = (title: string) => {
 
       scenes.forEach((scene) => {
         scene.hidden = true;
-        scene.classList.remove('is-revealed', 'is-current');
+        scene.classList.remove('is-revealed', 'is-colorized');
       });
 
       matches.slice(0, limit).forEach((scene) => {
         scene.hidden = false;
       });
 
-      if (loadMore) loadMore.hidden = matches.length <= limit;
+      if (loadMore) {
+        loadMore.hidden = matches.length <= limit;
+      }
 
-      setupRevealObserver();
-      scheduleParallax();
+      setupSceneObserver();
 
       if (scrollTop) {
-        window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' });
+        const top = document.querySelector('.archive-tools')?.getBoundingClientRect().top ?? 0;
+        window.scrollTo({
+          top: Math.max(0, window.scrollY + top - 8),
+          behavior: reduceMotion ? 'auto' : 'smooth',
+        });
       }
     }
 
     filters.forEach((button) => {
       button.addEventListener('click', () => {
-        activeFilter = button.dataset.filter || 'hepsi';
+        activeFilter = button.dataset.filter || 'all';
         limit = 6;
-        filters.forEach((b) => b.classList.toggle('is-active', b === button));
+
+        filters.forEach((item) => {
+          const active = item === button;
+          item.classList.toggle('is-active', active);
+          item.setAttribute('aria-pressed', String(active));
+        });
+
         renderArchive({ scrollTop: true });
       });
     });
 
     loadMore?.addEventListener('click', () => {
-      const previousLimit = limit;
       limit += 6;
       renderArchive();
-
-      const firstNew = visibleScenes()[previousLimit];
-      if (firstNew && !reduceMotion) {
-        requestAnimationFrame(() => {
-          firstNew.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        });
-      }
     });
-
-    window.addEventListener('scroll', scheduleParallax, { passive: true });
-    window.addEventListener('resize', scheduleParallax);
 
     renderArchive();
   </script>

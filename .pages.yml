@@ -18,7 +18,7 @@ content:
       fields: [title, type, date, published]
       primary: title
       sort: [date, title]
-      search: [title]
+      search: [title, excerpt]
       default:
         sort: date
         order: desc
@@ -35,7 +35,7 @@ content:
         pattern:
           regex: "^[a-z0-9-]+$"
           message: yalnızca küçük harf, rakam ve tire kullan.
-        description: örnek: gecenin-icinden
+        description: "örnek: gecenin-icinden"
       - name: type
         label: tür
         type: select
@@ -47,9 +47,10 @@ content:
             - name: düz yazı
               label: düz yazı
       - name: date
-        label: tarih
+        label: tarih (sitede görünmez)
         type: date
         required: true
+        description: yalnızca arşiv sıralaması için kullanılır.
         options:
           format: yyyy-MM-dd
       - name: cover
@@ -69,6 +70,11 @@ content:
           media: images
           rename: safe
           extensions: [jpg, jpeg, png, webp, avif]
+      - name: excerpt
+        label: özet
+        type: text
+        required: false
+        description: ana sayfada 6 satıra kadar gösterilir. boş bırakırsan metnin başlangıcı otomatik kullanılır.
       - name: featured
         label: öne çıkan
         type: boolean
@@ -86,7 +92,6 @@ content:
           rename: safe
           switcher: false
 
-
   - name: site
     label: site başlığı
     type: file
@@ -99,11 +104,14 @@ content:
         type: string
         required: true
         description: küçük harf kullan.
-      - name: tagline
-        label: header alt satırı
+      - name: menuYazilar
+        label: yazılar menü metni
         type: string
         required: false
-        description: kısa ve isteğe bağlı bir tanım.
+      - name: menuHakkinda
+        label: hakkında menü metni
+        type: string
+        required: false
 
   - name: hakkinda
     label: hakkında

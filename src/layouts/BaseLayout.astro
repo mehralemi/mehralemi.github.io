@@ -10,13 +10,14 @@ interface Props {
 
 const {
   title = 'mehr alemi',
-  description = 'şiir, düz yazı ve görsel hafıza',
+  description = 'mehr alemi',
   pageClass = '',
 } = Astro.props;
 
 const site = await getEntry('pages', 'site');
 const siteTitle = site?.data.title || 'mehr alemi';
-const siteTagline = site?.data.tagline || '';
+const menuYazilar = site?.data.menuYazilar || 'yazılar';
+const menuHakkinda = site?.data.menuHakkinda || 'hakkında';
 
 const fullTitle = title === 'mehr alemi' ? siteTitle : `${title} — ${siteTitle}`;
 ---
@@ -26,12 +27,12 @@ const fullTitle = title === 'mehr alemi' ? siteTitle : `${title} — ${siteTitle
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width" />
     <meta name="description" content={description} />
-    <meta name="theme-color" content="#eee2d0" />
+    <meta name="theme-color" content="#f1e6d5" />
     <title>{fullTitle}</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Literata:opsz,wght@7..72,400;7..72,500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Literata:opsz,wght@7..72,400;7..72,500&display=swap"
       rel="stylesheet"
     />
   </head>
@@ -40,14 +41,11 @@ const fullTitle = title === 'mehr alemi' ? siteTitle : `${title} — ${siteTitle
 
     <header class="site-header">
       <div class="site-header-inner">
-        <div class="site-identity">
-          <a class="brand" href="/">{siteTitle}</a>
-          {siteTagline && <p class="site-tagline">{siteTagline}</p>}
-        </div>
-
+        <a class="brand" href="/">{siteTitle}</a>
+        <span class="header-rule" aria-hidden="true"></span>
         <nav class="main-nav" aria-label="ana menü">
-          <a href="/">yazılar</a>
-          <a href="/hakkinda/">hakkında</a>
+          <a href="/">{menuYazilar}</a>
+          <a href="/hakkinda/">{menuHakkinda}</a>
         </nav>
       </div>
     </header>
@@ -57,7 +55,7 @@ const fullTitle = title === 'mehr alemi' ? siteTitle : `${title} — ${siteTitle
     </main>
 
     <footer class="site-footer">
-      <span>mehr alemi</span>
+      <span>{siteTitle}</span>
     </footer>
 
     <script is:inline>
