@@ -1432,3 +1432,143 @@ button:focus-visible {
    v17 — sonu
    ========================================================= */
 
+
+/* =========================================================
+   v18 — gerçek scroll renklenmesi + sabit yükleme + güvenli başlık
+   ========================================================= */
+
+/* Tarayıcının load-more butonunu takip ederek sayfayı sona kaydırmasını
+   engelle. Bu sürümde scroll konumunu JS de koruyor. */
+html,
+body,
+.story-stream,
+.story-scene,
+.load-more-wrap,
+.load-more {
+  overflow-anchor: none !important;
+}
+
+/* ---------- BAŞLIK: HARFLER BİRBİRİNE DEĞMESİN ---------- */
+.scene-copy h2,
+.scene-copy h2.title-short,
+.scene-copy h2.title-medium,
+.scene-copy h2.title-long {
+  letter-spacing: -.026em !important;
+  line-height: 1.055 !important;
+  font-kerning: normal !important;
+  font-feature-settings: "kern" 1, "liga" 1 !important;
+  text-rendering: optimizeLegibility !important;
+  overflow-wrap: normal !important;
+  word-break: normal !important;
+}
+
+.scene-copy h2.title-long {
+  letter-spacing: -.018em !important;
+  line-height: 1.07 !important;
+}
+
+/* Başlık ile özet arasındaki optik mesafe korunur. */
+.scene-copy,
+.scene-split .scene-copy,
+.scene-split.is-reversed .scene-copy,
+.scene-portrait .scene-copy {
+  gap: clamp(16px, 1.4vw, 20px) !important;
+}
+
+/* ---------- GERÇEK SCROLL-BAĞLI SİYAH-BEYAZ -> RENK ---------- */
+.scene-media img {
+  --gray: 1;
+  --sat: .03;
+  --bright: .965;
+  --contrast: 1.045;
+
+  filter:
+    grayscale(var(--gray))
+    saturate(var(--sat))
+    brightness(var(--bright))
+    contrast(var(--contrast)) !important;
+
+  transform: scale(1.008) !important;
+  transition:
+    filter .12s linear,
+    transform .72s var(--ease-out) !important;
+}
+
+/* Eski is-colorized sınıfları artık rengi belirlemez. Renk tamamen
+   scroll konumundan gelen CSS değişkenleriyle hesaplanır. */
+.story-scene.is-colorized .scene-media img,
+.story-scene:hover .scene-media img,
+.story-scene.is-colorized:hover .scene-media img {
+  filter:
+    grayscale(var(--gray))
+    saturate(var(--sat))
+    brightness(var(--bright))
+    contrast(var(--contrast)) !important;
+}
+
+/* Hover'da kutu kesinlikle yukarı/aşağı oynamaz. Yalnızca fotoğraf
+   kendi çerçevesi içinde çok hafif yaklaşır. */
+.scene-media,
+.scene-media:hover,
+.story-scene:hover .scene-media,
+.story-scene.is-colorized:hover .scene-media {
+  transform: none !important;
+}
+
+.story-scene:hover .scene-media img,
+.story-scene.is-colorized:hover .scene-media img {
+  transform: scale(1.018) !important;
+}
+
+/* ---------- LOAD MORE: SIFIR OTO-SCROLL ---------- */
+.load-more,
+.load-more:hover,
+.load-more:focus,
+.load-more:focus-visible,
+.load-more:active {
+  scroll-margin: 0 !important;
+  transform: none !important;
+}
+
+/* Yeni açılan içerikler bulundukları konumda sakin biçimde görünür. */
+.story-scene {
+  transition:
+    opacity .88s var(--ease-out),
+    transform .94s var(--ease-out) !important;
+}
+
+/* ---------- MOBİL ---------- */
+@media (max-width: 760px) {
+  .scene-copy h2,
+  .scene-copy h2.title-short,
+  .scene-copy h2.title-medium,
+  .scene-copy h2.title-long {
+    letter-spacing: -.018em !important;
+    line-height: 1.055 !important;
+  }
+
+  .scene-copy h2.title-long {
+    letter-spacing: -.012em !important;
+    line-height: 1.065 !important;
+  }
+
+  .scene-media img,
+  .story-scene:hover .scene-media img,
+  .story-scene.is-colorized:hover .scene-media img {
+    transform: scale(1.004) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-media img {
+    --gray: 0 !important;
+    --sat: .97 !important;
+    --bright: 1 !important;
+    --contrast: 1.01 !important;
+    transition: none !important;
+  }
+}
+
+/* =========================================================
+   v18 — sonu
+   ========================================================= */
