@@ -774,3 +774,472 @@ a { color: inherit; }
 
   .scene-media img { transform: scale(1.01) !important; }
 }
+
+/* =========================================================
+   v12 — continuous editorial stream
+   tek grid + 3 varyasyon + mobilde sıfır kart
+   ========================================================= */
+
+:root {
+  --stream-max: 1240px;
+  --stream-gutter: clamp(24px, 4vw, 56px);
+  --stream-gap: clamp(40px, 5.5vw, 82px);
+}
+
+/* ---------- GENEL AKIŞ ---------- */
+
+.story-stream {
+  width: 100% !important;
+  margin: 0 !important;
+}
+
+.story-scene,
+.scene-hero,
+.scene-split,
+.scene-portrait {
+  position: relative !important;
+  width: min(var(--stream-max), calc(100% - (var(--stream-gutter) * 2))) !important;
+  min-height: auto !important;
+  margin: 0 auto !important;
+  padding: clamp(40px, 5.5vh, 68px) 0 !important;
+  display: grid !important;
+  align-items: center !important;
+  column-gap: var(--stream-gap) !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.story-scene::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  height: 1px !important;
+  background: rgba(38,52,45,.05) !important;
+}
+
+/* büyük sahne numarası yok */
+.scene-index {
+  display: none !important;
+}
+
+/* ---------- GÖRSEL ---------- */
+
+.scene-media {
+  position: relative !important;
+  display: block !important;
+  overflow: hidden !important;
+  margin: 0 !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+.scene-media::after {
+  content: "" !important;
+  position: absolute !important;
+  inset: 0 !important;
+  pointer-events: none !important;
+  box-shadow: inset 0 0 0 1px rgba(42,37,32,.04) !important;
+}
+
+.scene-media img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transform: translate3d(0, var(--parallax-y, 0px), 0) scale(1.006) !important;
+  transition:
+    transform 1.05s cubic-bezier(.22,1,.36,1),
+    filter .55s ease !important;
+}
+
+.story-scene:hover .scene-media img {
+  transform: translate3d(0, var(--parallax-y, 0px), 0) scale(1.014) !important;
+}
+
+/* ---------- METİN ---------- */
+
+.scene-copy {
+  position: static !important;
+  width: auto !important;
+  max-width: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  color: var(--ink) !important;
+}
+
+.scene-meta {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 7px !important;
+  margin: 0 0 11px !important;
+  color: rgba(151,86,76,.80) !important;
+  font-size: .56rem !important;
+  letter-spacing: .07em !important;
+}
+
+.scene-copy h2,
+.scene-copy h2 a {
+  color: var(--ink) !important;
+  text-shadow: none !important;
+}
+
+.scene-copy h2 {
+  margin: 0 !important;
+  max-width: 10.5ch !important;
+  font-size: clamp(3.35rem, 5.5vw, 6.8rem) !important;
+  line-height: .96 !important;
+  letter-spacing: -.066em !important;
+  text-wrap: balance !important;
+}
+
+.scene-copy h2.title-medium {
+  max-width: 11ch !important;
+  font-size: clamp(3.05rem, 5vw, 6.1rem) !important;
+}
+
+.scene-copy h2.title-long {
+  max-width: 12ch !important;
+  font-size: clamp(2.7rem, 4.4vw, 5.45rem) !important;
+  line-height: .98 !important;
+}
+
+.scene-copy > p {
+  margin: 15px 0 0 !important;
+  max-width: 31ch !important;
+  color: #665e55 !important;
+  font-size: clamp(.91rem, 1vw, 1rem) !important;
+  line-height: 1.62 !important;
+}
+
+.read-link {
+  margin-top: 18px !important;
+}
+
+/* ---------- 1. HERO ---------- */
+
+.scene-hero {
+  grid-template-columns: 1fr !important;
+  row-gap: 0 !important;
+  padding-top: clamp(30px, 4vh, 50px) !important;
+}
+
+.scene-hero .scene-media {
+  width: 100% !important;
+  height: min(70svh, 740px) !important;
+}
+
+.scene-hero .scene-copy {
+  width: 100% !important;
+  padding-top: 21px !important;
+  display: grid !important;
+  grid-template-columns: minmax(0, 1.28fr) minmax(260px, .72fr) !important;
+  column-gap: 52px !important;
+  align-items: end !important;
+}
+
+.scene-hero .scene-meta,
+.scene-hero .scene-copy h2 {
+  grid-column: 1 !important;
+}
+
+.scene-hero .scene-copy > p {
+  grid-column: 2 !important;
+  grid-row: 1 / span 2 !important;
+  align-self: end !important;
+}
+
+.scene-hero .read-link {
+  grid-column: 2 !important;
+}
+
+/* ---------- 2. SPLIT ---------- */
+
+.scene-split {
+  grid-template-columns: minmax(0, 1.08fr) minmax(340px, .92fr) !important;
+}
+
+.scene-split .scene-media {
+  order: 1 !important;
+  height: min(66svh, 660px) !important;
+}
+
+.scene-split .scene-copy {
+  order: 2 !important;
+  align-self: center !important;
+}
+
+.scene-split .scene-copy h2 {
+  max-width: 10ch !important;
+}
+
+/* sadece bazı split'leri ters çevir; ritim var ama dağınıklık yok */
+.scene-split.is-reversed {
+  grid-template-columns: minmax(340px, .92fr) minmax(0, 1.08fr) !important;
+}
+
+.scene-split.is-reversed .scene-copy {
+  order: 1 !important;
+}
+
+.scene-split.is-reversed .scene-media {
+  order: 2 !important;
+}
+
+/* ---------- 3. PORTRAIT ---------- */
+
+.scene-portrait {
+  grid-template-columns: minmax(250px, .70fr) minmax(0, 1.30fr) !important;
+  width: min(1100px, calc(100% - (var(--stream-gutter) * 2))) !important;
+}
+
+.scene-portrait .scene-media {
+  width: min(100%, 455px) !important;
+  height: min(72svh, 740px) !important;
+  justify-self: end !important;
+}
+
+.scene-portrait .scene-copy {
+  align-self: center !important;
+}
+
+.scene-portrait .scene-copy h2 {
+  max-width: 8.8ch !important;
+  font-size: clamp(3.55rem, 5.85vw, 7.1rem) !important;
+}
+
+/* ---------- ÜST ARAÇLAR ---------- */
+
+.archive-tools {
+  width: min(var(--stream-max), calc(100% - (var(--stream-gutter) * 2))) !important;
+  margin: 0 auto !important;
+  padding: 8px 0 !important;
+  background: rgba(238,227,210,.50) !important;
+  border-top: 0 !important;
+  border-bottom: 1px solid rgba(38,52,45,.04) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+}
+
+.scene-counter {
+  opacity: .42 !important;
+}
+
+/* ---------- ANİMASYON: DAHA SESSİZ ---------- */
+
+.story-scene {
+  transform: translateY(12px) !important;
+  transition:
+    opacity .72s cubic-bezier(.22,1,.36,1),
+    transform .78s cubic-bezier(.22,1,.36,1) !important;
+}
+
+.story-scene.is-revealed {
+  transform: translateY(0) !important;
+}
+
+.scene-copy .scene-meta,
+.scene-copy h2,
+.scene-copy > p,
+.scene-copy .read-link {
+  transform: translateY(8px) !important;
+  transition-timing-function: cubic-bezier(.22,1,.36,1) !important;
+}
+
+.story-scene.is-revealed .scene-copy .scene-meta,
+.story-scene.is-revealed .scene-copy h2,
+.story-scene.is-revealed .scene-copy > p,
+.story-scene.is-revealed .scene-copy .read-link {
+  transform: translateY(0) !important;
+}
+
+/* =========================================================
+   MOBİL — TEK SÜREKLİ EDİTORYAL AKIŞ
+   kart yok / çerçeve yok / gölge yok
+   ========================================================= */
+
+@media (max-width: 760px) {
+
+  body {
+    overflow-x: hidden !important;
+  }
+
+  .site-header {
+    width: calc(100% - 26px) !important;
+    padding: 13px 0 7px !important;
+  }
+
+  .brand {
+    font-size: 1.32rem !important;
+  }
+
+  .main-nav {
+    gap: 14px !important;
+    font-size: .55rem !important;
+  }
+
+  .archive-tools {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 30 !important;
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 8px 14px !important;
+    border: 0 !important;
+    border-bottom: 1px solid rgba(38,52,45,.035) !important;
+    background: rgba(238,227,210,.90) !important;
+  }
+
+  .scene-counter {
+    display: none !important;
+  }
+
+  .story-scene,
+  .scene-hero,
+  .scene-split,
+  .scene-split.is-reversed,
+  .scene-portrait {
+    display: flex !important;
+    flex-direction: column !important;
+    width: 100% !important;
+    min-height: auto !important;
+    margin: 0 !important;
+    padding: 0 0 52px !important;
+    gap: 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .story-scene::after {
+    left: 16px !important;
+    right: 16px !important;
+    bottom: 0 !important;
+    background: rgba(38,52,45,.045) !important;
+  }
+
+  .scene-hero .scene-media,
+  .scene-split .scene-media,
+  .scene-split.is-reversed .scene-media,
+  .scene-portrait .scene-media {
+    order: 1 !important;
+    width: 100vw !important;
+    max-width: none !important;
+    height: 62svh !important;
+    max-height: 680px !important;
+    margin: 0 calc(50% - 50vw) !important;
+    justify-self: auto !important;
+    border: 0 !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .scene-portrait .scene-media {
+    height: 68svh !important;
+  }
+
+  .scene-media::after {
+    box-shadow: inset 0 0 0 1px rgba(42,37,32,.025) !important;
+  }
+
+  .scene-copy,
+  .scene-hero .scene-copy,
+  .scene-split .scene-copy,
+  .scene-split.is-reversed .scene-copy,
+  .scene-portrait .scene-copy {
+    order: 2 !important;
+    display: block !important;
+    position: static !important;
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 15px 18px 0 !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    color: var(--ink) !important;
+  }
+
+  .scene-copy h2,
+  .scene-copy h2.title-short,
+  .scene-copy h2.title-medium,
+  .scene-copy h2.title-long,
+  .scene-portrait .scene-copy h2 {
+    margin: 0 !important;
+    max-width: 11ch !important;
+    font-size: clamp(2.48rem, 12.2vw, 4rem) !important;
+    line-height: .98 !important;
+    letter-spacing: -.062em !important;
+  }
+
+  .scene-copy h2.title-long {
+    max-width: 11.8ch !important;
+    font-size: clamp(2.22rem, 10.9vw, 3.58rem) !important;
+  }
+
+  .scene-meta {
+    margin: 0 0 9px !important;
+    font-size: .54rem !important;
+  }
+
+  .scene-copy > p,
+  .scene-hero .scene-copy > p {
+    margin-top: 11px !important;
+    max-width: 31ch !important;
+    font-size: .92rem !important;
+    line-height: 1.58 !important;
+  }
+
+  .read-link,
+  .scene-hero .read-link {
+    margin-top: 15px !important;
+  }
+
+  /* mobilde parallax yok */
+  .scene-media img,
+  .story-scene:hover .scene-media img {
+    transform: scale(1.004) !important;
+  }
+
+  .load-more-wrap {
+    width: calc(100% - 32px) !important;
+    margin: 36px auto 26px !important;
+  }
+
+  .load-more {
+    width: 100% !important;
+    padding: 15px 20px !important;
+    border: 0 !important;
+    border-top: 1px solid rgba(32,53,47,.10) !important;
+    border-bottom: 1px solid rgba(32,53,47,.10) !important;
+    border-radius: 0 !important;
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .story-scene,
+  .scene-media,
+  .scene-media img,
+  .scene-copy,
+  .scene-copy .scene-meta,
+  .scene-copy h2,
+  .scene-copy > p,
+  .scene-copy .read-link {
+    transition: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
+/* =========================================================
+   v12 — continuous editorial stream sonu
+   ========================================================= */
+

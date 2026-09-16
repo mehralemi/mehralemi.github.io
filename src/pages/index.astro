@@ -13,13 +13,12 @@ const formatDate = (date: Date) =>
   }).format(date).toLocaleLowerCase('tr-TR');
 
 const sceneClass = (index: number) => {
-  // V9: yalnızca üç ana masaüstü kompozisyonu. Her 6. içerik büyük hero
-  // ile ritmi sıfırlar; aradaki içerikler iki sütun ve portre düzenleri arasında
-  // sakin biçimde dönüşümlü ilerler. Mobilde bunların tamamı tek akışa iner.
+  // V12: tek grid üzerinde yalnızca üç düzen.
+  // Her altıncı içerik hero olarak ritmi yeniden başlatır.
   if (index % 6 === 0) return 'scene-hero';
 
   const remainder = index % 6;
-  if (remainder === 2 || remainder === 4) return 'scene-portrait';
+  if (remainder === 2 || remainder === 5) return 'scene-portrait';
   return remainder === 3 ? 'scene-split is-reversed' : 'scene-split';
 };
 
@@ -70,6 +69,8 @@ const titleClass = (title: string) => {
             <span>{entry.data.type}</span>
             <span>·</span>
             <time datetime={entry.data.date.toISOString()}>{formatDate(entry.data.date)}</time>
+            <span>·</span>
+            <span>{String(index + 1).padStart(2, '0')}</span>
           </div>
 
           <h2 class={titleClass(entry.data.title)}>
