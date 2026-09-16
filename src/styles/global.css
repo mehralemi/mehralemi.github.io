@@ -1217,3 +1217,218 @@ button:focus-visible {
    v16 — sonu
    ========================================================= */
 
+/* =========================================================
+   v17 — scroll color + proportional copy + stable load-more
+   ========================================================= */
+
+/* Yeni içerik eklenirken Chrome'un scroll anchoring ile
+   görünümü zıplatmasını engelle. */
+.story-stream,
+.story-scene,
+.load-more-wrap {
+  overflow-anchor: none !important;
+}
+
+/* ---------- METİN BLOĞU: gerçek içerik yüksekliğine göre ---------- */
+
+/* Önceki sürümdeki sabit 6 satırlık min-height kısa özetlerde
+   CTA'yı gereksiz yere aşağı itiyordu. Artık 6 satır yalnızca üst sınır. */
+.scene-summary {
+  min-height: 0 !important;
+  height: auto !important;
+  max-height: calc(1.62em * 6) !important;
+  margin: 0 !important;
+  overflow: hidden !important;
+  display: -webkit-box !important;
+  -webkit-box-orient: vertical !important;
+  -webkit-line-clamp: 6 !important;
+  line-clamp: 6 !important;
+}
+
+/* TÜR + BAŞLIK + ÖZET + CTA tek bir kompakt grup.
+   Grup, yanındaki görselin ortasına oturur. */
+.scene-copy,
+.scene-hero .scene-copy,
+.scene-split .scene-copy,
+.scene-portrait .scene-copy {
+  align-self: center !important;
+  justify-self: stretch !important;
+  justify-content: center !important;
+  gap: clamp(15px, 1.45vw, 19px) !important;
+  min-height: 0 !important;
+}
+
+.scene-meta,
+.scene-copy h2,
+.scene-summary,
+.read-link {
+  margin: 0 !important;
+}
+
+/* İçerikler arası nefes daha dengeli; kısa özetlerde dev boşluk oluşmaz. */
+.story-scene {
+  padding-top: clamp(54px, 7vh, 82px) !important;
+  padding-bottom: clamp(54px, 7vh, 82px) !important;
+}
+
+/* ---------- GÖRSEL: sadece siyah-beyaz -> renk ---------- */
+
+/* İlk yüklemede kesin olarak siyah-beyaz. */
+.scene-media img {
+  filter: grayscale(1) saturate(0) contrast(1.045) brightness(.965) !important;
+  transform: scale(1.008) !important;
+  transition:
+    filter 1.75s cubic-bezier(.22, 1, .36, 1),
+    transform 1.05s var(--ease-out) !important;
+}
+
+/* Kullanıcı kaydırdığında JS sadece görsele bu sınıfı kazandırır. */
+.story-scene.is-colorized .scene-media img {
+  filter: grayscale(0) saturate(.97) contrast(1.01) brightness(1) !important;
+}
+
+/* Görsel kutusu hover'da YER DEĞİŞTİRMEZ. */
+.scene-media,
+.story-scene.is-colorized:hover .scene-media {
+  transform: none !important;
+  transition:
+    box-shadow .46s ease,
+    border-color .46s ease !important;
+}
+
+/* Hover'da yalnızca içerideki fotoğraf çok hafif büyür;
+   kutu yukarı zıplamaz. */
+.story-scene.is-colorized:hover .scene-media img {
+  transform: scale(1.022) !important;
+  filter: grayscale(0) saturate(1.045) contrast(1.025) brightness(1.012) !important;
+}
+
+.story-scene.is-colorized:hover .scene-media {
+  box-shadow:
+    0 24px 54px rgba(59, 45, 34, .145),
+    0 5px 15px rgba(59, 45, 34, .075) !important;
+}
+
+/* ---------- CTA: daha belirgin hover, ama zıplama yok ---------- */
+
+.read-link {
+  transform: scale(1) !important;
+  transition:
+    transform .28s var(--ease-out),
+    filter .28s ease,
+    box-shadow .32s ease,
+    border-color .28s ease !important;
+}
+
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  transform: scale(1.045) !important;
+  background: var(--poem) !important;
+  border-color: var(--poem) !important;
+  filter: brightness(.84) saturate(1.16) !important;
+  box-shadow:
+    0 0 0 3px rgba(155, 90, 76, .14),
+    0 14px 32px rgba(125, 64, 54, .25) !important;
+}
+
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  transform: scale(1.045) !important;
+  background: var(--prose) !important;
+  border-color: var(--prose) !important;
+  filter: brightness(.82) saturate(1.15) !important;
+  box-shadow:
+    0 0 0 3px rgba(79, 113, 102, .14),
+    0 14px 32px rgba(54, 91, 80, .25) !important;
+}
+
+.read-link:hover .cta-arrow,
+.read-link:focus-visible .cta-arrow {
+  transform: translateX(7px) !important;
+}
+
+/* ---------- LOAD MORE: stabil ve sakin ---------- */
+
+.load-more-wrap {
+  margin-top: 44px !important;
+}
+
+.load-more {
+  transform: none !important;
+}
+
+.load-more:hover,
+.load-more:focus-visible {
+  transform: none !important;
+  background: rgba(120, 101, 89, .11) !important;
+  border-color: rgba(120, 101, 89, .48) !important;
+  color: var(--ink) !important;
+}
+
+/* Yeni açılan içerikler viewport'a geldikçe yumuşakça belirir.
+   Daha önce görünen içerikler yeniden animasyona girmez. */
+.story-scene {
+  transition:
+    opacity .88s var(--ease-out),
+    transform .92s var(--ease-out) !important;
+}
+
+/* ---------- MOBİL ---------- */
+
+@media (max-width: 760px) {
+  .story-scene,
+  .scene-hero,
+  .scene-split,
+  .scene-split.is-reversed,
+  .scene-portrait {
+    padding-top: 48px !important;
+    padding-bottom: 58px !important;
+  }
+
+  .scene-copy,
+  .scene-hero .scene-copy,
+  .scene-split .scene-copy,
+  .scene-split.is-reversed .scene-copy,
+  .scene-portrait .scene-copy {
+    gap: 15px !important;
+  }
+
+  .scene-summary {
+    min-height: 0 !important;
+    max-height: calc(1.58em * 6) !important;
+  }
+
+  .read-link:hover,
+  .read-link:focus-visible {
+    transform: scale(1.025) !important;
+  }
+
+  .scene-media,
+  .story-scene.is-colorized:hover .scene-media {
+    transform: none !important;
+  }
+
+  .scene-media img,
+  .story-scene.is-colorized:hover .scene-media img {
+    transform: scale(1.004) !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-media img {
+    filter: none !important;
+  }
+
+  .read-link,
+  .read-link:hover,
+  .read-link:focus-visible,
+  .scene-media,
+  .story-scene.is-colorized:hover .scene-media {
+    transform: none !important;
+  }
+}
+
+/* =========================================================
+   v17 — sonu
+   ========================================================= */
+

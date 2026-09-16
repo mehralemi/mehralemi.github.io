@@ -129,11 +129,15 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
     const scenes = Array.from(document.querySelectorAll('.story-scene'));
     const filters = Array.from(document.querySelectorAll('.filter'));
     const loadMore = document.querySelector('.load-more');
+    const archiveTools = document.querySelector('.archive-tools');
+
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     let activeFilter = 'all';
     let limit = 6;
-    let sceneObserver;
+    let revealObserver;
+    let hasUserScrolled = false;
+    let colorTicking = false;
 
     function matchesFilter(scene) {
       return activeFilter === 'all' || scene.dataset.kind === activeFilter;
@@ -147,44 +151,94 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
       return matchingScenes().filter((scene) => !scene.hidden);
     }
 
-    function setupSceneObserver() {
-      sceneObserver?.disconnect();
+    function updateLoadMore() {
+      if (!loadMore) return;
+      loadMore.hidden = visibleScenes().length >= matchingScenes().length;
+    }
 
-      const visible = visibleScenes();
+    function setupRevealObserver() {
+      revealObserver?.disconnect();
+
+      const candidates = visibleScenes().filter(
+        (scene) => !scene.classList.contains('is-revealed')
+      );
 
       if (reduceMotion) {
-        visible.forEach((scene) => {
+        candidates.forEach((scene) => {
           scene.classList.add('is-revealed', 'is-colorized');
         });
         return;
       }
 
-      sceneObserver = new IntersectionObserver(
+      revealObserver = new IntersectionObserver(
         (entries) => {
           entries.forEach((entry) => {
             if (!entry.isIntersecting) return;
 
-            const scene = entry.target;
-            scene.classList.add('is-revealed');
-
-            window.setTimeout(() => {
-              scene.classList.add('is-colorized');
-            }, 140);
-
-            sceneObserver?.unobserve(scene);
+            entry.target.classList.add('is-revealed');
+            revealObserver?.unobserve(entry.target);
           });
         },
         {
-          threshold: 0.22,
-          rootMargin: '0px 0px -8% 0px',
+          threshold: 0.14,
+          rootMargin: '0px 0px -7% 0px',
         }
       );
 
-      visible.forEach((scene) => sceneObserver.observe(scene));
+      candidates.forEach((scene) => revealObserver.observe(scene));
     }
 
-    function renderArchive({ scrollTop = false } = {}) {
+    function colorizeOnScroll() {
+      colorTicking = false;
+
+      if (!hasUserScrolled || reduceMotion) return;
+
+      const viewportHeight = window.innerHeight;
+
+      visibleScenes().forEach((scene) => {
+        if (scene.classList.contains('is-colorized')) return;
+
+        const media = scene.querySelector('.scene-media');
+        if (!media) return;
+
+        const rect = media.getBoundingClientRect();
+        const center = rect.top + rect.height / 2;
+
+        // Görsel ancak kullanıcı gerçekten kaydırdığında ve ekranın
+        // aktif okuma bandına girdiğinde renge dönüşür.
+        const enteredReadingBand =
+          center <= viewportHeight * 0.78 &&
+          rect.bottom >= viewportHeight * 0.12;
+
+        if (enteredReadingBand) {
+          scene.classList.add('is-colorized');
+        }
+      });
+    }
+
+    function requestColorUpdate() {
+      if (colorTicking) return;
+      colorTicking = true;
+      requestAnimationFrame(colorizeOnScroll);
+    }
+
+    function forceStableScrollPosition(savedY, callback) {
+      const root = document.documentElement;
+      const previousBehavior = root.style.scrollBehavior;
+
+      root.style.scrollBehavior = 'auto';
+      window.scrollTo(0, savedY);
+
+      requestAnimationFrame(() => {
+        window.scrollTo(0, savedY);
+        root.style.scrollBehavior = previousBehavior;
+        callback?.();
+      });
+    }
+
+    function renderFilter() {
       const matches = matchingScenes();
+      limit = 6;
 
       scenes.forEach((scene) => {
         scene.hidden = true;
@@ -195,25 +249,50 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
         scene.hidden = false;
       });
 
-      if (loadMore) {
-        loadMore.hidden = matches.length <= limit;
-      }
+      updateLoadMore();
+      setupRevealObserver();
 
-      setupSceneObserver();
-
-      if (scrollTop) {
-        const top = document.querySelector('.archive-tools')?.getBoundingClientRect().top ?? 0;
+      // Filtre değişiminde arşivin üstüne kontrollü dön.
+      if (archiveTools) {
+        const y = window.scrollY + archiveTools.getBoundingClientRect().top;
         window.scrollTo({
-          top: Math.max(0, window.scrollY + top - 8),
+          top: Math.max(0, y),
           behavior: reduceMotion ? 'auto' : 'smooth',
         });
       }
     }
 
+    function showNextBatch() {
+      const matches = matchingScenes();
+      const currentCount = visibleScenes().length;
+      const nextBatch = matches.slice(currentCount, currentCount + 6);
+
+      if (!nextBatch.length) {
+        updateLoadMore();
+        return;
+      }
+
+      // Tarayıcının "scroll anchoring" davranışının sayfayı
+      // load-more butonuna doğru sıçratmasını engelle.
+      const savedY = window.scrollY;
+
+      nextBatch.forEach((scene) => {
+        scene.hidden = false;
+        scene.classList.remove('is-revealed', 'is-colorized');
+      });
+
+      limit = currentCount + nextBatch.length;
+      updateLoadMore();
+
+      forceStableScrollPosition(savedY, () => {
+        setupRevealObserver();
+        requestColorUpdate();
+      });
+    }
+
     filters.forEach((button) => {
       button.addEventListener('click', () => {
         activeFilter = button.dataset.filter || 'all';
-        limit = 6;
 
         filters.forEach((item) => {
           const active = item === button;
@@ -221,15 +300,29 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
           item.setAttribute('aria-pressed', String(active));
         });
 
-        renderArchive({ scrollTop: true });
+        renderFilter();
       });
     });
 
-    loadMore?.addEventListener('click', () => {
-      limit += 6;
-      renderArchive();
+    loadMore?.addEventListener('click', showNextBatch);
+
+    window.addEventListener(
+      'scroll',
+      () => {
+        hasUserScrolled = true;
+        requestColorUpdate();
+      },
+      { passive: true }
+    );
+
+    window.addEventListener('resize', requestColorUpdate);
+
+    // İlk 6 içerik görünür; ilk yüklemede görseller siyah-beyaz kalır.
+    scenes.forEach((scene, index) => {
+      scene.hidden = index >= limit;
     });
 
-    renderArchive();
+    updateLoadMore();
+    setupRevealObserver();
   </script>
 </BaseLayout>
