@@ -70,20 +70,16 @@ const sceneClass = (index: number) => {
 
 const presentationClass = (index: number) => {
   const sequence = [
-    'presentation-mat',
-    'presentation-bare',
-    'presentation-print',
-    'presentation-line',
-    'presentation-soft',
+    'presentation-full',
+    'presentation-inset',
+    'presentation-window',
+    'presentation-band',
+    'presentation-detail',
   ];
 
   return sequence[index % sequence.length];
 };
 
-const roomClass = (index: number) => {
-  const room = Math.floor(index / 5) % 3;
-  return ['room-stone', 'room-clay', 'room-sage'][room];
-};
 
 const titleClass = (title: string) => {
   if (title.length >= 28) return 'title-long';
@@ -111,7 +107,7 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
   <section class="story-stream" aria-live="polite">
     {entriesWithSummary.map(({ entry, summary }, index) => (
       <article
-        class={`story-scene ${sceneClass(index)} ${presentationClass(index)} ${roomClass(index)}`}
+        class={`story-scene ${sceneClass(index)} ${presentationClass(index)}`}
         data-kind={kindFor(entry.data.type)}
         data-index={index}
       >
@@ -132,7 +128,7 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
 
         <div class="scene-copy">
           <button
-            class="type-tag gallery-label"
+            class="type-tag"
             type="button"
             data-type-filter={kindFor(entry.data.type)}
             aria-label={`${entry.data.type} yazılarını göster`}
@@ -147,8 +143,8 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
           <p class="scene-summary">{summary}</p>
 
           <a class="read-link" href={`/yazilar/${entry.id}/`}>
-            <span>metni aç</span>
-            <span class="cta-arrow" aria-hidden="true">↗</span>
+            <span>metni oku</span>
+            <span class="cta-arrow" aria-hidden="true">→</span>
           </a>
         </div>
       </article>
@@ -156,7 +152,7 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
   </section>
 
   <div class="load-more-wrap">
-    <button class="load-more" type="button"><span>sonraki seçki</span><span aria-hidden="true">↓</span></button>
+    <button class="load-more" type="button">daha fazlasını gör</button>
   </div>
 
   <script is:inline>
