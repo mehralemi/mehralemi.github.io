@@ -4334,3 +4334,230 @@ button:focus-visible {
 /* =========================================================
    V38 — son
    ========================================================= */
+
+/* =========================================================
+   V39 — krem galeri + mobil sabit oran + stacked eser yüzeyi
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   1) GENEL ZEMİN — DAHA SICAK KREM
+   --------------------------------------------------------- */
+
+:root {
+  --gallery-cream-1: #f4eadb;
+  --gallery-cream-2: #efe1cf;
+  --gallery-cream-3: #ead9c4;
+}
+
+body,
+.archive-page,
+main {
+  background:
+    linear-gradient(
+      180deg,
+      var(--gallery-cream-1) 0%,
+      var(--gallery-cream-2) 58%,
+      var(--gallery-cream-3) 100%
+    ) !important;
+}
+
+.story-stream {
+  background:
+    radial-gradient(
+      circle at 14% 14%,
+      rgba(155, 90, 76, .055) 0%,
+      rgba(155, 90, 76, .018) 28%,
+      rgba(155, 90, 76, 0) 50%
+    ),
+    radial-gradient(
+      circle at 88% 28%,
+      rgba(79, 113, 102, .055) 0%,
+      rgba(79, 113, 102, .018) 28%,
+      rgba(79, 113, 102, 0) 52%
+    ),
+    linear-gradient(
+      150deg,
+      #f2e6d5 0%,
+      #eddfcc 50%,
+      #ead9c4 100%
+    ) !important;
+}
+
+/* ---------------------------------------------------------
+   2) GÖRSEL HOVER EFEKTİNİ TAMAMEN KALDIR
+   --------------------------------------------------------- */
+
+.scene-media,
+.scene-media:hover,
+.story-scene:hover .scene-media,
+.story-scene.is-revealed .scene-media {
+  transform: none !important;
+  scale: 1 !important;
+  transition:
+    opacity .78s var(--ease-out),
+    clip-path 1.02s var(--ease-out) !important;
+}
+
+/* hover'da gölge değişmesin */
+.scene-media:hover,
+.story-scene:hover .scene-media {
+  box-shadow:
+    0 8px 18px rgba(35, 28, 22, .075),
+    0 24px 46px rgba(35, 28, 22, .105),
+    0 50px 92px rgba(35, 28, 22, .075) !important;
+}
+
+/* Görsel hover renk/filtre davranışı yok */
+.scene-media:hover img,
+.story-scene:hover .scene-media img {
+  transform: none !important;
+}
+
+/* ---------------------------------------------------------
+   3) MOBİL — TÜM GÖRSELLER AYNI SABİT ASPECT RATIO
+   --------------------------------------------------------- */
+
+@media (max-width: 760px) {
+
+  :root {
+    --mobile-gallery: calc(100vw - 30px);
+    --mobile-media-ratio: 4 / 5;
+  }
+
+  .story-stream .scene-landscape-left .scene-media,
+  .story-stream .scene-landscape-right .scene-media,
+  .story-stream .scene-portrait-left .scene-media,
+  .story-stream .scene-portrait-right .scene-media,
+  .story-stream .scene-square-left .scene-media,
+  .story-stream .scene-square-right .scene-media {
+    position: relative !important;
+    width: var(--mobile-gallery) !important;
+    max-width: 560px !important;
+    aspect-ratio: var(--mobile-media-ratio) !important;
+    overflow: visible !important;
+    border-radius: 14px !important;
+    isolation: isolate !important;
+
+    box-shadow:
+      0 8px 18px rgba(35, 28, 22, .075),
+      0 24px 46px rgba(35, 28, 22, .105),
+      0 50px 92px rgba(35, 28, 22, .075) !important;
+  }
+
+  /* İç görsel bütün sahnelerde aynı biçimde kırpılır */
+  .story-stream .scene-media picture,
+  .story-stream .scene-media img {
+    width: 100% !important;
+    height: 100% !important;
+    border-radius: 14px !important;
+  }
+
+  .story-stream .scene-media img {
+    object-fit: cover !important;
+    object-position: center center !important;
+  }
+
+  /* -------------------------------------------------------
+     4) STACKED / YIĞILMIŞ ESER EFEKTİ
+     Aynı görselin arkasında iki ince taşıyıcı tabaka.
+     Kart hissi değil; fiziksel baskı/sergi yüzeyi hissi.
+     ------------------------------------------------------- */
+
+  .story-stream .scene-media::before {
+    content: "" !important;
+    position: absolute !important;
+    z-index: -2 !important;
+    inset: 10px -8px -10px 8px !important;
+    height: auto !important;
+    border-radius: 14px !important;
+    background:
+      linear-gradient(
+        155deg,
+        rgba(226, 211, 193, .96),
+        rgba(202, 183, 162, .90)
+      ) !important;
+    border: 1px solid rgba(84, 66, 51, .10) !important;
+    filter: none !important;
+    opacity: 1 !important;
+    box-shadow:
+      0 10px 24px rgba(38, 29, 23, .08),
+      0 28px 58px rgba(38, 29, 23, .09) !important;
+    pointer-events: none !important;
+  }
+
+  .story-stream .scene-media::after {
+    content: "" !important;
+    position: absolute !important;
+    z-index: -3 !important;
+    inset: 18px -15px -18px 15px !important;
+    border-radius: 14px !important;
+    background:
+      linear-gradient(
+        155deg,
+        rgba(211, 194, 174, .84),
+        rgba(185, 165, 145, .76)
+      ) !important;
+    border: 1px solid rgba(84, 66, 51, .07) !important;
+    box-shadow:
+      0 12px 28px rgba(38, 29, 23, .07),
+      0 34px 70px rgba(38, 29, 23, .08) !important;
+    pointer-events: none !important;
+  }
+
+  /* Gerçek görsel ön yüzey */
+  .story-stream .scene-media picture {
+    position: relative !important;
+    z-index: 2 !important;
+    overflow: hidden !important;
+    background: #d6c4ad !important;
+    box-shadow:
+      inset 0 1px 0 rgba(255,255,255,.16),
+      inset 0 -1px 0 rgba(54,42,33,.08) !important;
+  }
+
+  /* stacked yüzey ile metin arasında nefes */
+  .story-stream .scene-copy,
+  .story-stream .scene-landscape-left .scene-copy,
+  .story-stream .scene-landscape-right .scene-copy,
+  .story-stream .scene-portrait-left .scene-copy,
+  .story-stream .scene-portrait-right .scene-copy,
+  .story-stream .scene-square-left .scene-copy,
+  .story-stream .scene-square-right .scene-copy {
+    margin-top: 30px !important;
+  }
+
+  /* sahneler arası nefes */
+  .story-stream .story-scene,
+  .story-stream .scene-landscape-left,
+  .story-stream .scene-landscape-right,
+  .story-stream .scene-portrait-left,
+  .story-stream .scene-portrait-right,
+  .story-stream .scene-square-left,
+  .story-stream .scene-square-right {
+    padding-top: 46px !important;
+    padding-bottom: 72px !important;
+  }
+
+  .story-stream .story-scene:first-child {
+    padding-top: 28px !important;
+  }
+}
+
+/* Dar telefonda stacked efekti biraz sıkıştır */
+@media (max-width: 390px) {
+  :root {
+    --mobile-gallery: calc(100vw - 24px);
+  }
+
+  .story-stream .scene-media::before {
+    inset: 8px -6px -8px 6px !important;
+  }
+
+  .story-stream .scene-media::after {
+    inset: 14px -11px -14px 11px !important;
+  }
+}
+
+/* =========================================================
+   V39 — son
+   ========================================================= */
