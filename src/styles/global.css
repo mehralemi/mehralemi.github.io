@@ -1561,3 +1561,136 @@ button:focus-visible {
 /* =========================================================
    V29 — SON
    ========================================================= */
+
+/* =========================================================
+   V30 — görsel alanlara daha fazla derinlik / gerçeklik
+   Sadece eser yüzeyleri güçlendirilir; layout korunur.
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   ORTAK ESER YÜZEYİ — DAHA DERİN, DAHA MODERN
+   --------------------------------------------------------- */
+
+.scene-media {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(180deg, #dfd3c4 0%, #d7c8b7 100%) !important;
+  border: 1px solid rgba(91, 73, 59, 0.10) !important;
+  outline: 1px solid rgba(255, 255, 255, 0.18) !important;
+  outline-offset: -1px !important;
+  box-shadow:
+    0 2px 6px rgba(35, 28, 22, 0.05),
+    0 12px 24px rgba(35, 28, 22, 0.08),
+    0 26px 54px rgba(35, 28, 22, 0.11),
+    0 46px 90px rgba(35, 28, 22, 0.08) !important;
+  transition:
+    box-shadow .32s ease,
+    transform .32s ease,
+    border-color .28s ease,
+    background .28s ease !important;
+}
+
+/* Çerçevenin üstünde hafif cam/parlama katmanı */
+.scene-media::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.22) 0%,
+      rgba(255, 255, 255, 0.10) 14%,
+      rgba(255, 255, 255, 0.00) 32%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.04) 0%,
+      rgba(255, 255, 255, 0.00) 22%,
+      rgba(0, 0, 0, 0.03) 100%
+    ) !important;
+  opacity: .95 !important;
+}
+
+/* İç çerçeve + alt kenarda çok hafif derinleşme */
+.scene-media::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+  border-radius: inherit;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.20),
+    inset 0 -1px 0 rgba(60, 45, 34, 0.08),
+    inset 0 -30px 55px rgba(24, 20, 17, 0.03),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Görselin kendisi hafif daha canlı, daha "basılmış" hissetsin */
+.scene-media picture,
+.scene-media img {
+  position: relative;
+  z-index: 1;
+}
+
+.scene-media img {
+  transform: translateZ(0);
+  filter: saturate(1.03) contrast(1.02);
+}
+
+/* Desktop hover: çok hafif yükselme ve gölgenin açılması */
+@media (hover: hover) and (pointer: fine) {
+  .story-scene:hover .scene-media,
+  .scene-media:hover {
+    transform: translateY(-3px) !important;
+    border-color: rgba(91, 73, 59, 0.14) !important;
+    box-shadow:
+      0 3px 8px rgba(35, 28, 22, 0.06),
+      0 16px 32px rgba(35, 28, 22, 0.09),
+      0 34px 68px rgba(35, 28, 22, 0.13),
+      0 60px 110px rgba(35, 28, 22, 0.10) !important;
+  }
+}
+
+/* Reveal sonrası gölge hafifçe "açılmış" dursun */
+.story-scene.is-revealed .scene-media {
+  box-shadow:
+    0 2px 6px rgba(35, 28, 22, 0.05),
+    0 14px 28px rgba(35, 28, 22, 0.09),
+    0 30px 60px rgba(35, 28, 22, 0.12),
+    0 54px 96px rgba(35, 28, 22, 0.08) !important;
+}
+
+/* Mobilde hareket az, derinlik korunur */
+@media (max-width: 760px) {
+  .scene-media {
+    box-shadow:
+      0 2px 6px rgba(35, 28, 22, 0.05),
+      0 10px 22px rgba(35, 28, 22, 0.08),
+      0 22px 46px rgba(35, 28, 22, 0.10),
+      0 38px 70px rgba(35, 28, 22, 0.07) !important;
+  }
+
+  .story-scene.is-revealed .scene-media {
+    box-shadow:
+      0 2px 6px rgba(35, 28, 22, 0.05),
+      0 12px 24px rgba(35, 28, 22, 0.09),
+      0 26px 52px rgba(35, 28, 22, 0.11),
+      0 42px 78px rgba(35, 28, 22, 0.08) !important;
+  }
+}
+
+/* Reduced motion uyumu */
+@media (prefers-reduced-motion: reduce) {
+  .scene-media {
+    transition: none !important;
+  }
+}
+
+/* =========================================================
+   V30 — son
+   ========================================================= */
