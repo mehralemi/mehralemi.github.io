@@ -1,4 +1,3 @@
-
 :root {
   --paper: #f1e6d5;
   --paper-light: #f8f0e5;
@@ -1023,3 +1022,206 @@ button:focus-visible {
     transform: none !important;
   }
 }
+
+/* =========================================================
+   v22 — mobile rhythm / ortak hizalama omurgası
+   Animasyon ve scroll-color sistemi değiştirilmedi.
+   ========================================================= */
+
+@media (max-width: 760px) {
+
+  :root {
+    --mobile-gutter: 18px;
+    --mobile-rail: calc(100vw - (var(--mobile-gutter) * 2));
+  }
+
+  /*
+    Her içerik aynı yatay omurgaya bağlanır.
+    Artık portre/kare görseller merkezde bağımsız "yüzmez".
+  */
+  .story-scene,
+  .scene-landscape-left,
+  .scene-landscape-right,
+  .scene-portrait-left,
+  .scene-portrait-right,
+  .scene-square-left,
+  .scene-square-right {
+    width: 100% !important;
+    margin: 0 !important;
+    padding: 44px 0 50px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 0 !important;
+    overflow: hidden !important;
+  }
+
+  .story-scene:first-child {
+    padding-top: 32px !important;
+  }
+
+  .story-scene::after {
+    left: var(--mobile-gutter) !important;
+    right: var(--mobile-gutter) !important;
+  }
+
+  /*
+    ORTAK KURAL:
+    bütün görseller aynı sol çizgiden başlar.
+    Çeşitlilik yalnızca genişlik + aspect ratio ile sağlanır.
+  */
+  .scene-landscape-left .scene-media,
+  .scene-landscape-right .scene-media,
+  .scene-portrait-left .scene-media,
+  .scene-portrait-right .scene-media,
+  .scene-square-left .scene-media,
+  .scene-square-right .scene-media {
+    order: 1 !important;
+    align-self: flex-start !important;
+    justify-self: auto !important;
+    margin-left: var(--mobile-gutter) !important;
+    margin-right: 0 !important;
+    max-width: none !important;
+    max-height: none !important;
+  }
+
+  /* yatay: ana görsel genişliği */
+  .scene-landscape-left .scene-media,
+  .scene-landscape-right .scene-media {
+    width: var(--mobile-rail) !important;
+    aspect-ratio: 16 / 10 !important;
+  }
+
+  /* kare: yataydan biraz daha dar; ama artık fazla küçülmez */
+  .scene-square-left .scene-media,
+  .scene-square-right .scene-media {
+    width: min(calc(100vw - 50px), 420px) !important;
+    aspect-ratio: 1 / 1 !important;
+  }
+
+  /* portre: belirgin biçimde portre, fakat eski sürüm kadar cılız değil */
+  .scene-portrait-left .scene-media,
+  .scene-portrait-right .scene-media {
+    width: min(calc(100vw - 68px), 365px) !important;
+    aspect-ratio: 4 / 5 !important;
+  }
+
+  /*
+    Metin grubu da aynı sol raya oturur.
+    Görsel tipi değişse bile tür-başlık-özet-CTA hizası değişmez.
+  */
+  .scene-copy,
+  .scene-landscape-left .scene-copy,
+  .scene-landscape-right .scene-copy,
+  .scene-portrait-left .scene-copy,
+  .scene-portrait-right .scene-copy,
+  .scene-square-left .scene-copy,
+  .scene-square-right .scene-copy {
+    order: 2 !important;
+    align-self: flex-start !important;
+    width: var(--mobile-rail) !important;
+    max-width: none !important;
+    margin: 0 0 0 var(--mobile-gutter) !important;
+    padding: 18px 0 0 !important;
+    gap: 14px !important;
+  }
+
+  .type-tag {
+    min-height: 28px !important;
+    padding: 6px 10px !important;
+  }
+
+  /*
+    Mobil başlık görsele baskın gelmesin.
+    Tüm içerik tiplerinde aynı tipografik ölçek.
+  */
+  .scene-copy h2,
+  .scene-copy h2.title-short,
+  .scene-copy h2.title-medium,
+  .scene-copy h2.title-long {
+    width: 100% !important;
+    max-width: 11.8ch !important;
+    margin: 0 !important;
+    font-size: clamp(2.25rem, 10.4vw, 3.45rem) !important;
+    line-height: 1.065 !important;
+    letter-spacing: -.018em !important;
+  }
+
+  .scene-copy h2.title-long {
+    max-width: 12.4ch !important;
+    font-size: clamp(2.08rem, 9.7vw, 3.18rem) !important;
+  }
+
+  .scene-summary {
+    width: 100% !important;
+    max-width: 35ch !important;
+    margin: 0 !important;
+    font-size: .94rem !important;
+    line-height: 1.58 !important;
+  }
+
+  .read-link {
+    min-width: 150px !important;
+    min-height: 44px !important;
+  }
+
+  /*
+    İçerik içi nefes ve içerikler arası nefes birbirine karışmasın:
+    CTA'dan sonra ayraç çizgisine yeterli ama abartısız alan.
+  */
+  .scene-copy .read-link {
+    margin-top: 2px !important;
+  }
+
+  /*
+    Mobil reveal yönleri korunuyor; yalnızca mesafeyi biraz kısaltıyoruz.
+    Böylece animasyon var ama hizalamayı "dağıtmıyor".
+  */
+  .scene-landscape-left,
+  .scene-portrait-left,
+  .scene-square-left {
+    --media-x: -22px !important;
+    --copy-x: 18px !important;
+  }
+
+  .scene-landscape-right,
+  .scene-portrait-right,
+  .scene-square-right {
+    --media-x: 22px !important;
+    --copy-x: -18px !important;
+  }
+
+  /*
+    Tüm görseller aynı görsel ağırlıkta hissetsin.
+    Küçük görsellerde aşırı gölge oluşmasını önler.
+  */
+  .scene-media,
+  .scene-media:hover {
+    border-radius: 5px !important;
+    box-shadow:
+      0 12px 26px rgba(59, 45, 34, .085),
+      0 3px 8px rgba(59, 45, 34, .04) !important;
+  }
+
+  .load-more-wrap {
+    width: var(--mobile-rail) !important;
+    margin: 36px auto 24px !important;
+  }
+}
+
+/* Çok dar telefonlarda portre/kare farkı korunurken taşma önlenir. */
+@media (max-width: 390px) {
+  .scene-square-left .scene-media,
+  .scene-square-right .scene-media {
+    width: calc(100vw - 46px) !important;
+  }
+
+  .scene-portrait-left .scene-media,
+  .scene-portrait-right .scene-media {
+    width: calc(100vw - 62px) !important;
+  }
+}
+
+/* =========================================================
+   v22 — sonu
+   ========================================================= */
+
