@@ -1694,3 +1694,104 @@ button:focus-visible {
 /* =========================================================
    V30 — son
    ========================================================= */
+
+/* =========================================================
+   V31 — görsel alanlar için daha belirgin derinlik
+   V30'un üstüne daha güçlü, daha görünür obje hissi.
+   ========================================================= */
+
+/* Ana yüzey daha kalın, daha belirgin, daha fiziksel */
+.scene-media {
+  border-radius: 6px !important;
+  background:
+    linear-gradient(180deg, #e2d6c8 0%, #d3c4b2 100%) !important;
+  border: 1px solid rgba(83, 67, 55, 0.13) !important;
+  outline: 1px solid rgba(255, 255, 255, 0.22) !important;
+  outline-offset: -1px !important;
+  box-shadow:
+    0 3px 10px rgba(27, 21, 17, 0.08),
+    0 18px 34px rgba(27, 21, 17, 0.12),
+    0 40px 72px rgba(27, 21, 17, 0.15),
+    0 78px 120px rgba(27, 21, 17, 0.10) !important;
+}
+
+/* Işık yansıması daha belirgin */
+.scene-media::before {
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255, 255, 255, 0.30) 0%,
+      rgba(255, 255, 255, 0.18) 12%,
+      rgba(255, 255, 255, 0.04) 28%,
+      rgba(255, 255, 255, 0.00) 44%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.07) 0%,
+      rgba(255, 255, 255, 0.02) 18%,
+      rgba(0, 0, 0, 0.04) 100%
+    ) !important;
+  opacity: 1 !important;
+}
+
+/* İç çerçeve + alt ağırlık daha görünür */
+.scene-media::after {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.24),
+    inset 0 -1px 0 rgba(49, 37, 29, 0.10),
+    inset 0 -42px 72px rgba(21, 17, 14, 0.05),
+    inset 0 0 0 1px rgba(255, 255, 255, 0.06) !important;
+  border: 1px solid rgba(255, 255, 255, 0.10) !important;
+}
+
+/* Görseli de hafifçe netleştir */
+.scene-media img {
+  filter: saturate(1.05) contrast(1.04) brightness(1.01) !important;
+}
+
+/* Reveal sonrası bile daha güçlü kalsın */
+.story-scene.is-revealed .scene-media {
+  box-shadow:
+    0 4px 12px rgba(27, 21, 17, 0.09),
+    0 20px 38px rgba(27, 21, 17, 0.13),
+    0 46px 80px rgba(27, 21, 17, 0.16),
+    0 88px 132px rgba(27, 21, 17, 0.11) !important;
+}
+
+/* Masaüstünde daha hissedilir hover */
+@media (hover: hover) and (pointer: fine) {
+  .story-scene:hover .scene-media,
+  .scene-media:hover {
+    transform: translateY(-5px) !important;
+    border-color: rgba(83, 67, 55, 0.18) !important;
+    box-shadow:
+      0 5px 14px rgba(27, 21, 17, 0.10),
+      0 24px 44px rgba(27, 21, 17, 0.15),
+      0 56px 96px rgba(27, 21, 17, 0.18),
+      0 106px 152px rgba(27, 21, 17, 0.12) !important;
+  }
+}
+
+/* Mobilde de artık net şekilde yükselmiş görünmeli */
+@media (max-width: 760px) {
+  .scene-media {
+    border-radius: 6px !important;
+    box-shadow:
+      0 3px 9px rgba(27, 21, 17, 0.08),
+      0 14px 28px rgba(27, 21, 17, 0.12),
+      0 30px 56px rgba(27, 21, 17, 0.14),
+      0 56px 92px rgba(27, 21, 17, 0.10) !important;
+  }
+
+  .story-scene.is-revealed .scene-media {
+    box-shadow:
+      0 4px 10px rgba(27, 21, 17, 0.09),
+      0 16px 30px rgba(27, 21, 17, 0.13),
+      0 34px 60px rgba(27, 21, 17, 0.15),
+      0 64px 102px rgba(27, 21, 17, 0.10) !important;
+  }
+}
+
+/* =========================================================
+   V31 — son
+   ========================================================= */
