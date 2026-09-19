@@ -2038,3 +2038,330 @@ button:focus-visible {
 /* =========================================================
    V32 — son
    ========================================================= */
+
+/* =========================================================
+   V33 — gelişmiş katman / müze objesi hissi
+   V32 üstüne: taşıyıcı yüzey + odak ışığı + daha rafine panel derinliği.
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   1) SAHNE ODAĞI
+   Arka plan rengi değişmez; yalnız eserin çevresinde çok hafif ışık oluşur.
+   --gallery-focus değeri mevcut scroll sistemi tarafından beslenir.
+   --------------------------------------------------------- */
+
+.story-scene {
+  position: relative;
+  isolation: isolate;
+}
+
+.story-scene::after {
+  content: "";
+  display: block !important;
+  position: absolute;
+  z-index: -2;
+  width: clamp(300px, 42vw, 620px);
+  height: clamp(300px, 42vw, 620px);
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: calc(.05 + (var(--gallery-focus, 0) * .13));
+  filter: blur(30px);
+  background:
+    radial-gradient(
+      circle,
+      rgba(255, 249, 239, .92) 0%,
+      rgba(255, 249, 239, .30) 43%,
+      rgba(255, 249, 239, 0) 72%
+    );
+  transition: opacity .22s linear;
+}
+
+.scene-landscape-left::after,
+.scene-portrait-left::after,
+.scene-square-left::after {
+  left: 2%;
+  top: 46%;
+  transform: translateY(-50%);
+}
+
+.scene-landscape-right::after,
+.scene-portrait-right::after,
+.scene-square-right::after {
+  right: 2%;
+  top: 46%;
+  transform: translateY(-50%);
+}
+
+/* ---------------------------------------------------------
+   2) GÖRSEL: ana obje + arka taşıyıcı plaka
+   --------------------------------------------------------- */
+
+.scene-media {
+  overflow: visible !important;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+/* Ana görselin arkasında ikinci bir ince plaka */
+.scene-media > picture::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: 8px -8px -8px 8px;
+  border-radius: 8px;
+  background:
+    linear-gradient(
+      160deg,
+      rgba(225, 213, 198, .96),
+      rgba(203, 188, 171, .90)
+    );
+  border: 1px solid rgba(78, 62, 50, .10);
+  box-shadow:
+    0 12px 26px rgba(28, 22, 18, .08),
+    0 28px 58px rgba(28, 22, 18, .09);
+  pointer-events: none;
+}
+
+/*
+  picture gerçek ön yüzey olur.
+  overflow burada tekrar kesilir ki görsel radius dışına taşmasın.
+*/
+.scene-media picture {
+  overflow: hidden !important;
+  border-radius: 7px;
+  background: #d8cab9;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.18),
+    inset 0 0 0 1px rgba(255,255,255,.05);
+}
+
+/* Ana dış kutunun kendisi transparanlaşır; gerçek yüzey picture olur */
+.scene-media {
+  background: transparent !important;
+  border-color: transparent !important;
+  outline: none !important;
+}
+
+/* Dış kutunun V32 gölgelerini daha rafine hale getir */
+.scene-media,
+.story-scene.is-revealed .scene-media {
+  box-shadow:
+    0 4px 10px rgba(24, 19, 16, .08),
+    0 18px 34px rgba(24, 19, 16, .12),
+    0 42px 78px rgba(24, 19, 16, .15),
+    0 92px 142px rgba(24, 19, 16, .10) !important;
+}
+
+/* Alt zemine yayılan gerçekçi temas gölgesi */
+.scene-media::before {
+  inset: auto 7% -30px 7% !important;
+  height: 48px !important;
+  background: rgba(28, 22, 18, .19) !important;
+  filter: blur(20px) !important;
+  opacity: .82 !important;
+  z-index: -2 !important;
+}
+
+/* Ön yüzey ışığı biraz daha kontrollü */
+.scene-media::after {
+  border-radius: 7px !important;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.25) 0%,
+      rgba(255,255,255,.13) 12%,
+      rgba(255,255,255,.025) 29%,
+      rgba(255,255,255,0) 43%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.055) 0%,
+      rgba(255,255,255,0) 25%,
+      rgba(0,0,0,.045) 100%
+    ) !important;
+}
+
+/* ---------------------------------------------------------
+   3) METİN PANELİ: iki kâğıt katmanı + yüzey ışığı
+   --------------------------------------------------------- */
+
+.scene-copy {
+  overflow: visible;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(251,247,240,.965) 0%,
+      rgba(245,238,228,.955) 100%
+    ) !important;
+  border-color: rgba(113, 92, 76, .12) !important;
+  box-shadow:
+    0 2px 6px rgba(34, 27, 22, .04),
+    0 16px 30px rgba(34, 27, 22, .075),
+    0 34px 68px rgba(34, 27, 22, .065) !important;
+}
+
+/* Arka kâğıt daha okunur */
+.scene-copy::after {
+  inset: 9px -9px -9px 9px !important;
+  background:
+    linear-gradient(
+      155deg,
+      rgba(224, 211, 196, .70),
+      rgba(210, 195, 177, .46)
+    ) !important;
+  border: 1px solid rgba(107, 86, 69, .08) !important;
+  box-shadow:
+    0 10px 24px rgba(35, 28, 22, .055) !important;
+  opacity: .86 !important;
+}
+
+/* Küçük ışık yansıması — paneli plastikleştirmeden */
+.scene-copy > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ---------------------------------------------------------
+   4) MASAÜSTÜ HOVER
+   Çok küçük perspektif derinliği.
+   --------------------------------------------------------- */
+
+@media (hover: hover) and (pointer: fine) {
+  .story-scene:hover .scene-media,
+  .scene-media:hover {
+    transform: translateY(-7px) scale(1.003) !important;
+    box-shadow:
+      0 6px 14px rgba(24, 19, 16, .10),
+      0 24px 46px rgba(24, 19, 16, .15),
+      0 58px 104px rgba(24, 19, 16, .19),
+      0 120px 174px rgba(24, 19, 16, .12) !important;
+  }
+
+  .story-scene:hover .scene-copy {
+    transform: translateY(-2px);
+    box-shadow:
+      0 3px 8px rgba(34, 27, 22, .05),
+      0 18px 36px rgba(34, 27, 22, .085),
+      0 40px 78px rgba(34, 27, 22, .075) !important;
+  }
+}
+
+/* ---------------------------------------------------------
+   5) MOBİL — daha belirgin katman mimarisi
+   Görsel + taşıyıcı + önde metin paneli.
+   --------------------------------------------------------- */
+
+@media (max-width: 760px) {
+
+  /* spot mobilde ortalanır */
+  .story-scene::after,
+  .scene-landscape-left::after,
+  .scene-landscape-right::after,
+  .scene-portrait-left::after,
+  .scene-portrait-right::after,
+  .scene-square-left::after,
+  .scene-square-right::after {
+    width: min(96vw, 500px);
+    height: min(96vw, 500px);
+    left: 50%;
+    right: auto;
+    top: 33%;
+    transform: translate(-50%, -50%);
+    filter: blur(26px);
+  }
+
+  .scene-media,
+  .story-scene.is-revealed .scene-media {
+    box-shadow:
+      0 4px 10px rgba(24, 19, 16, .09),
+      0 18px 34px rgba(24, 19, 16, .13),
+      0 40px 72px rgba(24, 19, 16, .17),
+      0 78px 118px rgba(24, 19, 16, .11) !important;
+  }
+
+  /* arka plaka mobilde daha görünür */
+  .scene-media > picture::before {
+    inset: 7px -7px -7px 7px;
+    border-radius: 8px;
+    box-shadow:
+      0 10px 22px rgba(28, 22, 18, .08),
+      0 24px 46px rgba(28, 22, 18, .10);
+  }
+
+  /* panel görselin üstüne biraz daha fazla biner */
+  .scene-copy,
+  .scene-landscape-left .scene-copy,
+  .scene-landscape-right .scene-copy,
+  .scene-portrait-left .scene-copy,
+  .scene-portrait-right .scene-copy,
+  .scene-square-left .scene-copy,
+  .scene-square-right .scene-copy {
+    margin-top: -28px !important;
+    width: calc(var(--mobile-gallery) - 22px) !important;
+    padding: 22px 21px 24px !important;
+    border-radius: 11px !important;
+    box-shadow:
+      0 3px 8px rgba(34, 27, 22, .05),
+      0 18px 34px rgba(34, 27, 22, .10),
+      0 42px 78px rgba(34, 27, 22, .09) !important;
+  }
+
+  .scene-copy::after {
+    inset: 8px -8px -8px 8px !important;
+    border-radius: 11px !important;
+  }
+
+  /* metin paneli görseli fazla kapatmasın */
+  .type-tag {
+    margin-top: 1px;
+  }
+
+  /* CTA ön yüzeyde küçük üçüncü katman gibi */
+  .read-link {
+    background: rgba(250, 246, 239, .72) !important;
+    box-shadow:
+      0 4px 10px rgba(34, 27, 22, .06),
+      0 10px 22px rgba(34, 27, 22, .07) !important;
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+  }
+
+  .story-scene[data-kind="poem"] .read-link:hover,
+  .story-scene[data-kind="poem"] .read-link:focus-visible {
+    background: var(--poem) !important;
+  }
+
+  .story-scene[data-kind="prose"] .read-link:hover,
+  .story-scene[data-kind="prose"] .read-link:focus-visible {
+    background: var(--prose) !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .scene-copy,
+  .scene-landscape-left .scene-copy,
+  .scene-landscape-right .scene-copy,
+  .scene-portrait-left .scene-copy,
+  .scene-portrait-right .scene-copy,
+  .scene-square-left .scene-copy,
+  .scene-square-right .scene-copy {
+    margin-top: -23px !important;
+    width: calc(var(--mobile-gallery) - 16px) !important;
+    padding: 20px 18px 22px !important;
+  }
+}
+
+/* ---------------------------------------------------------
+   6) REDUCED MOTION
+   --------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .scene-media,
+  .scene-copy {
+    transform: none !important;
+  }
+}
+
+/* =========================================================
+   V33 — son
+   ========================================================= */
