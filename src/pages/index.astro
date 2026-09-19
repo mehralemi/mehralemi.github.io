@@ -51,9 +51,9 @@ const entriesWithSummary = await Promise.all(
 );
 
 /*
-  Masaüstü ritmi:
-  yatay-sol → portre-sağ → kare-sol → yatay-sağ → portre-sol → kare-sağ
-  Mobilde nihai hizalar düzenlidir; sadece oran/genişlik çeşitlenir.
+  Ortak galeri ritmi:
+  yatay → portre → kare biçimleri masaüstü ve mobilde aynı görsel dilin
+  farklı genişliklere uyarlanmış halleri olarak kullanılır.
 */
 const sceneClass = (index: number) => {
   const sequence = [
@@ -63,18 +63,6 @@ const sceneClass = (index: number) => {
     'scene-landscape-right',
     'scene-portrait-left',
     'scene-square-right',
-  ];
-
-  return sequence[index % sequence.length];
-};
-
-const presentationClass = (index: number) => {
-  const sequence = [
-    'presentation-full',
-    'presentation-inset',
-    'presentation-window',
-    'presentation-band',
-    'presentation-detail',
   ];
 
   return sequence[index % sequence.length];
@@ -107,7 +95,7 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
   <section class="story-stream" aria-live="polite">
     {entriesWithSummary.map(({ entry, summary }, index) => (
       <article
-        class={`story-scene ${sceneClass(index)} ${presentationClass(index)}`}
+        class={`story-scene ${sceneClass(index)}`}
         data-kind={kindFor(entry.data.type)}
         data-index={index}
       >
@@ -196,6 +184,7 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
         const oldProgress = Number(scene.dataset.colorProgress || 0);
         const next = Math.max(oldProgress, clamp(progress, 0, 1));
         scene.dataset.colorProgress = String(next);
+        scene.style.setProperty('--gallery-focus', next.toFixed(3));
 
         const gray = 1 - next;
         const saturation = 0.02 + (0.98 * next);
@@ -219,6 +208,7 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
 
         delete scene.dataset.colorStartScroll;
         scene.dataset.colorProgress = '0';
+        scene.style.setProperty('--gallery-focus', '0');
 
         img.style.setProperty(
           'filter',

@@ -1025,21 +1025,356 @@ button:focus-visible {
 }
 
 /* =========================================================
-   v28 — mobile visual gallery
-   Tek marka dili + sabit dış genişlik + farklı iç eser sunumları.
-   Masaüstü, etiket, başlık, CTA ve renk sistemiyle uyumlu.
+   V29 — ORTAK GALERİ SİSTEMİ
+   Aynı sanat yönetimi: masaüstü + mobil.
+   Tek arka plan, tek çerçeve dili, tek tipografi, tek CTA karakteri.
+   Çeşitlilik: görüntü oranı + ölçek + boşluk + ritim.
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   1. SAHNE / SERGİ ODASI
+   Her içerik kendi nefes alanına sahip; kart değildir.
+   --------------------------------------------------------- */
+
+.story-scene {
+  --gallery-focus: 0;
+  min-height: min(82svh, 900px);
+  padding-top: clamp(78px, 10vh, 126px);
+  padding-bottom: clamp(88px, 11vh, 138px);
+  column-gap: clamp(50px, 6.5vw, 104px);
+}
+
+.story-scene::after {
+  display: none;
+}
+
+/* Çok hafif bir "duvar ışığı": arka plan rengi değişmez. */
+.story-scene::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: clamp(280px, 38vw, 560px);
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: calc(.08 + (var(--gallery-focus) * .10));
+  filter: blur(26px);
+  background: radial-gradient(
+    circle,
+    rgba(255, 247, 233, .78) 0%,
+    rgba(255, 247, 233, .26) 46%,
+    rgba(255, 247, 233, 0) 72%
+  );
+  transition: opacity .28s linear;
+}
+
+/* Sol görselli sahnelerde ışık solda, sağ görselli sahnelerde sağda. */
+.scene-landscape-left::before,
+.scene-portrait-left::before,
+.scene-square-left::before {
+  left: clamp(-70px, -3vw, -24px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.scene-landscape-right::before,
+.scene-portrait-right::before,
+.scene-square-right::before {
+  right: clamp(-70px, -3vw, -24px);
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+/* ---------------------------------------------------------
+   2. ESER — TEK ÇERÇEVE DİLİ
+   --------------------------------------------------------- */
+
+.scene-media {
+  border-radius: 4px;
+  background: #d9cbbb;
+  outline: 1px solid rgba(88, 70, 56, .08);
+  outline-offset: 0;
+  box-shadow:
+    0 22px 55px rgba(59, 45, 34, .105),
+    0 4px 13px rgba(59, 45, 34, .045);
+}
+
+.scene-media::before {
+  background:
+    linear-gradient(
+      132deg,
+      rgba(255, 255, 255, .12) 0%,
+      rgba(255, 255, 255, 0) 32%
+    );
+  opacity: .34;
+}
+
+.scene-media::after {
+  border-color: rgba(255, 255, 255, .105);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, .12),
+    inset 0 -34px 62px rgba(25, 35, 30, .022);
+}
+
+.scene-media:hover {
+  box-shadow:
+    0 25px 60px rgba(59, 45, 34, .12),
+    0 5px 15px rgba(59, 45, 34, .05);
+}
+
+/* Eser oranları ortak kimliğin üç ritmi. */
+.scene-landscape-left .scene-media,
+.scene-landscape-right .scene-media {
+  aspect-ratio: 16 / 9.6;
+  max-height: 560px;
+}
+
+.scene-portrait-left .scene-media,
+.scene-portrait-right .scene-media {
+  width: min(100%, 470px);
+  aspect-ratio: 4 / 5;
+}
+
+.scene-square-left .scene-media,
+.scene-square-right .scene-media {
+  width: min(100%, 520px);
+  aspect-ratio: 1 / 1;
+}
+
+/* Daha görsel ve daha cesur kadraj; sahte çerçeve oyunu yok. */
+.scene-landscape-left .scroll-color-image {
+  object-position: 47% 50%;
+}
+
+.scene-landscape-right .scroll-color-image {
+  object-position: 54% 50%;
+}
+
+.scene-portrait-left .scroll-color-image {
+  object-position: 48% 45%;
+}
+
+.scene-portrait-right .scroll-color-image {
+  object-position: 53% 45%;
+}
+
+.scene-square-left .scroll-color-image {
+  object-position: 48% 48%;
+}
+
+.scene-square-right .scroll-color-image {
+  object-position: 53% 48%;
+}
+
+/* ---------------------------------------------------------
+   3. MASAÜSTÜ KOMPOZİSYON
+   Görsel daha baskın; metin bir "eser metni" kadar sakin.
+   --------------------------------------------------------- */
+
+.scene-landscape-left,
+.scene-landscape-right {
+  width: min(1320px, calc(100% - (var(--gutter) * 2)));
+  grid-template-columns: minmax(0, 1.18fr) minmax(330px, .82fr);
+}
+
+.scene-portrait-left,
+.scene-portrait-right {
+  width: min(1180px, calc(100% - (var(--gutter) * 2)));
+  grid-template-columns: minmax(340px, .9fr) minmax(0, 1.1fr);
+}
+
+.scene-square-left,
+.scene-square-right {
+  width: min(1220px, calc(100% - (var(--gutter) * 2)));
+  grid-template-columns: minmax(380px, .95fr) minmax(0, 1.05fr);
+}
+
+.scene-copy {
+  max-width: 540px;
+  gap: clamp(14px, 1.25vw, 18px);
+}
+
+/* Tek, küçük imza çizgisi. Etiketin/başlığın stilini değiştirmez. */
+.scene-copy::before {
+  content: "";
+  display: block;
+  width: 38px;
+  height: 1px;
+  margin-bottom: 1px;
+  background: var(--accent-mid);
+  opacity: .55;
+}
+
+.story-scene[data-kind="poem"] .scene-copy::before {
+  background: var(--poem);
+}
+
+.story-scene[data-kind="prose"] .scene-copy::before {
+  background: var(--prose);
+}
+
+/* ---------------------------------------------------------
+   4. ETİKET + BAŞLIK + ÖZET
+   Masaüstü ve mobilde aynı kimlik.
+   --------------------------------------------------------- */
+
+.type-tag {
+  border-radius: 6px;
+  background-clip: padding-box;
+}
+
+.scene-copy h2 {
+  max-width: 10.4ch;
+  font-size: clamp(3.25rem, 4.95vw, 6.25rem);
+  line-height: 1.035;
+  letter-spacing: -.026em;
+}
+
+.scene-copy h2.title-medium {
+  max-width: 11ch;
+  font-size: clamp(3rem, 4.55vw, 5.7rem);
+}
+
+.scene-copy h2.title-long {
+  max-width: 11.8ch;
+  font-size: clamp(2.64rem, 4.05vw, 5.05rem);
+  line-height: 1.055;
+}
+
+.scene-summary {
+  max-width: 34ch;
+  line-height: 1.66;
+}
+
+/* ---------------------------------------------------------
+   5. CTA — AYNI DİL, DAHA GALERİMSİ
+   Dolu "web butonu" yerine hafif çerçeveli erişim noktası.
+   Hem desktop hem mobil aynı.
+   --------------------------------------------------------- */
+
+.read-link {
+  min-width: 150px;
+  min-height: 44px;
+  padding: 10px 16px;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.story-scene[data-kind="poem"] .read-link {
+  color: var(--poem);
+  border-color: rgba(155, 90, 76, .52);
+}
+
+.story-scene[data-kind="prose"] .read-link {
+  color: var(--prose);
+  border-color: rgba(79, 113, 102, .52);
+}
+
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  color: var(--paper-light);
+  background: var(--poem) !important;
+  border-color: var(--poem);
+  filter: none;
+}
+
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  color: var(--paper-light);
+  background: var(--prose) !important;
+  border-color: var(--prose);
+  filter: none;
+}
+
+/* ---------------------------------------------------------
+   6. ORTAK REVEAL
+   Sağ-sol savrulma kaldırıldı.
+   Masaüstü ve mobil aynı koreografiyi kullanır.
+   --------------------------------------------------------- */
+
+.scene-landscape-left,
+.scene-landscape-right,
+.scene-portrait-left,
+.scene-portrait-right,
+.scene-square-left,
+.scene-square-right {
+  --media-x: 0px;
+  --copy-x: 0px;
+}
+
+.story-scene .scene-media {
+  opacity: 0;
+  transform: translateY(26px) scale(.992);
+  clip-path: inset(2.5% 0 2.5% 0 round 4px);
+  transition:
+    opacity .78s var(--ease-out),
+    transform .92s var(--ease-out),
+    clip-path 1.02s var(--ease-out),
+    box-shadow .30s ease;
+}
+
+.story-scene .scene-copy::before,
+.story-scene .type-tag,
+.story-scene .scene-copy h2,
+.story-scene .scene-summary,
+.story-scene .read-link {
+  opacity: 0;
+  transform: translateY(17px);
+  transition:
+    opacity .62s var(--ease-out),
+    transform .78s var(--ease-out);
+}
+
+.story-scene.is-revealed .scene-media {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  clip-path: inset(0 0 0 0 round 4px);
+}
+
+.story-scene.is-revealed .scene-copy::before {
+  opacity: .55;
+  transform: translateY(0);
+  transition-delay: .06s;
+}
+
+.story-scene.is-revealed .type-tag {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: .11s;
+}
+
+.story-scene.is-revealed .scene-copy h2 {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: .18s;
+}
+
+.story-scene.is-revealed .scene-summary {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: .27s;
+}
+
+.story-scene.is-revealed .read-link {
+  opacity: 1;
+  transform: scale(1) translateY(0);
+  transition-delay: .35s;
+}
+
+.story-scene.is-revealed .read-link:hover,
+.story-scene.is-revealed .read-link:focus-visible {
+  transform: scale(1.035) translateY(0);
+}
+
+/* =========================================================
+   MOBILE — AYNI GALERİNİN DAR SALONU
    ========================================================= */
 
 @media (max-width: 760px) {
 
   :root {
-    --mobile-gallery-width: calc(100vw - 30px);
-    --mobile-gallery-max: 620px;
+    --mobile-gallery: calc(100vw - 28px);
   }
-
-  /* -------------------------------------------------------
-     TEK OMURGA
-     ------------------------------------------------------- */
 
   .story-scene,
   .scene-landscape-left,
@@ -1048,164 +1383,68 @@ button:focus-visible {
   .scene-portrait-right,
   .scene-square-left,
   .scene-square-right {
-    width: 100% !important;
-    margin: 0 !important;
-    padding: 52px 0 70px !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0 !important;
-    overflow: hidden !important;
+    width: 100%;
+    min-height: 88svh;
+    margin: 0;
+    padding: 54px 0 82px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+    overflow: hidden;
   }
 
   .story-scene:first-child {
-    padding-top: 28px !important;
+    padding-top: 34px;
   }
 
-  /* Masaüstündeki ince ayırıcı dil korunur. */
-  .story-scene::after {
-    left: 20px !important;
-    right: 20px !important;
+  /* Mobilde spot da ortalanır; arka plan yine değişmez. */
+  .story-scene::before,
+  .scene-landscape-left::before,
+  .scene-landscape-right::before,
+  .scene-portrait-left::before,
+  .scene-portrait-right::before,
+  .scene-square-left::before,
+  .scene-square-right::before {
+    width: min(92vw, 470px);
+    left: 50%;
+    right: auto;
+    top: 34%;
+    transform: translate(-50%, -50%);
   }
 
-  /* -------------------------------------------------------
-     SABİT DIŞ ESER ALANI
-     Bütün görseller aynı genişlikte.
-     Çeşitlilik genişlikten değil içerideki sunumdan gelir.
-     ------------------------------------------------------- */
-
+  /* Bütün görseller aynı DIŞ genişlikte. */
   .scene-landscape-left .scene-media,
   .scene-landscape-right .scene-media,
   .scene-portrait-left .scene-media,
   .scene-portrait-right .scene-media,
   .scene-square-left .scene-media,
   .scene-square-right .scene-media {
-    order: 1 !important;
-    width: var(--mobile-gallery-width) !important;
-    max-width: var(--mobile-gallery-max) !important;
-    margin: 0 auto !important;
-    align-self: center !important;
-    justify-self: center !important;
-
-    /* Masaüstüyle aynı çerçeve karakteri */
-    border-radius: 5px !important;
-    background: #d9cbbb !important;
-    box-shadow:
-      0 14px 30px rgba(59, 45, 34, .09),
-      0 3px 8px rgba(59, 45, 34, .04) !important;
+    order: 1;
+    align-self: center;
+    width: var(--mobile-gallery);
+    max-width: 620px;
+    margin: 0 auto;
   }
 
-  .scene-media:hover {
-    box-shadow:
-      0 14px 30px rgba(59, 45, 34, .09),
-      0 3px 8px rgba(59, 45, 34, .04) !important;
-  }
-
-  /* Dış oranlar: düzenli ama görsel olarak farklı üç ritim. */
+  /* Çeşitlilik yalnızca eser oranı. */
   .scene-landscape-left .scene-media,
   .scene-landscape-right .scene-media {
-    aspect-ratio: 16 / 10 !important;
+    aspect-ratio: 16 / 10;
+    max-height: none;
   }
 
   .scene-square-left .scene-media,
   .scene-square-right .scene-media {
-    aspect-ratio: 1 / 1 !important;
+    aspect-ratio: 1 / 1;
   }
 
   .scene-portrait-left .scene-media,
   .scene-portrait-right .scene-media {
-    aspect-ratio: 4 / 5 !important;
+    aspect-ratio: 4 / 5;
   }
 
-  /*
-    picture artık dış çerçeve içinde ayrı bir "eser yüzeyi".
-    Outer frame aynı kalır; yalnız iç sunum değişir.
-  */
-  .scene-media picture {
-    position: absolute !important;
-    display: block !important;
-    overflow: hidden !important;
-    margin: 0 !important;
-    border-radius: 3px !important;
-  }
-
-  .scene-media picture,
-  .scene-media picture img {
-    box-sizing: border-box !important;
-  }
-
-  .scene-media picture img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-  }
-
-  /* 1 — TAM YÜZEY: en güçlü, en sinematik sunum */
-  .presentation-full .scene-media picture {
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    border-radius: 5px !important;
-  }
-
-  /* 2 — PASSEPARTOUT: aynı çerçeve, içeride nefes */
-  .presentation-inset .scene-media picture {
-    inset: 11px !important;
-    width: auto !important;
-    height: auto !important;
-  }
-
-  /* 3 — DİKEY PENCERE: dış genişlik sabit, eser içeride merkezde */
-  .presentation-window .scene-media picture {
-    top: 9% !important;
-    bottom: 9% !important;
-    left: 11% !important;
-    right: 11% !important;
-    width: auto !important;
-    height: auto !important;
-  }
-
-  /* 4 — GALERİ BANDI: yatay görsel şeridi / geniş negatif alan */
-  .presentation-band .scene-media picture {
-    top: 14% !important;
-    bottom: 14% !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    height: auto !important;
-    border-radius: 0 !important;
-  }
-
-  /* 5 — DETAY: full-bleed ama daha cesur crop */
-  .presentation-detail .scene-media picture {
-    inset: 0 !important;
-    width: 100% !important;
-    height: 100% !important;
-    border-radius: 5px !important;
-  }
-
-  .presentation-detail .scene-media img {
-    transform: scale(1.075) !important;
-    object-position: 52% 45% !important;
-  }
-
-  /* Farklı sunumlarda hafif kadraj çeşitliliği */
-  .presentation-inset .scene-media img {
-    object-position: 48% 48% !important;
-  }
-
-  .presentation-window .scene-media img {
-    object-position: 52% 44% !important;
-  }
-
-  .presentation-band .scene-media img {
-    object-position: 50% 50% !important;
-  }
-
-  /* -------------------------------------------------------
-     METİN: MASAÜSTÜYLE AYNI TASARIM DİLİ
-     Aynı etiket, aynı başlık karakteri, aynı CTA.
-     ------------------------------------------------------- */
-
+  /* Metin de aynı raya oturur. */
   .scene-copy,
   .scene-landscape-left .scene-copy,
   .scene-landscape-right .scene-copy,
@@ -1213,142 +1452,112 @@ button:focus-visible {
   .scene-portrait-right .scene-copy,
   .scene-square-left .scene-copy,
   .scene-square-right .scene-copy {
-    order: 2 !important;
-    width: var(--mobile-gallery-width) !important;
-    max-width: var(--mobile-gallery-max) !important;
-    margin: 21px auto 0 !important;
-    padding: 0 !important;
-    align-self: center !important;
-    gap: 15px !important;
+    order: 2;
+    width: var(--mobile-gallery);
+    max-width: 620px;
+    margin: 24px auto 0;
+    padding: 0 4px;
+    align-self: center;
+    gap: 14px;
   }
 
-  /* Etiket görünümü base/desktop ile aynı; yalnız ölçü responsive. */
+  .scene-copy::before {
+    width: 34px;
+    margin-bottom: 0;
+  }
+
   .type-tag {
-    min-height: 28px !important;
-    padding: 6px 10px !important;
-    border-radius: 7px !important;
-    font-size: .61rem !important;
+    min-height: 28px;
+    padding: 6px 10px;
+    border-radius: 6px;
+    font-size: .61rem;
   }
 
-  /*
-    Başlık karakteri masaüstünün aynısı.
-    Kısa / orta / uzun başlık ölçekleri korunur.
-  */
   .scene-copy h2 {
-    max-width: 10.8ch !important;
-    font-size: clamp(2.52rem, 10.9vw, 3.65rem) !important;
-    line-height: 1.055 !important;
-    letter-spacing: -.022em !important;
+    max-width: 10.8ch;
+    font-size: clamp(2.5rem, 10.9vw, 3.75rem);
+    line-height: 1.045;
+    letter-spacing: -.024em;
   }
 
   .scene-copy h2.title-medium {
-    max-width: 11.2ch !important;
-    font-size: clamp(2.35rem, 10.2vw, 3.4rem) !important;
+    max-width: 11.3ch;
+    font-size: clamp(2.34rem, 10.15vw, 3.45rem);
   }
 
   .scene-copy h2.title-long {
-    max-width: 12ch !important;
-    font-size: clamp(2.12rem, 9.35vw, 3.08rem) !important;
-    line-height: 1.065 !important;
+    max-width: 12ch;
+    font-size: clamp(2.12rem, 9.35vw, 3.08rem);
+    line-height: 1.06;
   }
 
   .scene-summary {
-    max-width: 35ch !important;
-    max-height: calc(1.60em * 6) !important;
-    font-size: .94rem !important;
-    line-height: 1.60 !important;
+    max-width: 35ch;
+    max-height: calc(1.60em * 6);
+    font-size: .94rem;
+    line-height: 1.60;
   }
 
-  /* CTA görünümü masaüstünden miras alınır. */
   .read-link {
-    min-width: 154px !important;
-    min-height: 46px !important;
-    border-radius: 7px !important;
+    min-width: 148px;
+    min-height: 44px;
+    margin-top: 2px;
   }
 
-  /* -------------------------------------------------------
-     MOBİLDE HAREKET: DÜZENLİ, ESER ODAKLI
-     Sağ-sol savrulma yok; hafif yükselme + odaklanma.
-     ------------------------------------------------------- */
+  .load-more-wrap {
+    width: var(--mobile-gallery);
+    max-width: 620px;
+    margin: 34px auto 28px;
+  }
 
+  .load-more {
+    width: 100%;
+  }
+}
+
+@media (max-width: 390px) {
+  :root {
+    --mobile-gallery: calc(100vw - 22px);
+  }
+
+  .story-scene,
   .scene-landscape-left,
   .scene-landscape-right,
   .scene-portrait-left,
   .scene-portrait-right,
   .scene-square-left,
   .scene-square-right {
-    --media-x: 0px !important;
-    --copy-x: 0px !important;
-  }
-
-  .story-scene .scene-media {
-    transform: translateY(16px) scale(.994) !important;
-  }
-
-  .story-scene .type-tag,
-  .story-scene .scene-copy h2,
-  .story-scene .scene-summary,
-  .story-scene .read-link {
-    transform: translateY(13px) !important;
-  }
-
-  .story-scene.is-revealed .scene-media {
-    transform: translateY(0) scale(1) !important;
-  }
-
-  .story-scene.is-revealed .type-tag,
-  .story-scene.is-revealed .scene-copy h2,
-  .story-scene.is-revealed .scene-summary {
-    transform: translateY(0) !important;
-  }
-
-  .story-scene.is-revealed .read-link {
-    transform: scale(1) translateY(0) !important;
-  }
-
-  .story-scene.is-revealed .read-link:hover,
-  .story-scene.is-revealed .read-link:focus-visible {
-    transform: scale(1.038) translateY(0) !important;
-  }
-
-  /* -------------------------------------------------------
-     LOAD MORE: ana sistemle aynı
-     ------------------------------------------------------- */
-
-  .load-more-wrap {
-    width: var(--mobile-gallery-width) !important;
-    max-width: var(--mobile-gallery-max) !important;
-    margin: 40px auto 26px !important;
-  }
-
-  .load-more {
-    width: 100% !important;
-  }
-}
-
-/* Çok dar telefonlarda yalnızca kenar payı sıkışır; tasarım değişmez. */
-@media (max-width: 390px) {
-  :root {
-    --mobile-gallery-width: calc(100vw - 24px);
-  }
-
-  .presentation-inset .scene-media picture {
-    inset: 9px !important;
+    min-height: 84svh;
+    padding-top: 48px;
+    padding-bottom: 72px;
   }
 
   .scene-copy h2 {
-    font-size: clamp(2.34rem, 10.6vw, 3.3rem) !important;
+    font-size: clamp(2.34rem, 10.55vw, 3.42rem);
   }
 
   .scene-copy h2.title-medium {
-    font-size: clamp(2.2rem, 9.95vw, 3.12rem) !important;
+    font-size: clamp(2.2rem, 9.9vw, 3.16rem);
   }
 
   .scene-copy h2.title-long {
-    font-size: clamp(2.02rem, 9.15vw, 2.9rem) !important;
+    font-size: clamp(2.02rem, 9.1vw, 2.92rem);
+  }
+}
+
+/* Reduced motion için yeni dekoratif eleman da sabit kalsın. */
+@media (prefers-reduced-motion: reduce) {
+  .story-scene .scene-copy::before {
+    opacity: .55 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+
+  .story-scene .scene-media {
+    clip-path: none !important;
   }
 }
 
 /* =========================================================
-   v28 — sonu
+   V29 — SON
    ========================================================= */
