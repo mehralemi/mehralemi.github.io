@@ -2365,3 +2365,220 @@ button:focus-visible {
 /* =========================================================
    V33 — son
    ========================================================= */
+
+/* =========================================================
+   V34 — KARTSIZ KATMANLI GALERİ
+   Metin paneli tamamen kaldırıldı.
+   Derinlik: görsel + taşıyıcı + ışık + gölge + tipografik ritim.
+   ========================================================= */
+
+.scene-copy,
+.scene-landscape-left .scene-copy,
+.scene-landscape-right .scene-copy,
+.scene-portrait-left .scene-copy,
+.scene-portrait-right .scene-copy,
+.scene-square-left .scene-copy,
+.scene-square-right .scene-copy {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  overflow: visible !important;
+}
+
+.scene-copy::after {
+  display: none !important;
+}
+
+.scene-copy::before {
+  width: 42px !important;
+  height: 2px !important;
+  margin-bottom: 5px !important;
+  opacity: .68 !important;
+  border-radius: 999px;
+}
+
+.type-tag {
+  box-shadow: none !important;
+}
+
+.read-link {
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.scene-media {
+  background: transparent !important;
+  border: 0 !important;
+  outline: 0 !important;
+  overflow: visible !important;
+}
+
+.scene-media picture {
+  position: relative;
+  z-index: 2;
+  overflow: hidden !important;
+  border-radius: 8px !important;
+  background: #d7c8b7;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.19),
+    inset 0 -1px 0 rgba(50,39,31,.08),
+    0 2px 5px rgba(26,20,16,.05);
+}
+
+.scene-media > picture::before {
+  inset: 10px -10px -10px 10px !important;
+  border-radius: 8px !important;
+  background:
+    linear-gradient(
+      155deg,
+      rgba(219,205,190,.94),
+      rgba(191,174,156,.78)
+    ) !important;
+  border: 1px solid rgba(74,58,46,.10) !important;
+  box-shadow:
+    0 12px 26px rgba(27,21,17,.08),
+    0 30px 60px rgba(27,21,17,.08) !important;
+}
+
+.scene-media,
+.story-scene.is-revealed .scene-media {
+  box-shadow:
+    0 5px 12px rgba(24,19,16,.08),
+    0 22px 42px rgba(24,19,16,.13),
+    0 50px 92px rgba(24,19,16,.16),
+    0 100px 150px rgba(24,19,16,.10) !important;
+}
+
+.scene-media::before {
+  inset: auto 8% -30px 8% !important;
+  height: 48px !important;
+  border-radius: 999px !important;
+  background: rgba(26,20,16,.18) !important;
+  filter: blur(21px) !important;
+  opacity: .78 !important;
+  z-index: -2 !important;
+}
+
+.scene-media::after {
+  border-radius: 8px !important;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.23) 0%,
+      rgba(255,255,255,.11) 13%,
+      rgba(255,255,255,.02) 29%,
+      rgba(255,255,255,0) 44%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.045) 0%,
+      rgba(255,255,255,0) 24%,
+      rgba(0,0,0,.035) 100%
+    ) !important;
+}
+
+.scene-copy {
+  position: relative;
+  z-index: 4;
+}
+
+@media (min-width: 761px) {
+  .scene-copy {
+    padding-top: 4px !important;
+  }
+
+  .scene-copy h2 {
+    text-shadow: 0 1px 0 rgba(255,255,255,.28);
+  }
+}
+
+@media (max-width: 760px) {
+  .scene-copy,
+  .scene-landscape-left .scene-copy,
+  .scene-landscape-right .scene-copy,
+  .scene-portrait-left .scene-copy,
+  .scene-portrait-right .scene-copy,
+  .scene-square-left .scene-copy,
+  .scene-square-right .scene-copy {
+    width: var(--mobile-gallery) !important;
+    max-width: 620px !important;
+    margin: 30px auto 0 !important;
+    padding: 0 5px !important;
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
+  }
+
+  .scene-media,
+  .story-scene.is-revealed .scene-media {
+    box-shadow:
+      0 4px 10px rgba(24,19,16,.08),
+      0 18px 34px rgba(24,19,16,.13),
+      0 42px 78px rgba(24,19,16,.17),
+      0 82px 124px rgba(24,19,16,.11) !important;
+  }
+
+  .scene-media > picture::before {
+    inset: 8px -8px -8px 8px !important;
+    box-shadow:
+      0 10px 22px rgba(27,21,17,.08),
+      0 26px 52px rgba(27,21,17,.10) !important;
+  }
+
+  .scene-media::before {
+    inset: auto 7% -26px 7% !important;
+    height: 42px !important;
+    filter: blur(18px) !important;
+  }
+
+  .scene-copy::before {
+    margin-top: 1px !important;
+    margin-bottom: 4px !important;
+  }
+
+  .scene-copy h2 {
+    text-shadow: 0 1px 0 rgba(255,255,255,.24);
+  }
+
+  .scene-summary {
+    max-width: 34ch !important;
+  }
+
+  .read-link {
+    background: transparent !important;
+  }
+
+  .story-scene[data-kind="poem"] .read-link:hover,
+  .story-scene[data-kind="poem"] .read-link:focus-visible {
+    background: var(--poem) !important;
+  }
+
+  .story-scene[data-kind="prose"] .read-link:hover,
+  .story-scene[data-kind="prose"] .read-link:focus-visible {
+    background: var(--prose) !important;
+  }
+}
+
+@media (max-width: 390px) {
+  .scene-copy,
+  .scene-landscape-left .scene-copy,
+  .scene-landscape-right .scene-copy,
+  .scene-portrait-left .scene-copy,
+  .scene-portrait-right .scene-copy,
+  .scene-square-left .scene-copy,
+  .scene-square-right .scene-copy {
+    width: var(--mobile-gallery) !important;
+    margin-top: 27px !important;
+    padding: 0 4px !important;
+  }
+}
+
+/* =========================================================
+   V34 — son
+   ========================================================= */
