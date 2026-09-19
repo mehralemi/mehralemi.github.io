@@ -1025,24 +1025,20 @@ button:focus-visible {
 }
 
 /* =========================================================
-   v25 — mobile centered editorial rhythm
-   Mobilde sağ-sol asimetri kaldırıldı.
-   Tek merkez eksen + tek metin rayı + üç görsel oranı.
+   v26 — mobile fixed-width editorial rhythm
+   Mobilde genişlik sabit; çeşitlilik oran, kadraj ve tipografik ritimden gelir.
    Masaüstü / JS / filtre / 5+5 / scroll-color korunur.
    ========================================================= */
 
 @media (max-width: 760px) {
 
   :root {
-    --m-edge: 16px;
-    --m-text: calc(100vw - 40px);
-    --m-wide: calc(100vw - 20px);
-    --m-square: min(86vw, 400px);
-    --m-portrait: min(72vw, 340px);
+    --m-frame: calc(100vw - 32px);
+    --m-copy: calc(100vw - 40px);
   }
 
   /* -------------------------------------------------------
-     GENEL AKIŞ
+     ANA AKIŞ
      ------------------------------------------------------- */
 
   .story-scene,
@@ -1054,7 +1050,7 @@ button:focus-visible {
   .scene-square-right {
     width: 100% !important;
     margin: 0 !important;
-    padding: 48px 0 68px !important;
+    padding: 46px 0 66px !important;
     display: flex !important;
     flex-direction: column !important;
     gap: 0 !important;
@@ -1062,7 +1058,7 @@ button:focus-visible {
   }
 
   .story-scene:first-child {
-    padding-top: 24px !important;
+    padding-top: 22px !important;
   }
 
   .story-scene::after {
@@ -1070,9 +1066,8 @@ button:focus-visible {
   }
 
   /* -------------------------------------------------------
-     GÖRSELLER
-     Bütün görseller aynı merkez eksende.
-     Çeşitlilik yalnızca oran + genişlikten gelir.
+     GÖRSEL OMURGASI
+     BÜTÜN görseller aynı genişlik ve aynı merkez eksende.
      ------------------------------------------------------- */
 
   .scene-landscape-left .scene-media,
@@ -1082,47 +1077,74 @@ button:focus-visible {
   .scene-square-left .scene-media,
   .scene-square-right .scene-media {
     order: 1 !important;
+    width: var(--m-frame) !important;
+    max-width: 620px !important;
+    margin: 0 auto !important;
     align-self: center !important;
     justify-self: center !important;
-    margin: 0 auto !important;
-    max-height: none !important;
+    overflow: hidden !important;
   }
 
-  /* A — yatay / güçlü sahne */
+  /*
+    Çeşitlilik sadece oranla:
+    yatay = sinematik
+    kare = nötr / arşivsel
+    portre = daha şiirsel / figüratif
+  */
   .scene-landscape-left .scene-media,
   .scene-landscape-right .scene-media {
-    width: var(--m-wide) !important;
-    max-width: none !important;
     aspect-ratio: 16 / 10 !important;
   }
 
-  /* B — portre / şiirsel vurgu */
+  .scene-square-left .scene-media,
+  .scene-square-right .scene-media {
+    aspect-ratio: 1 / 1 !important;
+  }
+
   .scene-portrait-left .scene-media,
   .scene-portrait-right .scene-media {
-    width: var(--m-portrait) !important;
-    max-width: 340px !important;
     aspect-ratio: 4 / 5 !important;
   }
 
-  /* C — kare / orta vurgu */
-  .scene-square-left .scene-media,
-  .scene-square-right .scene-media {
-    width: var(--m-square) !important;
-    max-width: 400px !important;
-    aspect-ratio: 1 / 1 !important;
+  /*
+    Aynı genişlik korunurken içeriklerin görsel dili farklılaşsın:
+    kadraj merkezi hafifçe değişir.
+  */
+  .scene-landscape-left .scene-media img {
+    object-position: 46% 50% !important;
+  }
+
+  .scene-landscape-right .scene-media img {
+    object-position: 56% 50% !important;
+  }
+
+  .scene-square-left .scene-media img {
+    object-position: 48% 46% !important;
+  }
+
+  .scene-square-right .scene-media img {
+    object-position: 54% 52% !important;
+  }
+
+  .scene-portrait-left .scene-media img {
+    object-position: 48% 44% !important;
+  }
+
+  .scene-portrait-right .scene-media img {
+    object-position: 54% 46% !important;
   }
 
   .scene-media,
   .scene-media:hover {
     border-radius: 8px !important;
     box-shadow:
-      0 13px 28px rgba(59, 45, 34, .08),
+      0 13px 29px rgba(59, 45, 34, .08),
       0 3px 8px rgba(59, 45, 34, .035) !important;
   }
 
   /* -------------------------------------------------------
-     METİN
-     Tek ray. Her içerikte aynı başlangıç çizgisi.
+     METİN OMURGASI
+     Bütün içeriklerde aynı genişlik + aynı başlangıç çizgisi.
      ------------------------------------------------------- */
 
   .scene-copy,
@@ -1133,11 +1155,11 @@ button:focus-visible {
   .scene-square-left .scene-copy,
   .scene-square-right .scene-copy {
     order: 2 !important;
-    align-self: center !important;
-    width: var(--m-text) !important;
-    max-width: none !important;
-    margin: 20px auto 0 !important;
+    width: var(--m-copy) !important;
+    max-width: 620px !important;
+    margin: 19px auto 0 !important;
     padding: 0 !important;
+    align-self: center !important;
 
     display: flex !important;
     flex-direction: column !important;
@@ -1147,7 +1169,7 @@ button:focus-visible {
   }
 
   /* -------------------------------------------------------
-     TÜR ETİKETİ
+     TÜR
      ------------------------------------------------------- */
 
   .type-tag {
@@ -1159,6 +1181,7 @@ button:focus-visible {
 
   /* -------------------------------------------------------
      BAŞLIK
+     Aynı eksen, ama sahne oranına göre çok hafif tipografik karakter farkı.
      ------------------------------------------------------- */
 
   .scene-copy h2,
@@ -1167,20 +1190,39 @@ button:focus-visible {
   .scene-copy h2.title-long {
     width: 100% !important;
     margin: 0 !important;
-    max-width: 12.3ch !important;
-    font-size: clamp(2.25rem, 10.3vw, 3.45rem) !important;
-    line-height: 1.065 !important;
+    line-height: 1.06 !important;
     letter-spacing: -.016em !important;
     text-wrap: balance !important;
   }
 
+  /* yatay sahnelerde biraz daha sinematik / büyük */
+  .scene-landscape-left .scene-copy h2,
+  .scene-landscape-right .scene-copy h2 {
+    max-width: 11.8ch !important;
+    font-size: clamp(2.38rem, 10.7vw, 3.52rem) !important;
+  }
+
+  /* kare sahnelerde nötr */
+  .scene-square-left .scene-copy h2,
+  .scene-square-right .scene-copy h2 {
+    max-width: 12.2ch !important;
+    font-size: clamp(2.28rem, 10.2vw, 3.38rem) !important;
+  }
+
+  /* portre sahnelerde bir kademe daha sakin */
+  .scene-portrait-left .scene-copy h2,
+  .scene-portrait-right .scene-copy h2 {
+    max-width: 12.5ch !important;
+    font-size: clamp(2.18rem, 9.8vw, 3.22rem) !important;
+  }
+
   .scene-copy h2.title-long {
     max-width: 13ch !important;
-    font-size: clamp(2.05rem, 9.4vw, 3.05rem) !important;
+    font-size: clamp(2.02rem, 9.15vw, 3rem) !important;
   }
 
   /* -------------------------------------------------------
-     ÖZET + CTA
+     ÖZET
      ------------------------------------------------------- */
 
   .scene-summary {
@@ -1190,6 +1232,16 @@ button:focus-visible {
     font-size: .93rem !important;
     line-height: 1.58 !important;
   }
+
+  /* Portre sahnelerde satır ritmi biraz daha yoğun */
+  .scene-portrait-left .scene-summary,
+  .scene-portrait-right .scene-summary {
+    max-width: 33ch !important;
+  }
+
+  /* -------------------------------------------------------
+     CTA
+     ------------------------------------------------------- */
 
   .read-link {
     min-width: 148px !important;
@@ -1202,9 +1254,8 @@ button:focus-visible {
   }
 
   /* -------------------------------------------------------
-     MOBİL REVEAL
-     Sağ-sol kayma kaldırıldı.
-     Hafif aşağıdan yukarı + opacity.
+     MOBİL ANİMASYON
+     Genişlik ve hizalama sabit kaldığı için sadece dikey reveal.
      ------------------------------------------------------- */
 
   .scene-landscape-left,
@@ -1222,7 +1273,7 @@ button:focus-visible {
   .story-scene .scene-copy h2,
   .story-scene .scene-summary,
   .story-scene .read-link {
-    transform: translateY(18px) !important;
+    transform: translateY(16px) !important;
   }
 
   .story-scene.is-revealed .scene-media,
@@ -1233,7 +1284,6 @@ button:focus-visible {
     transform: translateY(0) !important;
   }
 
-  /* Kademeler korunur */
   .story-scene.is-revealed .scene-media {
     transition-delay: 0s !important;
   }
@@ -1254,19 +1304,34 @@ button:focus-visible {
     transition-delay: .25s !important;
   }
 
-  /* CTA hover scale reveal kuralıyla çakışmasın */
   .story-scene.is-revealed .read-link:hover,
   .story-scene.is-revealed .read-link:focus-visible {
     transform: scale(1.038) !important;
   }
 
   /* -------------------------------------------------------
-     İÇERİKLER ARASI NEFES
+     İÇERİKLER ARASI RİTİM
+     Aynı hizalama, fakat oran farkları doğal çeşitlilik yaratır.
      ------------------------------------------------------- */
 
+  .scene-landscape-left,
+  .scene-landscape-right {
+    padding-bottom: 70px !important;
+  }
+
+  .scene-square-left,
+  .scene-square-right {
+    padding-bottom: 66px !important;
+  }
+
+  .scene-portrait-left,
+  .scene-portrait-right {
+    padding-bottom: 74px !important;
+  }
+
   .load-more-wrap {
-    width: var(--m-text) !important;
-    margin: 22px auto 28px !important;
+    width: var(--m-copy) !important;
+    margin: 20px auto 28px !important;
   }
 }
 
@@ -1274,22 +1339,26 @@ button:focus-visible {
 @media (max-width: 390px) {
 
   :root {
-    --m-wide: calc(100vw - 18px);
-    --m-square: 84vw;
-    --m-portrait: 70vw;
+    --m-frame: calc(100vw - 24px);
+    --m-copy: calc(100vw - 36px);
   }
 
-  .scene-copy h2,
-  .scene-copy h2.title-short,
-  .scene-copy h2.title-medium {
-    font-size: clamp(2.18rem, 10vw, 3.2rem) !important;
+  .scene-landscape-left .scene-copy h2,
+  .scene-landscape-right .scene-copy h2 {
+    font-size: clamp(2.22rem, 10.4vw, 3.25rem) !important;
   }
 
-  .scene-copy h2.title-long {
-    font-size: clamp(2rem, 9.2vw, 2.95rem) !important;
+  .scene-square-left .scene-copy h2,
+  .scene-square-right .scene-copy h2 {
+    font-size: clamp(2.13rem, 9.95vw, 3.12rem) !important;
+  }
+
+  .scene-portrait-left .scene-copy h2,
+  .scene-portrait-right .scene-copy h2 {
+    font-size: clamp(2.05rem, 9.55vw, 2.98rem) !important;
   }
 }
 
 /* =========================================================
-   v25 — sonu
+   v26 — sonu
    ========================================================= */
