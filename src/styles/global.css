@@ -6128,3 +6128,267 @@ main {
 /* =========================================================
    V44 — son
    ========================================================= */
+
+/* =========================================================
+   V45 — EARTH / BRONZE HARMONY
+   Koyu kahve zeminde kırmızı-yeşil ikiliğini kaldırır.
+   Şiir ve düz yazı aynı toprak/bronz ailesinde ayrışır.
+   ========================================================= */
+
+:root {
+  --paper: #1b130f;
+  --paper-light: #efe3d3;
+
+  --ink: #efe3d3;
+  --ink-soft: #c4af97;
+
+  /* İki tür de aynı sıcak toprak ailesinde */
+  --poem: #916554;      /* kil / bakır kahve */
+  --prose: #827563;     /* mantar / bronz taupe */
+  --accent-mid: #92735c;
+
+  --line: rgba(239, 227, 211, .13);
+  --line-soft: rgba(239, 227, 211, .07);
+
+  --museum-bg: #17100c;
+  --museum-bg-2: #1d1510;
+  --museum-surface: #241a15;
+  --museum-surface-2: #2a1e18;
+  --museum-surface-3: #30231c;
+
+  --museum-text: #efe3d3;
+  --museum-muted: #c4af97;
+}
+
+/* ---------------------------------------------------------
+   ZEMİN — DAHA NÖTR, DAHA AZ KIZIL
+   --------------------------------------------------------- */
+
+html {
+  background: #17100c !important;
+}
+
+body,
+.archive-page,
+main {
+  background:
+    linear-gradient(
+      180deg,
+      #1a120e 0%,
+      #17100c 54%,
+      #140d0a 100%
+    ) !important;
+}
+
+/* ---------------------------------------------------------
+   HEADER / FILTER
+   --------------------------------------------------------- */
+
+.site-header {
+  background: #211711 !important;
+  border-bottom-color: rgba(239,227,211,.055) !important;
+}
+
+.archive-tools,
+.archive-toolbar {
+  background: rgba(30, 21, 16, .96) !important;
+  border-top-color: rgba(239,227,211,.03) !important;
+  border-bottom-color: rgba(239,227,211,.055) !important;
+}
+
+.brand {
+  color: #f0e5d7 !important;
+}
+
+.main-nav a,
+.filter {
+  color: #c8b39b !important;
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible,
+.filter:hover {
+  color: #f0e5d7 !important;
+}
+
+/* Aktif filtreler artık kırmızı/yeşil değil */
+.filter.is-active,
+.filter-poem.is-active,
+.filter-prose.is-active {
+  color: #1d140f !important;
+  background: #a08166 !important;
+  border-color: #a08166 !important;
+}
+
+/* ---------------------------------------------------------
+   ANA GALERİ YÜZEYİ
+   --------------------------------------------------------- */
+
+.story-stream {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(38, 27, 21, .985) 0%,
+      rgba(34, 24, 19, .995) 54%,
+      rgba(29, 20, 16, 1) 100%
+    ) !important;
+  border-color: rgba(239,227,211,.055) !important;
+}
+
+/* ---------------------------------------------------------
+   TYPOGRAPHY
+   --------------------------------------------------------- */
+
+.brand,
+.scene-copy h2,
+.scene-copy h2 a {
+  color: #f0e5d6 !important;
+}
+
+.scene-summary {
+  color: #c4b098 !important;
+}
+
+/* küçük vurgu çizgileri de aynı ailede */
+.scene-copy::before,
+.story-scene[data-kind="poem"] .scene-copy::before,
+.story-scene[data-kind="prose"] .scene-copy::before {
+  background: #92735c !important;
+  opacity: .62 !important;
+}
+
+/* ---------------------------------------------------------
+   TYPE TAGS
+   Kırmızı/yeşil yerine iki yakın toprak tonu
+   --------------------------------------------------------- */
+
+.story-scene[data-kind="poem"] .type-tag {
+  color: #d7b3a3 !important;
+  background: rgba(145, 101, 84, .12) !important;
+  border-color: rgba(145, 101, 84, .24) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag {
+  color: #d2c3ae !important;
+  background: rgba(130, 117, 99, .12) !important;
+  border-color: rgba(130, 117, 99, .24) !important;
+}
+
+.story-scene[data-kind="poem"] .type-tag:hover {
+  background: rgba(145, 101, 84, .17) !important;
+  border-color: rgba(145, 101, 84, .34) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag:hover {
+  background: rgba(130, 117, 99, .17) !important;
+  border-color: rgba(130, 117, 99, .34) !important;
+}
+
+/* ---------------------------------------------------------
+   CTA
+   İki tür de uyumlu bronz-toprak ailesinde
+   --------------------------------------------------------- */
+
+.read-link {
+  color: #f5ebdf !important;
+  box-shadow:
+    0 9px 20px rgba(0,0,0,.16),
+    0 2px 6px rgba(0,0,0,.10) !important;
+}
+
+.story-scene[data-kind="poem"] .read-link {
+  background: #8e6554 !important;
+  border-color: #8e6554 !important;
+}
+
+.story-scene[data-kind="prose"] .read-link {
+  background: #7d705f !important;
+  border-color: #7d705f !important;
+}
+
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  background: #7d5749 !important;
+  border-color: #7d5749 !important;
+  color: #f8efe4 !important;
+}
+
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  background: #6d6253 !important;
+  border-color: #6d6253 !important;
+  color: #f8efe4 !important;
+}
+
+/* ---------------------------------------------------------
+   GÖRSEL ALAN
+   Tam nötr kahve derinliği; renk lekesi yok
+   --------------------------------------------------------- */
+
+.scene-media,
+.story-scene.is-revealed .scene-media,
+.scene-media:hover,
+.story-scene:hover .scene-media {
+  background: #2f231c !important;
+  border-color: rgba(239,227,211,.06) !important;
+  box-shadow:
+    0 12px 24px rgba(0,0,0,.18),
+    0 30px 58px rgba(0,0,0,.16),
+    0 58px 104px rgba(0,0,0,.08) !important;
+}
+
+/* Görselin etrafındaki tüm dekoratif pseudo katmanları kapat */
+.scene-media::before,
+.scene-media::after,
+.story-stream .scene-media::before,
+.story-stream .scene-media::after {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* ---------------------------------------------------------
+   LOAD MORE
+   --------------------------------------------------------- */
+
+.load-more {
+  color: #cfbca6 !important;
+  background: rgba(255,255,255,.018) !important;
+  border-color: rgba(239,227,211,.09) !important;
+}
+
+.load-more:hover,
+.load-more:focus-visible {
+  color: #efe3d3 !important;
+  background: rgba(255,255,255,.04) !important;
+  border-color: rgba(239,227,211,.16) !important;
+}
+
+/* ---------------------------------------------------------
+   MOBİL
+   --------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  .story-stream {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(38, 27, 21, .99) 0%,
+        rgba(33, 23, 18, 1) 62%,
+        rgba(28, 19, 15, 1) 100%
+      ) !important;
+  }
+
+  .story-stream .scene-media {
+    box-shadow:
+      0 10px 20px rgba(0,0,0,.18),
+      0 24px 46px rgba(0,0,0,.15),
+      0 42px 76px rgba(0,0,0,.08) !important;
+  }
+}
+
+/* =========================================================
+   V45 — son
+   ========================================================= */
