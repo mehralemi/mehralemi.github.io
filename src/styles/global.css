@@ -4561,3 +4561,301 @@ main {
 /* =========================================================
    V39 — son
    ========================================================= */
+
+/* =========================================================
+   V40 — koyu kahve palet + pürüzlü kağıt dokusu
+   ========================================================= */
+
+/* ---------------------------------------------------------
+   1) YENİ PALET
+   Kremden biraz daha koyu, kahverengi odaklı sergi tonu.
+   --------------------------------------------------------- */
+:root {
+  --paper: #e6d3bd;
+  --paper-light: #efe2d0;
+  --ink: #2d241d;
+  --ink-soft: #5f5347;
+
+  --poem: #9c6252;
+  --prose: #66796e;
+  --accent-mid: #806858;
+
+  --line: rgba(92, 74, 60, .18);
+  --line-soft: rgba(92, 74, 60, .11);
+
+  --gallery-brown-1: #ebdcc9;
+  --gallery-brown-2: #e2ceb7;
+  --gallery-brown-3: #d4b99d;
+  --gallery-shadow: rgba(58, 42, 31, .12);
+}
+
+/* ---------------------------------------------------------
+   2) GENEL ARKA PLAN
+   Daha koyu sıcak kağıt tonu + ton geçişleri
+   --------------------------------------------------------- */
+html {
+  background: var(--paper) !important;
+}
+
+body {
+  background:
+    radial-gradient(circle at 10% 12%, rgba(156, 98, 82, .055), transparent 28rem),
+    radial-gradient(circle at 88% 24%, rgba(102, 121, 110, .05), transparent 30rem),
+    linear-gradient(180deg, var(--gallery-brown-1) 0%, var(--gallery-brown-2) 52%, var(--gallery-brown-3) 100%) !important;
+  color: var(--ink) !important;
+}
+
+.story-stream {
+  background:
+    radial-gradient(circle at 12% 16%, rgba(255,255,255,.16), transparent 24rem),
+    radial-gradient(circle at 82% 22%, rgba(120, 92, 74, .08), transparent 28rem),
+    linear-gradient(180deg, rgba(239, 226, 208, .55) 0%, rgba(230, 211, 189, .18) 100%) !important;
+}
+
+/* ---------------------------------------------------------
+   3) PÜRÜZLÜ / KAĞITSI / BURUŞUKSU DOKU
+   Mevcut noise katmanını daha rafine hale getiriyoruz.
+   --------------------------------------------------------- */
+.paper-noise {
+  opacity: .16 !important;
+  background-image:
+    radial-gradient(circle, rgba(66, 52, 40, .14) .45px, transparent .62px),
+    radial-gradient(circle, rgba(255, 255, 255, .10) .5px, transparent .68px);
+  background-size: 5px 5px, 9px 9px;
+  background-position: 0 0, 2px 3px;
+  mix-blend-mode: multiply;
+}
+
+.paper-noise::before,
+.paper-noise::after {
+  content: "";
+  position: absolute;
+  inset: -6%;
+  pointer-events: none;
+}
+
+.paper-noise::before {
+  opacity: .42;
+  background:
+    linear-gradient(112deg, rgba(255,255,255,.08) 0%, rgba(255,255,255,0) 12%, rgba(108, 84, 66, .045) 25%, rgba(255,255,255,0) 37%),
+    linear-gradient(28deg, rgba(98, 75, 58, .05) 0%, rgba(255,255,255,0) 18%, rgba(255,255,255,.05) 28%, rgba(255,255,255,0) 42%),
+    linear-gradient(153deg, rgba(95, 72, 55, .04) 0%, rgba(255,255,255,0) 20%, rgba(255,255,255,.05) 34%, rgba(255,255,255,0) 50%),
+    radial-gradient(1300px 640px at 16% 12%, rgba(255,255,255,.10), transparent 62%),
+    radial-gradient(1100px 720px at 84% 28%, rgba(85, 64, 49, .06), transparent 64%);
+  mix-blend-mode: soft-light;
+}
+
+.paper-noise::after {
+  opacity: .28;
+  background:
+    repeating-linear-gradient(
+      132deg,
+      rgba(82, 62, 48, .022) 0px,
+      rgba(82, 62, 48, .022) 2px,
+      rgba(255,255,255,0) 2px,
+      rgba(255,255,255,0) 54px
+    ),
+    repeating-linear-gradient(
+      38deg,
+      rgba(255,255,255,.028) 0px,
+      rgba(255,255,255,.028) 1px,
+      rgba(255,255,255,0) 1px,
+      rgba(255,255,255,0) 46px
+    );
+  mix-blend-mode: multiply;
+}
+
+/* ---------------------------------------------------------
+   4) ÜST ALAN / FİLTRELER / NAV
+   --------------------------------------------------------- */
+.site-header {
+  background: rgba(232, 216, 197, .90) !important;
+  box-shadow: 0 1px 0 rgba(92, 74, 60, .09);
+}
+
+.main-nav a {
+  color: #5b4a3d !important;
+}
+
+.archive-toolbar {
+  background: rgba(232, 216, 197, .76) !important;
+  border-top: 1px solid rgba(92, 74, 60, .08) !important;
+  border-bottom: 1px solid rgba(92, 74, 60, .10) !important;
+}
+
+.filter {
+  color: #766252 !important;
+}
+
+.filter:hover {
+  border-color: rgba(128, 104, 88, .28) !important;
+  background: rgba(255,255,255,.14) !important;
+}
+
+.filter.is-active {
+  color: var(--paper-light) !important;
+  background: var(--accent-mid) !important;
+  border-color: var(--accent-mid) !important;
+}
+
+.filter-poem.is-active {
+  background: var(--poem) !important;
+  border-color: var(--poem) !important;
+}
+
+.filter-prose.is-active {
+  background: var(--prose) !important;
+  border-color: var(--prose) !important;
+}
+
+/* ---------------------------------------------------------
+   5) METİN BLOKLARI / BAŞLIKLAR / ÖZETLER
+   --------------------------------------------------------- */
+.brand,
+.scene-copy h2,
+.scene-copy h2 a {
+  color: var(--ink) !important;
+}
+
+.scene-summary {
+  color: var(--ink-soft) !important;
+}
+
+.scene-copy::before {
+  opacity: .72 !important;
+}
+
+.scene-copy::after {
+  background: rgba(242, 232, 219, .34) !important;
+  border: 1px solid rgba(104, 82, 65, .06) !important;
+}
+
+/* ---------------------------------------------------------
+   6) ETİKETLER
+   --------------------------------------------------------- */
+.type-tag {
+  border-radius: 8px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.22),
+    0 4px 10px rgba(46, 35, 27, .05) !important;
+}
+
+.story-scene[data-kind="poem"] .type-tag {
+  color: var(--poem) !important;
+  background: rgba(156, 98, 82, .095) !important;
+  border-color: rgba(156, 98, 82, .30) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag {
+  color: var(--prose) !important;
+  background: rgba(102, 121, 110, .09) !important;
+  border-color: rgba(102, 121, 110, .28) !important;
+}
+
+/* ---------------------------------------------------------
+   7) CTA
+   --------------------------------------------------------- */
+.read-link {
+  border-radius: 8px !important;
+  color: var(--paper-light) !important;
+  box-shadow:
+    0 8px 18px rgba(53, 38, 28, .14),
+    0 2px 6px rgba(53, 38, 28, .08) !important;
+}
+
+.story-scene[data-kind="poem"] .read-link {
+  background: var(--poem) !important;
+  border-color: var(--poem) !important;
+}
+
+.story-scene[data-kind="prose"] .read-link {
+  background: var(--prose) !important;
+  border-color: var(--prose) !important;
+}
+
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  background: #885242 !important;
+  border-color: #885242 !important;
+}
+
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  background: #56695f !important;
+  border-color: #56695f !important;
+}
+
+/* ---------------------------------------------------------
+   8) GÖRSEL ALANLAR
+   Kahve paletine uygun yüzey, gölge ve çerçeve
+   --------------------------------------------------------- */
+.scene-media {
+  background: #d6c2ab !important;
+  border: 1px solid rgba(96, 76, 60, .08) !important;
+  border-radius: 8px !important;
+  box-shadow:
+    0 16px 34px rgba(58, 42, 31, .10),
+    0 36px 76px rgba(58, 42, 31, .09),
+    0 2px 6px rgba(58, 42, 31, .05) !important;
+}
+
+.scene-media::before {
+  opacity: .42 !important;
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.18) 0%,
+      rgba(255,255,255,0) 36%
+    ) !important;
+}
+
+.scene-media::after {
+  border: 1px solid rgba(255,255,255,.14) !important;
+  inset: 0 !important;
+  border-radius: inherit !important;
+}
+
+.scroll-color-image {
+  filter: grayscale(1) saturate(0) contrast(1.03) brightness(.91) !important;
+}
+
+/* ---------------------------------------------------------
+   9) MOBİLDE PALET UYUMU
+   --------------------------------------------------------- */
+@media (max-width: 760px) {
+  .site-header {
+    background: rgba(233, 217, 198, .95) !important;
+  }
+
+  .story-stream .scene-media::before {
+    background:
+      linear-gradient(
+        145deg,
+        rgba(255,255,255,.16),
+        rgba(255,255,255,0) 42%
+      ) !important;
+  }
+
+  .story-stream .scene-media::after {
+    background: linear-gradient(
+      180deg,
+      rgba(120, 94, 74, .03),
+      rgba(120, 94, 74, 0)
+    ) !important;
+  }
+
+  .story-stream .scene-media {
+    box-shadow:
+      0 10px 22px rgba(58, 42, 31, .10),
+      0 24px 54px rgba(58, 42, 31, .10),
+      0 2px 6px rgba(58, 42, 31, .05) !important;
+  }
+
+  .story-stream .scene-media::before,
+  .story-stream .scene-media::after {
+    border-radius: 14px !important;
+  }
+}
+/* =========================================================
+   V40 — son
+   ========================================================= */
