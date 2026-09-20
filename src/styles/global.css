@@ -5003,3 +5003,425 @@ main {
 /* =========================================================
    V41 — son
    ========================================================= */
+
+/* =========================================================
+   V42 — DEFAULT DARK BROWN MODE
+   Gerçek koyu kahve tema: espresso / kakao / ceviz.
+   Tüm ana UI öğeleri bu palete göre yeniden dengelenir.
+   ========================================================= */
+
+:root {
+  --paper: #2b1d16;
+  --paper-light: #ead8c0;
+
+  --ink: #f0dfc7;
+  --ink-soft: #c9b49b;
+
+  --poem: #c87864;
+  --prose: #8faa9a;
+  --accent-mid: #a8846b;
+
+  --line: rgba(234, 216, 192, .18);
+  --line-soft: rgba(234, 216, 192, .10);
+
+  --dark-brown-1: #261912;
+  --dark-brown-2: #302018;
+  --dark-brown-3: #3b291f;
+  --dark-brown-4: #493326;
+
+  --dark-panel: rgba(59, 41, 31, .78);
+  --dark-panel-strong: rgba(68, 47, 35, .92);
+
+  --shadow-dark: rgba(10, 7, 5, .42);
+  --shadow-soft: rgba(10, 7, 5, .22);
+}
+
+/* ---------------------------------------------------------
+   GENEL ZEMİN
+   --------------------------------------------------------- */
+
+html {
+  background: var(--dark-brown-1) !important;
+  color-scheme: dark;
+}
+
+body,
+.archive-page,
+main {
+  background:
+    radial-gradient(circle at 12% 10%, rgba(200, 120, 100, .07), transparent 28rem),
+    radial-gradient(circle at 88% 24%, rgba(143, 170, 154, .055), transparent 30rem),
+    linear-gradient(
+      180deg,
+      var(--dark-brown-1) 0%,
+      var(--dark-brown-2) 44%,
+      #21150f 100%
+    ) !important;
+  color: var(--ink) !important;
+}
+
+/* ---------------------------------------------------------
+   KAĞIT / BURUŞUK DOKU — DARK MODE UYUMU
+   --------------------------------------------------------- */
+
+.paper-noise {
+  opacity: .22 !important;
+  background-image:
+    radial-gradient(circle, rgba(255, 232, 205, .11) .42px, transparent .60px),
+    radial-gradient(circle, rgba(19, 12, 8, .26) .48px, transparent .68px);
+  background-size: 5px 5px, 9px 9px;
+  background-position: 0 0, 2px 3px;
+  mix-blend-mode: soft-light !important;
+}
+
+.paper-noise::before {
+  opacity: .60 !important;
+  background:
+    linear-gradient(112deg, rgba(255,238,215,.055) 0%, rgba(255,255,255,0) 13%, rgba(17,10,7,.13) 27%, rgba(255,255,255,0) 39%),
+    linear-gradient(29deg, rgba(15,9,6,.12) 0%, rgba(255,255,255,0) 19%, rgba(255,235,208,.045) 31%, rgba(255,255,255,0) 45%),
+    linear-gradient(153deg, rgba(13,8,5,.10) 0%, rgba(255,255,255,0) 21%, rgba(255,236,211,.04) 36%, rgba(255,255,255,0) 52%),
+    radial-gradient(1300px 660px at 18% 12%, rgba(255,235,209,.055), transparent 62%),
+    radial-gradient(1100px 720px at 84% 30%, rgba(9,5,3,.14), transparent 64%) !important;
+  mix-blend-mode: soft-light !important;
+}
+
+.paper-noise::after {
+  opacity: .34 !important;
+  background:
+    repeating-linear-gradient(
+      132deg,
+      rgba(8,5,3,.085) 0px,
+      rgba(8,5,3,.085) 2px,
+      transparent 2px,
+      transparent 56px
+    ),
+    repeating-linear-gradient(
+      38deg,
+      rgba(255,236,211,.028) 0px,
+      rgba(255,236,211,.028) 1px,
+      transparent 1px,
+      transparent 48px
+    ) !important;
+  mix-blend-mode: soft-light !important;
+}
+
+/* ---------------------------------------------------------
+   HEADER / NAV
+   --------------------------------------------------------- */
+
+.site-header {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(50, 33, 24, .97),
+      rgba(43, 28, 21, .95)
+    ) !important;
+  border-bottom: 1px solid rgba(234, 216, 192, .08) !important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.025),
+    0 12px 34px rgba(10,7,5,.14) !important;
+}
+
+.brand {
+  color: var(--ink) !important;
+}
+
+.main-nav a {
+  color: #d3bea5 !important;
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible {
+  color: #f2dfc4 !important;
+}
+
+/* ---------------------------------------------------------
+   FİLTRE ALANI
+   --------------------------------------------------------- */
+
+.archive-toolbar {
+  background: rgba(48, 32, 24, .88) !important;
+  border-top: 1px solid rgba(234, 216, 192, .07) !important;
+  border-bottom: 1px solid rgba(234, 216, 192, .10) !important;
+  backdrop-filter: blur(18px) !important;
+  -webkit-backdrop-filter: blur(18px) !important;
+}
+
+.filter {
+  color: #cdb69d !important;
+  border-color: rgba(234, 216, 192, .08) !important;
+  background: rgba(255,255,255,.018) !important;
+}
+
+.filter:hover {
+  color: #f0dec5 !important;
+  border-color: rgba(234, 216, 192, .22) !important;
+  background: rgba(255,255,255,.055) !important;
+}
+
+.filter.is-active {
+  color: #2b1d16 !important;
+  background: var(--accent-mid) !important;
+  border-color: var(--accent-mid) !important;
+}
+
+.filter-poem.is-active {
+  color: #2b1d16 !important;
+  background: var(--poem) !important;
+  border-color: var(--poem) !important;
+}
+
+.filter-prose.is-active {
+  color: #1f1814 !important;
+  background: var(--prose) !important;
+  border-color: var(--prose) !important;
+}
+
+/* ---------------------------------------------------------
+   ANA GALERİ YÜZEYİ
+   --------------------------------------------------------- */
+
+.story-stream {
+  background:
+    radial-gradient(circle at 14% 16%, rgba(255,231,202,.035), transparent 24rem),
+    radial-gradient(circle at 84% 22%, rgba(143,170,154,.035), transparent 27rem),
+    linear-gradient(
+      180deg,
+      rgba(61, 42, 32, .80) 0%,
+      rgba(52, 35, 27, .82) 56%,
+      rgba(43, 28, 21, .86) 100%
+    ) !important;
+  border-color: rgba(234, 216, 192, .09) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.035),
+    inset 0 -1px 0 rgba(0,0,0,.16),
+    0 24px 54px rgba(8,5,3,.18),
+    0 64px 130px rgba(8,5,3,.16) !important;
+}
+
+/* içerik ayırıcıları */
+.story-scene::after {
+  background:
+    linear-gradient(
+      90deg,
+      rgba(234,216,192,0) 0%,
+      rgba(234,216,192,.10) 18%,
+      rgba(234,216,192,.10) 82%,
+      rgba(234,216,192,0) 100%
+    ) !important;
+}
+
+/* ---------------------------------------------------------
+   METİN / BAŞLIK / ÖZET
+   --------------------------------------------------------- */
+
+.brand,
+.scene-copy h2,
+.scene-copy h2 a {
+  color: var(--ink) !important;
+}
+
+.scene-summary {
+  color: var(--ink-soft) !important;
+}
+
+.scene-copy::before {
+  opacity: .78 !important;
+}
+
+.scene-copy::after {
+  background: rgba(255, 236, 211, .025) !important;
+  border-color: rgba(234, 216, 192, .045) !important;
+}
+
+/* ---------------------------------------------------------
+   TÜR ETİKETLERİ
+   --------------------------------------------------------- */
+
+.type-tag {
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.06),
+    0 5px 12px rgba(8,5,3,.12) !important;
+}
+
+.story-scene[data-kind="poem"] .type-tag {
+  color: #e1a190 !important;
+  background: rgba(200, 120, 100, .12) !important;
+  border-color: rgba(200, 120, 100, .34) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag {
+  color: #b8ccbf !important;
+  background: rgba(143, 170, 154, .11) !important;
+  border-color: rgba(143, 170, 154, .30) !important;
+}
+
+.story-scene[data-kind="poem"] .type-tag:hover {
+  background: rgba(200, 120, 100, .18) !important;
+  border-color: rgba(200, 120, 100, .48) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag:hover {
+  background: rgba(143, 170, 154, .17) !important;
+  border-color: rgba(143, 170, 154, .44) !important;
+}
+
+/* ---------------------------------------------------------
+   CTA — DOLU, NET, DARK MODE UYUMLU
+   --------------------------------------------------------- */
+
+.read-link {
+  color: #241913 !important;
+  box-shadow:
+    0 10px 22px rgba(7,4,3,.22),
+    0 3px 8px rgba(7,4,3,.14) !important;
+}
+
+.story-scene[data-kind="poem"] .read-link {
+  background: var(--poem) !important;
+  border-color: var(--poem) !important;
+}
+
+.story-scene[data-kind="prose"] .read-link {
+  background: var(--prose) !important;
+  border-color: var(--prose) !important;
+}
+
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  background: #b96755 !important;
+  border-color: #b96755 !important;
+  color: #21150f !important;
+}
+
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  background: #7e9a89 !important;
+  border-color: #7e9a89 !important;
+  color: #1d1713 !important;
+}
+
+/* ---------------------------------------------------------
+   GÖRSEL ALANLAR
+   --------------------------------------------------------- */
+
+.scene-media {
+  background: #4a3428 !important;
+  border-color: rgba(234,216,192,.08) !important;
+  box-shadow:
+    0 16px 34px rgba(7,4,3,.24),
+    0 42px 88px rgba(7,4,3,.22),
+    0 2px 7px rgba(7,4,3,.18) !important;
+}
+
+.scene-media picture {
+  background: #3e2b22 !important;
+}
+
+.scene-media::before {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,236,211,.10) 0%,
+      rgba(255,255,255,0) 38%
+    ) !important;
+  opacity: .50 !important;
+}
+
+.scene-media::after {
+  border-color: rgba(255,236,211,.09) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,236,211,.08),
+    inset 0 -30px 60px rgba(8,5,3,.10) !important;
+}
+
+/* stacked katmanları dark palette çek */
+@media (max-width: 760px) {
+  .story-stream .scene-media::before {
+    background:
+      linear-gradient(
+        155deg,
+        #5a4031,
+        #463126
+      ) !important;
+    border-color: rgba(234,216,192,.06) !important;
+    box-shadow:
+      0 12px 24px rgba(7,4,3,.20),
+      0 30px 60px rgba(7,4,3,.18) !important;
+  }
+
+  .story-stream .scene-media::after {
+    background:
+      linear-gradient(
+        155deg,
+        #4d372a,
+        #3d2a21
+      ) !important;
+    border-color: rgba(234,216,192,.045) !important;
+    box-shadow:
+      0 14px 30px rgba(7,4,3,.18),
+      0 36px 72px rgba(7,4,3,.16) !important;
+  }
+}
+
+/* ---------------------------------------------------------
+   LOAD MORE
+   --------------------------------------------------------- */
+
+.load-more {
+  color: #d8c3aa !important;
+  background: rgba(255,255,255,.025) !important;
+  border-color: rgba(234,216,192,.14) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.025),
+    0 10px 24px rgba(7,4,3,.12) !important;
+}
+
+.load-more:hover,
+.load-more:focus-visible {
+  color: #f0dfc7 !important;
+  background: rgba(255,255,255,.055) !important;
+  border-color: rgba(234,216,192,.24) !important;
+}
+
+/* ---------------------------------------------------------
+   MOBİL
+   --------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  .site-header {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(51, 34, 25, .98),
+        rgba(43, 28, 21, .96)
+      ) !important;
+  }
+
+  .story-stream {
+    background:
+      radial-gradient(circle at 14% 14%, rgba(255,231,202,.035), transparent 20rem),
+      radial-gradient(circle at 82% 20%, rgba(143,170,154,.035), transparent 22rem),
+      linear-gradient(
+        180deg,
+        rgba(62, 43, 32, .88) 0%,
+        rgba(51, 34, 26, .90) 62%,
+        rgba(43, 28, 21, .92) 100%
+      ) !important;
+  }
+
+  .scene-summary {
+    color: #c9b59d !important;
+  }
+
+  .story-stream .scene-media {
+    box-shadow:
+      0 12px 24px rgba(7,4,3,.24),
+      0 30px 64px rgba(7,4,3,.22),
+      0 2px 6px rgba(7,4,3,.18) !important;
+  }
+}
+
+/* =========================================================
+   V42 — son
+   ========================================================= */
