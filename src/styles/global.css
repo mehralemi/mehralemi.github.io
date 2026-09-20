@@ -5425,3 +5425,454 @@ main {
 /* =========================================================
    V42 — son
    ========================================================= */
+
+/* =========================================================
+   V43 — DARK MUSEUM EDITORIAL
+   Mat koyu kahve, düşük parlama, yüksek derinlik.
+   ========================================================= */
+
+:root {
+  --paper: #1f1712;
+  --paper-light: #eee2d0;
+
+  --ink: #eee2d0;
+  --ink-soft: #c1ad96;
+
+  --poem: #a96555;
+  --prose: #718779;
+  --accent-mid: #8d705d;
+
+  --line: rgba(238, 226, 208, .14);
+  --line-soft: rgba(238, 226, 208, .075);
+
+  --museum-bg: #1c1410;
+  --museum-bg-2: #211812;
+  --museum-surface: #2b2019;
+  --museum-surface-2: #30231c;
+  --museum-surface-3: #35261e;
+
+  --museum-text: #eee2d0;
+  --museum-muted: #bda991;
+  --museum-border: rgba(238, 226, 208, .085);
+  --museum-shadow: rgba(5, 3, 2, .34);
+}
+
+/* ---------------------------------------------------------
+   GENEL ZEMİN — MAT, NÖTR KOYU KAHVE
+   --------------------------------------------------------- */
+
+html {
+  background: var(--museum-bg) !important;
+  color-scheme: dark;
+}
+
+body,
+.archive-page,
+main {
+  background:
+    linear-gradient(
+      180deg,
+      #201711 0%,
+      #1c1410 48%,
+      #19110d 100%
+    ) !important;
+  color: var(--museum-text) !important;
+}
+
+/* V42'deki renkli glow'ları sıfırla */
+body::before,
+body::after {
+  display: none !important;
+}
+
+/* ---------------------------------------------------------
+   KAĞIT DOKUSU — DAHA MAT, DAHA AZ EFEKTLİ
+   --------------------------------------------------------- */
+
+.paper-noise {
+  opacity: .14 !important;
+  background-image:
+    radial-gradient(circle, rgba(244, 226, 202, .085) .4px, transparent .58px),
+    radial-gradient(circle, rgba(0, 0, 0, .18) .46px, transparent .66px) !important;
+  background-size: 5px 5px, 8px 8px !important;
+  background-position: 0 0, 2px 3px !important;
+  mix-blend-mode: soft-light !important;
+}
+
+.paper-noise::before {
+  opacity: .24 !important;
+  background:
+    repeating-linear-gradient(
+      128deg,
+      rgba(255, 238, 214, .022) 0px,
+      rgba(255, 238, 214, .022) 1px,
+      transparent 1px,
+      transparent 62px
+    ),
+    repeating-linear-gradient(
+      36deg,
+      rgba(0, 0, 0, .055) 0px,
+      rgba(0, 0, 0, .055) 2px,
+      transparent 2px,
+      transparent 74px
+    ) !important;
+  mix-blend-mode: soft-light !important;
+}
+
+.paper-noise::after {
+  opacity: .14 !important;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(255,255,255,.018),
+      transparent 24%,
+      rgba(0,0,0,.04) 48%,
+      transparent 72%
+    ) !important;
+  mix-blend-mode: soft-light !important;
+}
+
+/* ---------------------------------------------------------
+   HEADER — DÜZ, MAT, PREMİUM
+   --------------------------------------------------------- */
+
+.site-header {
+  background: #251a14 !important;
+  border-bottom: 1px solid rgba(238, 226, 208, .07) !important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.018),
+    0 10px 26px rgba(0,0,0,.10) !important;
+}
+
+.brand {
+  color: #f0e4d3 !important;
+}
+
+.main-nav a {
+  color: #c6b39c !important;
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible {
+  color: #f0e4d3 !important;
+}
+
+.main-nav a::after {
+  background: #91725e !important;
+}
+
+/* ---------------------------------------------------------
+   FİLTRE BAR — KREM ŞERİT YOK
+   --------------------------------------------------------- */
+
+.archive-tools,
+.archive-toolbar {
+  background: rgba(37, 26, 20, .96) !important;
+  border-top: 1px solid rgba(238, 226, 208, .045) !important;
+  border-bottom: 1px solid rgba(238, 226, 208, .075) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,.07) !important;
+}
+
+.filter {
+  color: #bca78f !important;
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+.filter:hover {
+  color: #eadcc9 !important;
+  background: rgba(255,255,255,.035) !important;
+  border-color: rgba(238, 226, 208, .10) !important;
+}
+
+.filter.is-active {
+  color: #211712 !important;
+  background: #9a7a64 !important;
+  border-color: #9a7a64 !important;
+}
+
+.filter-poem.is-active {
+  color: #211712 !important;
+  background: #ae6c5b !important;
+  border-color: #ae6c5b !important;
+}
+
+.filter-prose.is-active {
+  color: #17130f !important;
+  background: #809487 !important;
+  border-color: #809487 !important;
+}
+
+/* ---------------------------------------------------------
+   STORY STREAM — GLOW YOK, MAT SERGİ DUVARI
+   --------------------------------------------------------- */
+
+.story-stream {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(47, 34, 27, .96) 0%,
+      rgba(42, 30, 24, .97) 54%,
+      rgba(37, 26, 20, .98) 100%
+    ) !important;
+  border: 1px solid rgba(238, 226, 208, .065) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.018),
+    inset 0 -1px 0 rgba(0,0,0,.12),
+    0 18px 42px rgba(0,0,0,.13),
+    0 44px 96px rgba(0,0,0,.10) !important;
+  animation: none !important;
+}
+
+/* Büyük ışık bulutlarını tamamen kaldır */
+.story-stream::before,
+.story-stream::after {
+  display: none !important;
+  content: none !important;
+  animation: none !important;
+}
+
+/* Sahne glow/spot alanlarını kaldır */
+.story-scene::before {
+  display: none !important;
+  content: none !important;
+}
+
+/* Sadece zarif divider kalsın */
+.story-scene::after {
+  display: block !important;
+  height: 1px !important;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(238,226,208,0) 0%,
+      rgba(238,226,208,.075) 18%,
+      rgba(238,226,208,.075) 82%,
+      rgba(238,226,208,0) 100%
+    ) !important;
+  opacity: 1 !important;
+  filter: none !important;
+}
+
+/* ---------------------------------------------------------
+   TYPOGRAPHY
+   --------------------------------------------------------- */
+
+.brand,
+.scene-copy h2,
+.scene-copy h2 a {
+  color: #efe3d2 !important;
+  text-shadow: none !important;
+}
+
+.scene-summary {
+  color: #baa68e !important;
+}
+
+.scene-copy::before {
+  opacity: .68 !important;
+}
+
+.story-scene[data-kind="poem"] .scene-copy::before {
+  background: #a96555 !important;
+}
+
+.story-scene[data-kind="prose"] .scene-copy::before {
+  background: #718779 !important;
+}
+
+.scene-copy::after {
+  display: none !important;
+}
+
+/* ---------------------------------------------------------
+   ETİKETLER — MAT, DÜŞÜK PARLAKLIK
+   --------------------------------------------------------- */
+
+.type-tag {
+  box-shadow: none !important;
+  border-radius: 7px !important;
+}
+
+.story-scene[data-kind="poem"] .type-tag {
+  color: #d89b8d !important;
+  background: rgba(169, 101, 85, .10) !important;
+  border-color: rgba(169, 101, 85, .30) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag {
+  color: #a9bcae !important;
+  background: rgba(113, 135, 121, .10) !important;
+  border-color: rgba(113, 135, 121, .28) !important;
+}
+
+.story-scene[data-kind="poem"] .type-tag:hover {
+  background: rgba(169, 101, 85, .15) !important;
+  border-color: rgba(169, 101, 85, .40) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag:hover {
+  background: rgba(113, 135, 121, .15) !important;
+  border-color: rgba(113, 135, 121, .38) !important;
+}
+
+/* ---------------------------------------------------------
+   CTA — DOLU AMA TOK, SOMON PARLAKLIĞI YOK
+   --------------------------------------------------------- */
+
+.read-link {
+  color: #f2e7d7 !important;
+  box-shadow:
+    0 7px 16px rgba(0,0,0,.16),
+    0 2px 5px rgba(0,0,0,.10) !important;
+}
+
+.story-scene[data-kind="poem"] .read-link {
+  background: #9b5f50 !important;
+  border-color: #9b5f50 !important;
+}
+
+.story-scene[data-kind="prose"] .read-link {
+  background: #667b6e !important;
+  border-color: #667b6e !important;
+}
+
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  color: #f4eadd !important;
+  background: #875044 !important;
+  border-color: #875044 !important;
+  filter: none !important;
+}
+
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  color: #f4eadd !important;
+  background: #586b60 !important;
+  border-color: #586b60 !important;
+  filter: none !important;
+}
+
+/* ---------------------------------------------------------
+   GÖRSELLER — MAT DERİNLİK, GLOW YOK
+   --------------------------------------------------------- */
+
+.scene-media,
+.story-scene.is-revealed .scene-media {
+  background: #392820 !important;
+  border: 1px solid rgba(238, 226, 208, .065) !important;
+  box-shadow:
+    0 10px 24px rgba(0,0,0,.18),
+    0 28px 58px rgba(0,0,0,.18),
+    0 56px 98px rgba(0,0,0,.11) !important;
+}
+
+.scene-media::before {
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255, 240, 219, .055) 0%,
+      rgba(255,255,255,0) 36%
+    ) !important;
+  opacity: .7 !important;
+  filter: none !important;
+}
+
+.scene-media::after {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.018) 0%,
+      rgba(255,255,255,0) 34%,
+      rgba(0,0,0,.055) 100%
+    ) !important;
+  border: 1px solid rgba(238, 226, 208, .045) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.035),
+    inset 0 -1px 0 rgba(0,0,0,.12) !important;
+}
+
+/* Hover: görünüm değişmesin */
+.scene-media:hover,
+.story-scene:hover .scene-media {
+  transform: none !important;
+  box-shadow:
+    0 10px 24px rgba(0,0,0,.18),
+    0 28px 58px rgba(0,0,0,.18),
+    0 56px 98px rgba(0,0,0,.11) !important;
+}
+
+/* ---------------------------------------------------------
+   MOBİL STACKED YÜZEYLER
+   Daha koyu, daha az kontrastlı.
+   --------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  .story-stream {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(47, 34, 27, .98) 0%,
+        rgba(41, 29, 23, .99) 62%,
+        rgba(36, 25, 20, 1) 100%
+      ) !important;
+  }
+
+  .story-stream .scene-media::before {
+    background:
+      linear-gradient(
+        155deg,
+        #4b352a,
+        #3d2b22
+      ) !important;
+    border-color: rgba(238, 226, 208, .045) !important;
+    box-shadow:
+      0 10px 22px rgba(0,0,0,.16),
+      0 24px 48px rgba(0,0,0,.14) !important;
+    opacity: 1 !important;
+  }
+
+  .story-stream .scene-media::after {
+    background:
+      linear-gradient(
+        155deg,
+        #403027,
+        #34251e
+      ) !important;
+    border-color: rgba(238, 226, 208, .035) !important;
+    box-shadow:
+      0 12px 26px rgba(0,0,0,.14),
+      0 30px 58px rgba(0,0,0,.12) !important;
+  }
+
+  .story-stream .scene-media {
+    box-shadow:
+      0 10px 22px rgba(0,0,0,.20),
+      0 24px 50px rgba(0,0,0,.18),
+      0 46px 84px rgba(0,0,0,.11) !important;
+  }
+}
+
+/* ---------------------------------------------------------
+   LOAD MORE
+   --------------------------------------------------------- */
+
+.load-more {
+  color: #cbb79f !important;
+  background: rgba(255,255,255,.018) !important;
+  border-color: rgba(238, 226, 208, .11) !important;
+  box-shadow: none !important;
+}
+
+.load-more:hover,
+.load-more:focus-visible {
+  color: #eee2d0 !important;
+  background: rgba(255,255,255,.045) !important;
+  border-color: rgba(238, 226, 208, .20) !important;
+}
+
+/* =========================================================
+   V43 — son
+   ========================================================= */
