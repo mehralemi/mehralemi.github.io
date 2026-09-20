@@ -6392,3 +6392,374 @@ main {
 /* =========================================================
    V45 — son
    ========================================================= */
+
+/* =========================================================
+   V46 — CLEAN DARK BROWN / HIGH READABILITY
+   Tek palet, temiz görsel yüzey, nötr CTA.
+   ========================================================= */
+
+:root {
+  --paper: #18110d;
+  --paper-light: #f2e7d8;
+
+  --ink: #f1e6d7;
+  --ink-soft: #c9b8a3;
+
+  --accent-main: #b58e6e;
+  --accent-main-hover: #c8a17f;
+
+  /* Tür renkleri artık yalnızca çok hafif semantik ayrım için */
+  --poem: #a78673;
+  --prose: #8e927f;
+  --accent-mid: #92745f;
+
+  --line: rgba(241, 230, 215, .13);
+  --line-soft: rgba(241, 230, 215, .07);
+
+  --dark-0: #14100c;
+  --dark-1: #18110d;
+  --dark-2: #1e1611;
+  --dark-3: #251a15;
+  --dark-4: #2c2019;
+}
+
+/* ---------------------------------------------------------
+   GENEL ZEMİN — NÖTR KOYU KAHVE
+   --------------------------------------------------------- */
+
+html {
+  background: var(--dark-0) !important;
+  color-scheme: dark;
+}
+
+body,
+.archive-page,
+main {
+  background:
+    linear-gradient(
+      180deg,
+      #1a120e 0%,
+      #16100c 52%,
+      #120d0a 100%
+    ) !important;
+  color: var(--ink) !important;
+}
+
+/* kağıt dokusu görünür ama kirli/çamurlu değil */
+.paper-noise {
+  opacity: .075 !important;
+  background-image:
+    radial-gradient(circle, rgba(246, 231, 211, .075) .38px, transparent .56px),
+    radial-gradient(circle, rgba(0, 0, 0, .14) .44px, transparent .64px) !important;
+  background-size: 6px 6px, 9px 9px !important;
+  mix-blend-mode: soft-light !important;
+}
+
+.paper-noise::before,
+.paper-noise::after {
+  opacity: .08 !important;
+}
+
+/* ---------------------------------------------------------
+   HEADER / NAV / FILTER
+   --------------------------------------------------------- */
+
+.site-header {
+  background: #211711 !important;
+  border-bottom: 1px solid rgba(241,230,215,.055) !important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.012),
+    0 10px 24px rgba(0,0,0,.11) !important;
+}
+
+.brand {
+  color: #f3e8da !important;
+}
+
+.main-nav a {
+  color: #cdbba5 !important;
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible {
+  color: #f3e8da !important;
+}
+
+.main-nav a::after {
+  background: var(--accent-main) !important;
+}
+
+.archive-tools,
+.archive-toolbar {
+  background: rgba(31, 22, 17, .97) !important;
+  border-top: 1px solid rgba(241,230,215,.028) !important;
+  border-bottom: 1px solid rgba(241,230,215,.055) !important;
+  box-shadow: 0 8px 18px rgba(0,0,0,.08) !important;
+}
+
+.filter {
+  color: #c8b59f !important;
+  background: transparent !important;
+  border-color: transparent !important;
+}
+
+.filter:hover {
+  color: #f0e4d5 !important;
+  background: rgba(255,255,255,.035) !important;
+  border-color: rgba(241,230,215,.08) !important;
+}
+
+/* aktif filtrelerde artık kırmızı / yeşil ayrımı yok */
+.filter.is-active,
+.filter-poem.is-active,
+.filter-prose.is-active {
+  color: #211610 !important;
+  background: var(--accent-main) !important;
+  border-color: var(--accent-main) !important;
+}
+
+/* ---------------------------------------------------------
+   GALERİ YÜZEYİ — DÜZ, TEMİZ, MAT
+   --------------------------------------------------------- */
+
+.story-stream {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(39, 28, 22, .99) 0%,
+      rgba(34, 24, 19, 1) 55%,
+      rgba(29, 20, 16, 1) 100%
+    ) !important;
+  border: 1px solid rgba(241,230,215,.05) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.012),
+    0 20px 44px rgba(0,0,0,.11),
+    0 44px 94px rgba(0,0,0,.075) !important;
+}
+
+/* Tüm glow / leke / ışık bulutu katmanlarını kaldır */
+.story-stream::before,
+.story-stream::after,
+.story-scene::before {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* içerik ayrımı yalnızca çok zarif çizgi ile */
+.story-scene::after {
+  display: block !important;
+  content: "" !important;
+  height: 1px !important;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(241,230,215,0) 0%,
+      rgba(241,230,215,.06) 20%,
+      rgba(241,230,215,.06) 80%,
+      rgba(241,230,215,0) 100%
+    ) !important;
+  opacity: 1 !important;
+}
+
+/* ---------------------------------------------------------
+   TYPOGRAPHY — DAHA NET OKUNURLUK
+   --------------------------------------------------------- */
+
+.brand,
+.scene-copy h2,
+.scene-copy h2 a {
+  color: #f2e7d8 !important;
+  text-shadow: none !important;
+}
+
+.scene-summary {
+  color: #c9b8a3 !important;
+}
+
+.scene-copy::before,
+.story-scene[data-kind="poem"] .scene-copy::before,
+.story-scene[data-kind="prose"] .scene-copy::before {
+  background: #9d7d65 !important;
+  opacity: .58 !important;
+}
+
+.scene-copy::after {
+  display: none !important;
+}
+
+/* ---------------------------------------------------------
+   TYPE TAGS — AYRIM VAR AMA BAĞIRMAYAN TONLAR
+   --------------------------------------------------------- */
+
+.type-tag {
+  border-radius: 8px !important;
+  box-shadow: none !important;
+}
+
+.story-scene[data-kind="poem"] .type-tag {
+  color: #d7bbaa !important;
+  background: rgba(167, 134, 115, .10) !important;
+  border-color: rgba(167, 134, 115, .22) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag {
+  color: #ced0bd !important;
+  background: rgba(142, 146, 127, .10) !important;
+  border-color: rgba(142, 146, 127, .22) !important;
+}
+
+.story-scene[data-kind="poem"] .type-tag:hover {
+  background: rgba(167, 134, 115, .15) !important;
+  border-color: rgba(167, 134, 115, .32) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag:hover {
+  background: rgba(142, 146, 127, .15) !important;
+  border-color: rgba(142, 146, 127, .32) !important;
+}
+
+/* ---------------------------------------------------------
+   CTA — TEK VE NET RENK
+   Yüksek kontrast, belirgin tıklanabilirlik.
+   --------------------------------------------------------- */
+
+.read-link,
+.story-scene[data-kind="poem"] .read-link,
+.story-scene[data-kind="prose"] .read-link {
+  color: #211610 !important;
+  background: var(--accent-main) !important;
+  border-color: var(--accent-main) !important;
+  border-radius: 8px !important;
+  box-shadow:
+    0 8px 18px rgba(0,0,0,.18),
+    0 2px 5px rgba(0,0,0,.10) !important;
+  filter: none !important;
+}
+
+.read-link:hover,
+.read-link:focus-visible,
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible,
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  color: #1b120e !important;
+  background: var(--accent-main-hover) !important;
+  border-color: var(--accent-main-hover) !important;
+  filter: none !important;
+}
+
+.cta-arrow {
+  color: currentColor !important;
+}
+
+/* ---------------------------------------------------------
+   GÖRSELLER — TÜM ÇAMURLU ARKA EFEKTLER KAPALI
+   --------------------------------------------------------- */
+
+.scene-media,
+.story-scene.is-revealed .scene-media,
+.scene-media:hover,
+.story-scene:hover .scene-media {
+  background: transparent !important;
+  border: 1px solid rgba(241,230,215,.065) !important;
+  border-radius: 8px !important;
+  box-shadow:
+    0 12px 24px rgba(0,0,0,.20),
+    0 30px 58px rgba(0,0,0,.17),
+    0 56px 100px rgba(0,0,0,.075) !important;
+  transform: none !important;
+}
+
+/* Tüm pseudo / backplate / stacked / glow katmanlarını temizle */
+.scene-media::before,
+.scene-media::after,
+.scene-media picture::before,
+.scene-media picture::after,
+.scene-media > picture::before,
+.scene-media > picture::after,
+.story-stream .scene-media::before,
+.story-stream .scene-media::after {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  opacity: 0 !important;
+}
+
+.scene-media picture {
+  background: #2b2019 !important;
+  border-radius: inherit !important;
+  overflow: hidden !important;
+  box-shadow: none !important;
+}
+
+/* Görselin üstüne ek yapay kaplama yok */
+.scene-media picture,
+.scene-media img {
+  position: relative !important;
+}
+
+.scene-media img {
+  box-shadow: none !important;
+}
+
+/* ---------------------------------------------------------
+   LOAD MORE
+   --------------------------------------------------------- */
+
+.load-more {
+  color: #d1bea8 !important;
+  background: rgba(255,255,255,.018) !important;
+  border-color: rgba(241,230,215,.085) !important;
+  box-shadow: none !important;
+}
+
+.load-more:hover,
+.load-more:focus-visible {
+  color: #f1e6d7 !important;
+  background: rgba(255,255,255,.04) !important;
+  border-color: rgba(241,230,215,.15) !important;
+}
+
+/* ---------------------------------------------------------
+   MOBİL
+   --------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  .story-stream {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(39, 28, 22, .995) 0%,
+        rgba(33, 23, 18, 1) 64%,
+        rgba(28, 19, 15, 1) 100%
+      ) !important;
+  }
+
+  .story-stream .scene-media,
+  .story-stream .story-scene.is-revealed .scene-media {
+    background: transparent !important;
+    box-shadow:
+      0 10px 20px rgba(0,0,0,.19),
+      0 24px 46px rgba(0,0,0,.15),
+      0 42px 76px rgba(0,0,0,.07) !important;
+  }
+
+  /* Mobilde stacked/backplate tamamen kaldır */
+  .story-stream .scene-media::before,
+  .story-stream .scene-media::after,
+  .story-stream .scene-media picture::before,
+  .story-stream .scene-media picture::after {
+    display: none !important;
+    content: none !important;
+  }
+}
+
+/* =========================================================
+   V46 — son
+   ========================================================= */
