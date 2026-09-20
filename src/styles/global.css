@@ -5876,3 +5876,255 @@ body::after {
 /* =========================================================
    V43 — son
    ========================================================= */
+
+
+/* =========================================================
+   V44 — COLOR HARMONY + CLEAN IMAGE STAGE
+   Kırmızı/yeşil daha uyumlu, leke etkisi kaldırıldı.
+   ========================================================= */
+
+:root {
+  --poem: #a77a66;
+  --prose: #788575;
+  --accent-mid: #907360;
+  --museum-bg: #1a120e;
+  --museum-bg-2: #201712;
+  --museum-surface: #261c17;
+  --museum-surface-2: #2c201a;
+  --museum-surface-3: #33251e;
+  --museum-text: #efe4d4;
+  --museum-muted: #c3af98;
+}
+
+body,
+.archive-page,
+main {
+  background:
+    linear-gradient(
+      180deg,
+      #1d140f 0%,
+      #18110d 52%,
+      #150f0b 100%
+    ) !important;
+}
+
+.paper-noise {
+  opacity: .08 !important;
+}
+
+.paper-noise::before {
+  opacity: .14 !important;
+}
+
+.paper-noise::after {
+  opacity: .07 !important;
+}
+
+.site-header {
+  background:
+    linear-gradient(180deg, rgba(35, 24, 18, .98), rgba(31, 21, 16, .98)) !important;
+  border-bottom: 1px solid rgba(239, 228, 212, .06) !important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.012),
+    0 12px 28px rgba(0,0,0,.12) !important;
+}
+
+.archive-tools,
+.archive-toolbar {
+  background: rgba(33, 23, 18, .94) !important;
+  border-top: 1px solid rgba(239,228,212,.035) !important;
+  border-bottom: 1px solid rgba(239,228,212,.06) !important;
+  box-shadow: 0 8px 18px rgba(0,0,0,.09) !important;
+}
+
+.filter,
+.main-nav a {
+  color: #ccb8a1 !important;
+}
+
+.filter:hover,
+.main-nav a:hover,
+.main-nav a:focus-visible {
+  color: #f0e5d6 !important;
+}
+
+.filter.is-active {
+  color: #231913 !important;
+  background: #a0826d !important;
+  border-color: #a0826d !important;
+}
+
+.filter-poem.is-active {
+  background: #a77a66 !important;
+  border-color: #a77a66 !important;
+}
+
+.filter-prose.is-active {
+  background: #7d8b79 !important;
+  border-color: #7d8b79 !important;
+  color: #16120f !important;
+}
+
+.story-stream {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(39, 28, 22, .98) 0%,
+      rgba(35, 25, 20, .99) 50%,
+      rgba(31, 22, 17, 1) 100%
+    ) !important;
+  border: 1px solid rgba(239, 228, 212, .06) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.012),
+    inset 0 -1px 0 rgba(0,0,0,.10),
+    0 22px 48px rgba(0,0,0,.12),
+    0 48px 100px rgba(0,0,0,.08) !important;
+}
+
+/* Arka plandaki leke / bulut etkisini iyice temizle */
+.story-stream::before,
+.story-stream::after,
+.story-scene::before,
+.scene-copy::after,
+.scene-media::before,
+.scene-media::after {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.story-scene::after {
+  display: block !important;
+  content: "" !important;
+  height: 1px !important;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(239,228,212,0) 0%,
+      rgba(239,228,212,.065) 18%,
+      rgba(239,228,212,.065) 82%,
+      rgba(239,228,212,0) 100%
+    ) !important;
+}
+
+.brand,
+.scene-copy h2,
+.scene-copy h2 a {
+  color: #f1e5d5 !important;
+}
+
+.scene-summary {
+  color: #c7b39c !important;
+}
+
+.scene-copy::before {
+  opacity: .62 !important;
+}
+
+.story-scene[data-kind="poem"] .scene-copy::before {
+  background: #a77a66 !important;
+}
+
+.story-scene[data-kind="prose"] .scene-copy::before {
+  background: #788575 !important;
+}
+
+.type-tag {
+  border-radius: 8px !important;
+  font-weight: 500 !important;
+}
+
+.story-scene[data-kind="poem"] .type-tag {
+  color: #e0beb0 !important;
+  background: rgba(167, 122, 102, .12) !important;
+  border-color: rgba(167, 122, 102, .24) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag {
+  color: #c9d4c4 !important;
+  background: rgba(120, 133, 117, .11) !important;
+  border-color: rgba(120, 133, 117, .23) !important;
+}
+
+.read-link {
+  color: #f5eadb !important;
+  box-shadow:
+    0 10px 22px rgba(0,0,0,.16),
+    0 3px 8px rgba(0,0,0,.10) !important;
+}
+
+.story-scene[data-kind="poem"] .read-link {
+  background: #9b715f !important;
+  border-color: #9b715f !important;
+}
+
+.story-scene[data-kind="prose"] .read-link {
+  background: #73816f !important;
+  border-color: #73816f !important;
+}
+
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  background: #886150 !important;
+  border-color: #886150 !important;
+  color: #fbf1e4 !important;
+}
+
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  background: #667263 !important;
+  border-color: #667263 !important;
+  color: #fbf1e4 !important;
+}
+
+.scene-media,
+.story-scene.is-revealed .scene-media,
+.scene-media:hover,
+.story-scene:hover .scene-media {
+  background: #342620 !important;
+  border: 1px solid rgba(239, 228, 212, .08) !important;
+  box-shadow:
+    0 12px 24px rgba(0,0,0,.18),
+    0 30px 60px rgba(0,0,0,.16),
+    0 60px 110px rgba(0,0,0,.08) !important;
+  transform: none !important;
+}
+
+.load-more {
+  color: #d1bea7 !important;
+  background: rgba(255,255,255,.02) !important;
+  border-color: rgba(239,228,212,.10) !important;
+}
+
+.load-more:hover,
+.load-more:focus-visible {
+  color: #efe4d4 !important;
+  background: rgba(255,255,255,.045) !important;
+  border-color: rgba(239,228,212,.18) !important;
+}
+
+@media (max-width: 760px) {
+  .story-stream {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(39, 28, 22, .985) 0%,
+        rgba(34, 24, 19, .995) 60%,
+        rgba(30, 21, 16, 1) 100%
+      ) !important;
+  }
+
+  .scene-media,
+  .story-scene.is-revealed .scene-media {
+    box-shadow:
+      0 10px 20px rgba(0,0,0,.18),
+      0 26px 48px rgba(0,0,0,.15),
+      0 44px 80px rgba(0,0,0,.08) !important;
+  }
+}
+
+/* =========================================================
+   V44 — son
+   ========================================================= */

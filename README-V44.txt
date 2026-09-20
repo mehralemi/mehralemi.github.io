@@ -1,0 +1,1 @@
+V44 — ton dengesi düzeltildi, kırmızı/yeşil yumuşatıldı, görsel arkasındaki leke etkisi kaldırıldı. Sadece src/styles/global.css değişir.
