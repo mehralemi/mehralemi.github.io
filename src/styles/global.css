@@ -7404,3 +7404,331 @@ main {
 /* =========================================================
    V49 — son
    ========================================================= */
+
+/* =========================================================
+   V50 — LIGHTER BROWN + TAG-STYLE CTA/FILTERS + CLEAN MEDIA
+   ========================================================= */
+
+:root {
+  --paper: #211712;
+  --paper-light: #f1e5d5;
+
+  --ink: #f1e5d5;
+  --ink-soft: #cbb8a1;
+
+  /* Screenshot’taki etiket diline yakın tonlar */
+  --poem: #a77d69;
+  --prose: #898b70;
+  --neutral: #a1846d;
+
+  --line: rgba(241, 229, 213, .13);
+  --line-soft: rgba(241, 229, 213, .07);
+}
+
+/* ---------------------------------------------------------
+   GENEL ZEMİN — V49'DAN BİRAZ DAHA AÇIK KAHVE
+   --------------------------------------------------------- */
+
+html {
+  background: #211712 !important;
+}
+
+body,
+.archive-page,
+main {
+  background:
+    linear-gradient(
+      180deg,
+      #2a1d16 0%,
+      #241913 52%,
+      #201611 100%
+    ) !important;
+  color: var(--ink) !important;
+}
+
+/* doku daha temiz ve hafif */
+.paper-noise {
+  opacity: .045 !important;
+}
+
+.paper-noise::before,
+.paper-noise::after {
+  opacity: .035 !important;
+}
+
+/* ---------------------------------------------------------
+   HEADER / TOOLBAR
+   --------------------------------------------------------- */
+
+.site-header {
+  background: #2b1e17 !important;
+  border-bottom: 1px solid rgba(241,229,213,.055) !important;
+  box-shadow: 0 8px 20px rgba(0,0,0,.08) !important;
+}
+
+.archive-tools,
+.archive-toolbar {
+  background: rgba(38, 26, 20, .96) !important;
+  border-top: 1px solid rgba(241,229,213,.03) !important;
+  border-bottom: 1px solid rgba(241,229,213,.055) !important;
+  box-shadow: 0 7px 16px rgba(0,0,0,.06) !important;
+}
+
+/* ---------------------------------------------------------
+   ANA İÇERİK — AYRI ÇAMUR PANEL YOK
+   --------------------------------------------------------- */
+
+.story-stream {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.story-stream::before,
+.story-stream::after,
+.story-scene::before {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.story-scene {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.story-scene::after {
+  display: block !important;
+  content: "" !important;
+  height: 1px !important;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(241,229,213,.045) 20%,
+      rgba(241,229,213,.045) 80%,
+      transparent 100%
+    ) !important;
+}
+
+/* ---------------------------------------------------------
+   TYPE TAGS — REFERANS STİL
+   --------------------------------------------------------- */
+
+.type-tag {
+  min-height: 30px !important;
+  padding: 6px 12px !important;
+  border: 1px solid !important;
+  border-radius: 9px !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.story-scene[data-kind="poem"] .type-tag {
+  color: #d6b5a5 !important;
+  background: rgba(167,125,105,.095) !important;
+  border-color: rgba(167,125,105,.28) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag {
+  color: #d0d0b9 !important;
+  background: rgba(137,139,112,.095) !important;
+  border-color: rgba(137,139,112,.28) !important;
+}
+
+.story-scene[data-kind="poem"] .type-tag:hover,
+.story-scene[data-kind="poem"] .type-tag:focus-visible {
+  color: #e6cbbb !important;
+  background: rgba(167,125,105,.14) !important;
+  border-color: rgba(167,125,105,.38) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag:hover,
+.story-scene[data-kind="prose"] .type-tag:focus-visible {
+  color: #e1e0c9 !important;
+  background: rgba(137,139,112,.14) !important;
+  border-color: rgba(137,139,112,.38) !important;
+}
+
+/* ---------------------------------------------------------
+   METNİ OKU — ETİKET STİLİNİN AYNISI
+   Sadece CTA ölçüsüne uyarlanmış hali.
+   --------------------------------------------------------- */
+
+.read-link,
+.story-scene[data-kind="poem"] .read-link,
+.story-scene[data-kind="prose"] .read-link {
+  min-width: 148px !important;
+  min-height: 44px !important;
+  padding: 10px 17px !important;
+  border: 1px solid !important;
+  border-radius: 9px !important;
+  box-shadow: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.story-scene[data-kind="poem"] .read-link {
+  color: #d6b5a5 !important;
+  background: rgba(167,125,105,.095) !important;
+  border-color: rgba(167,125,105,.28) !important;
+}
+
+.story-scene[data-kind="prose"] .read-link {
+  color: #d0d0b9 !important;
+  background: rgba(137,139,112,.095) !important;
+  border-color: rgba(137,139,112,.28) !important;
+}
+
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  color: #e6cbbb !important;
+  background: rgba(167,125,105,.14) !important;
+  border-color: rgba(167,125,105,.38) !important;
+  box-shadow: none !important;
+}
+
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  color: #e1e0c9 !important;
+  background: rgba(137,139,112,.14) !important;
+  border-color: rgba(137,139,112,.38) !important;
+  box-shadow: none !important;
+}
+
+.cta-arrow,
+.read-link .cta-arrow {
+  color: currentColor !important;
+}
+
+/* ---------------------------------------------------------
+   ÜST FİLTRELER — AYNI GÖRSEL DİL
+   --------------------------------------------------------- */
+
+.filter {
+  min-height: 30px !important;
+  padding: 6px 12px !important;
+  border: 1px solid rgba(161,132,109,.24) !important;
+  border-radius: 9px !important;
+  color: #ccb9a3 !important;
+  background: rgba(161,132,109,.075) !important;
+  box-shadow: none !important;
+}
+
+.filter:hover,
+.filter:focus-visible {
+  color: #e3d4c2 !important;
+  background: rgba(161,132,109,.115) !important;
+  border-color: rgba(161,132,109,.34) !important;
+}
+
+.filter.is-active {
+  color: #e5d2bf !important;
+  background: rgba(161,132,109,.14) !important;
+  border-color: rgba(161,132,109,.38) !important;
+}
+
+.filter-poem {
+  color: #d6b5a5 !important;
+  background: rgba(167,125,105,.095) !important;
+  border-color: rgba(167,125,105,.28) !important;
+}
+
+.filter-poem:hover,
+.filter-poem:focus-visible,
+.filter-poem.is-active {
+  color: #e6cbbb !important;
+  background: rgba(167,125,105,.14) !important;
+  border-color: rgba(167,125,105,.38) !important;
+}
+
+.filter-prose {
+  color: #d0d0b9 !important;
+  background: rgba(137,139,112,.095) !important;
+  border-color: rgba(137,139,112,.28) !important;
+}
+
+.filter-prose:hover,
+.filter-prose:focus-visible,
+.filter-prose.is-active {
+  color: #e1e0c9 !important;
+  background: rgba(137,139,112,.14) !important;
+  border-color: rgba(137,139,112,.38) !important;
+}
+
+/* ---------------------------------------------------------
+   GÖRSELLER — ÇAMUR / LEKE / HALO YOK
+   Tek, kontrollü ve soft gölge.
+   --------------------------------------------------------- */
+
+.scene-media,
+.story-scene.is-revealed .scene-media,
+.scene-media:hover,
+.story-scene:hover .scene-media {
+  background: transparent !important;
+  border: 1px solid rgba(241,229,213,.05) !important;
+  border-radius: 8px !important;
+  box-shadow:
+    0 10px 24px rgba(0,0,0,.13) !important;
+  transform: none !important;
+  filter: none !important;
+}
+
+/* tüm eski dekoratif katmanları kesin olarak söndür */
+.scene-media::before,
+.scene-media::after,
+.scene-media picture::before,
+.scene-media picture::after,
+.scene-media > picture::before,
+.scene-media > picture::after,
+.story-stream .scene-media::before,
+.story-stream .scene-media::after {
+  display: none !important;
+  content: none !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  opacity: 0 !important;
+}
+
+.scene-media picture {
+  background: transparent !important;
+  border-radius: inherit !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+}
+
+.scene-media img {
+  box-shadow: none !important;
+}
+
+/* Mobilde de yalnızca tek soft gölge */
+@media (max-width: 760px) {
+  .story-stream,
+  .story-scene {
+    background: transparent !important;
+    box-shadow: none !important;
+  }
+
+  .story-stream .scene-media,
+  .story-stream .story-scene.is-revealed .scene-media {
+    background: transparent !important;
+    box-shadow:
+      0 8px 20px rgba(0,0,0,.12) !important;
+  }
+
+  .story-stream .scene-media::before,
+  .story-stream .scene-media::after {
+    display: none !important;
+    content: none !important;
+  }
+}
+
+/* =========================================================
+   V50 — son
+   ========================================================= */
