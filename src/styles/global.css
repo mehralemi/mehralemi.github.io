@@ -8320,3 +8320,167 @@ main {
 /* =========================================================
    V54 — son
    ========================================================= */
+
+/* =========================================================
+   V55 — CLEAN REAL PAPER TEXTURE
+   Büyük CSS kırışıklıkları kaldırıldı. Gerçek düşük-kontrast
+   kâğıt dokusu asset olarak kullanılıyor.
+   ========================================================= */
+
+:root {
+  --page-brown-top: #302119;
+  --page-brown-bottom: #281b15;
+}
+
+/* V54'teki büyük kat/kırışıklık çizgilerini tamamen kaldır */
+html {
+  background: var(--page-brown-bottom) !important;
+}
+
+body,
+.archive-page,
+main {
+  background-image:
+    linear-gradient(
+      180deg,
+      var(--page-brown-top) 0%,
+      #2c1e17 48%,
+      var(--page-brown-bottom) 100%
+    ) !important;
+  background-color: var(--page-brown-bottom) !important;
+  background-size: auto !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+}
+
+/* Eski pseudo-fold sistemini kapat */
+body::before,
+body::after {
+  display: none !important;
+  content: none !important;
+}
+
+/*
+  Gerçek kağıt texture asset.
+  Düşük kontrast + soft-light: yüzey hissedilir ama leke oluşturmaz.
+*/
+.paper-noise {
+  display: block !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 100 !important;
+  pointer-events: none !important;
+
+  opacity: .26 !important;
+  background-image: url('/media/paper-texture-v55.png') !important;
+  background-size: 760px 760px !important;
+  background-repeat: repeat !important;
+  background-position: 0 0 !important;
+  mix-blend-mode: soft-light !important;
+
+  filter: none !important;
+}
+
+/* V54'teki dev kırışıklık katmanlarını kapat */
+.paper-noise::before,
+.paper-noise::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* ---------------------------------------------------------
+   METNİ OKU — üst filtrelerin sakin outline diline geri dön
+   --------------------------------------------------------- */
+
+.read-link,
+.story-scene[data-kind="poem"] .read-link,
+.story-scene[data-kind="prose"] .read-link {
+  min-width: 0 !important;
+  min-height: 30px !important;
+  padding: 6px 12px !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-radius: 9px !important;
+  box-shadow: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* şiir CTA — açık ama hâlâ transparan */
+.story-scene[data-kind="poem"] .read-link {
+  color: #e3c3b4 !important;
+  background: rgba(178, 132, 111, .085) !important;
+  border-color: rgba(195, 151, 130, .30) !important;
+}
+
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  color: #eed3c6 !important;
+  background: rgba(178, 132, 111, .13) !important;
+  border-color: rgba(210, 169, 149, .40) !important;
+}
+
+/* düz yazı CTA */
+.story-scene[data-kind="prose"] .read-link {
+  color: #d8dac4 !important;
+  background: rgba(143, 147, 117, .085) !important;
+  border-color: rgba(163, 168, 135, .30) !important;
+}
+
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  color: #e6e8d6 !important;
+  background: rgba(143, 147, 117, .13) !important;
+  border-color: rgba(184, 189, 155, .40) !important;
+}
+
+/* ---------------------------------------------------------
+   GÖRSELLER — SADE, LEKESİZ, TEK SOFT SHADOW
+   --------------------------------------------------------- */
+
+.scene-media,
+.story-scene.is-revealed .scene-media,
+.scene-media:hover,
+.story-scene:hover .scene-media {
+  background: transparent !important;
+  border: 1px solid rgba(241,229,213,.045) !important;
+  box-shadow:
+    0 9px 20px rgba(0,0,0,.12) !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+.scene-media::before,
+.scene-media::after,
+.scene-media picture::before,
+.scene-media picture::after,
+.scene-media > picture::before,
+.scene-media > picture::after,
+.story-stream .scene-media::before,
+.story-stream .scene-media::after {
+  display: none !important;
+  content: none !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  opacity: 0 !important;
+}
+
+@media (max-width: 760px) {
+  .paper-noise {
+    opacity: .22 !important;
+    background-size: 640px 640px !important;
+  }
+
+  .story-stream .scene-media,
+  .story-stream .story-scene.is-revealed .scene-media {
+    box-shadow:
+      0 7px 17px rgba(0,0,0,.11) !important;
+  }
+}
+
+/* =========================================================
+   V55 — son
+   ========================================================= */
