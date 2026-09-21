@@ -7216,3 +7216,191 @@ main {
 /* =========================================================
    V48 — son
    ========================================================= */
+
+/* =========================================================
+   V49 — TYPE-TAG MATCHED CTA + SLIGHTLY DARKER PREVIOUS BROWN
+   ========================================================= */
+
+:root {
+  /* Arka plan: V47/V46 tonunun yalnızca hafif koyusu */
+  --paper: #1a120e;
+  --paper-light: #f1e6d7;
+  --ink: #f1e6d7;
+  --ink-soft: #c8b59f;
+
+  /* Tür renkleri yeniden etiketlerin mevcut karakterine çekildi */
+  --poem: #a78673;
+  --prose: #8e927f;
+  --accent-mid: #92745f;
+}
+
+/* ---------------------------------------------------------
+   GENEL ARKA PLAN
+   V48 kadar koyu değil; önceki tonun hafif koyusu.
+   --------------------------------------------------------- */
+
+html {
+  background: #1a120e !important;
+}
+
+body,
+.archive-page,
+main {
+  background:
+    linear-gradient(
+      180deg,
+      #201711 0%,
+      #1b130f 52%,
+      #18110d 100%
+    ) !important;
+  color: var(--ink) !important;
+}
+
+/* İçerik alanı temiz kalsın; ayrı büyük panel yok */
+.story-stream {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* ---------------------------------------------------------
+   TYPE TAGS — REFERANS STİL
+   --------------------------------------------------------- */
+
+.story-scene[data-kind="poem"] .type-tag {
+  color: #d7bbaa !important;
+  background: rgba(167, 134, 115, .10) !important;
+  border-color: rgba(167, 134, 115, .22) !important;
+  box-shadow: none !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag {
+  color: #ced0bd !important;
+  background: rgba(142, 146, 127, .10) !important;
+  border-color: rgba(142, 146, 127, .22) !important;
+  box-shadow: none !important;
+}
+
+.story-scene[data-kind="poem"] .type-tag:hover {
+  color: #ead2c4 !important;
+  background: rgba(167, 134, 115, .15) !important;
+  border-color: rgba(167, 134, 115, .32) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag:hover {
+  color: #e2e5d5 !important;
+  background: rgba(142, 146, 127, .15) !important;
+  border-color: rgba(142, 146, 127, .32) !important;
+}
+
+/* ---------------------------------------------------------
+   CTA — TYPE TAG STİLİNİN BİREBİR UYARLAMASI
+   Aynı renk, aynı arka plan mantığı, aynı border karakteri.
+   Sadece boyutu CTA olduğu için daha geniş.
+   --------------------------------------------------------- */
+
+.read-link,
+.story-scene[data-kind="poem"] .read-link,
+.story-scene[data-kind="prose"] .read-link {
+  min-width: 150px !important;
+  min-height: 46px !important;
+  padding: 11px 18px !important;
+  border: 1px solid !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.story-scene[data-kind="poem"] .read-link {
+  color: #d7bbaa !important;
+  background: rgba(167, 134, 115, .10) !important;
+  border-color: rgba(167, 134, 115, .22) !important;
+}
+
+.story-scene[data-kind="prose"] .read-link {
+  color: #ced0bd !important;
+  background: rgba(142, 146, 127, .10) !important;
+  border-color: rgba(142, 146, 127, .22) !important;
+}
+
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  color: #ead2c4 !important;
+  background: rgba(167, 134, 115, .15) !important;
+  border-color: rgba(167, 134, 115, .32) !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  color: #e2e5d5 !important;
+  background: rgba(142, 146, 127, .15) !important;
+  border-color: rgba(142, 146, 127, .32) !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* CTA okunurluğu */
+.read-link .cta-arrow {
+  color: currentColor !important;
+}
+
+/* ---------------------------------------------------------
+   AKTİF FİLTRELER — AYNI TÜR PALETİ
+   --------------------------------------------------------- */
+
+.filter-poem.is-active {
+  color: #211712 !important;
+  background: #a78673 !important;
+  border-color: #a78673 !important;
+}
+
+.filter-prose.is-active {
+  color: #171511 !important;
+  background: #8e927f !important;
+  border-color: #8e927f !important;
+}
+
+/* ---------------------------------------------------------
+   GÖRSEL ARKASI — TEMİZ VE SOFT
+   --------------------------------------------------------- */
+
+.scene-media,
+.story-scene.is-revealed .scene-media,
+.scene-media:hover,
+.story-scene:hover .scene-media {
+  background: transparent !important;
+  border: 1px solid rgba(241,230,215,.055) !important;
+  box-shadow:
+    0 8px 18px rgba(0,0,0,.15),
+    0 18px 36px rgba(0,0,0,.08),
+    0 30px 54px rgba(0,0,0,.025) !important;
+  transform: none !important;
+}
+
+.scene-media::before,
+.scene-media::after,
+.scene-media picture::before,
+.scene-media picture::after,
+.scene-media > picture::before,
+.scene-media > picture::after,
+.story-stream .scene-media::before,
+.story-stream .scene-media::after {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  opacity: 0 !important;
+}
+
+.scene-media picture {
+  background: #211813 !important;
+  box-shadow: none !important;
+}
+
+/* =========================================================
+   V49 — son
+   ========================================================= */
