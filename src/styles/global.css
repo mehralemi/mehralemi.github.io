@@ -7732,3 +7732,72 @@ main {
 /* =========================================================
    V50 — son
    ========================================================= */
+
+/* =========================================================
+   V51 — CTA = TOP FILTER STYLE
+   Şiir / düz yazı CTA'ları üst filtrelerle birebir eşleşir.
+   ========================================================= */
+
+/* CTA'nın eski dolu/büyük buton görünümünü sıfırla */
+.read-link,
+.story-scene[data-kind="poem"] .read-link,
+.story-scene[data-kind="prose"] .read-link {
+  min-width: 0 !important;
+  min-height: 30px !important;
+  padding: 6px 12px !important;
+
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-radius: 9px !important;
+
+  box-shadow: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+
+  font-weight: 500 !important;
+  transition:
+    color .24s ease,
+    background .24s ease,
+    border-color .24s ease !important;
+}
+
+/* ŞİİR CTA = üstteki "şiir" filtresi */
+.story-scene[data-kind="poem"] .read-link {
+  color: #d6b5a5 !important;
+  background: rgba(167, 125, 105, .095) !important;
+  border-color: rgba(167, 125, 105, .28) !important;
+}
+
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  color: #e6cbbb !important;
+  background: rgba(167, 125, 105, .14) !important;
+  border-color: rgba(167, 125, 105, .38) !important;
+  box-shadow: none !important;
+}
+
+/* DÜZ YAZI CTA = üstteki "düz yazı" filtresi */
+.story-scene[data-kind="prose"] .read-link {
+  color: #d0d0b9 !important;
+  background: rgba(137, 139, 112, .095) !important;
+  border-color: rgba(137, 139, 112, .28) !important;
+}
+
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  color: #e1e0c9 !important;
+  background: rgba(137, 139, 112, .14) !important;
+  border-color: rgba(137, 139, 112, .38) !important;
+  box-shadow: none !important;
+}
+
+.read-link .cta-arrow,
+.cta-arrow {
+  color: currentColor !important;
+  opacity: .82 !important;
+}
+
+/* =========================================================
+   V51 — son
+   ========================================================= */
