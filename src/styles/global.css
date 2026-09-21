@@ -7941,3 +7941,156 @@ body > footer,
 /* =========================================================
    V52 — son
    ========================================================= */
+
+/* =========================================================
+   V53 — FIX: V52 WAS HIDDEN BY OLD !IMPORTANT RULES
+   ========================================================= */
+
+/*
+  V52'de body::before/body::after ile verilen kağıt dokusu,
+  daha eski bir kuraldaki:
+  body::before, body::after { display:none !important; }
+  nedeniyle hiç görünmüyordu.
+
+  Bu sürüm dokuyu zaten DOM'da bulunan .paper-noise katmanına taşır.
+*/
+
+/* V52 body pseudo katmanlarını kullanma */
+body::before,
+body::after {
+  display: none !important;
+}
+
+/* Asıl kağıt dokusu: her zaman görünür overlay */
+.paper-noise {
+  display: block !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 100 !important;
+  pointer-events: none !important;
+  opacity: .19 !important;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(255,239,220,.11), transparent 24rem),
+    radial-gradient(circle at 84% 26%, rgba(0,0,0,.09), transparent 28rem),
+    radial-gradient(circle, rgba(255,239,220,.10) .42px, transparent .62px),
+    radial-gradient(circle, rgba(0,0,0,.16) .44px, transparent .66px) !important;
+  background-size:
+    auto,
+    auto,
+    6px 6px,
+    10px 10px !important;
+  background-position:
+    center,
+    center,
+    0 0,
+    3px 4px !important;
+  mix-blend-mode: soft-light !important;
+}
+
+.paper-noise::before,
+.paper-noise::after {
+  display: block !important;
+  content: "" !important;
+  position: absolute !important;
+  inset: -8% !important;
+  pointer-events: none !important;
+}
+
+.paper-noise::before {
+  opacity: .48 !important;
+  background:
+    linear-gradient(
+      111deg,
+      transparent 0%,
+      rgba(255,243,226,.10) 11%,
+      transparent 12.4%,
+      transparent 29%,
+      rgba(0,0,0,.11) 30.1%,
+      transparent 31.4%,
+      transparent 58%,
+      rgba(255,241,221,.065) 59%,
+      transparent 60.1%
+    ),
+    linear-gradient(
+      27deg,
+      transparent 0%,
+      rgba(0,0,0,.085) 19%,
+      transparent 20.4%,
+      transparent 43%,
+      rgba(255,242,223,.075) 44.2%,
+      transparent 45.5%,
+      transparent 76%,
+      rgba(0,0,0,.065) 77.1%,
+      transparent 78.4%
+    ) !important;
+  background-size: 520px 420px, 620px 480px !important;
+  mix-blend-mode: soft-light !important;
+}
+
+.paper-noise::after {
+  opacity: .28 !important;
+  background:
+    repeating-linear-gradient(
+      136deg,
+      transparent 0px,
+      transparent 62px,
+      rgba(255,241,221,.07) 63px,
+      transparent 65px,
+      transparent 138px
+    ),
+    repeating-linear-gradient(
+      39deg,
+      transparent 0px,
+      transparent 82px,
+      rgba(0,0,0,.09) 83px,
+      transparent 86px,
+      transparent 176px
+    ) !important;
+  filter: blur(.15px) !important;
+  mix-blend-mode: soft-light !important;
+}
+
+/* CTA değişikliği de görünür biçimde biraz daha açık */
+.story-scene[data-kind="poem"] .read-link {
+  color: #f0d8cc !important;
+  background: rgba(202, 151, 128, .145) !important;
+  border-color: rgba(229, 190, 173, .48) !important;
+}
+
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  color: #fae8df !important;
+  background: rgba(202, 151, 128, .205) !important;
+  border-color: rgba(239, 207, 192, .62) !important;
+}
+
+.story-scene[data-kind="prose"] .read-link {
+  color: #e4e7d6 !important;
+  background: rgba(156, 162, 126, .145) !important;
+  border-color: rgba(199, 205, 169, .46) !important;
+}
+
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  color: #f0f2e5 !important;
+  background: rgba(156, 162, 126, .205) !important;
+  border-color: rgba(216, 221, 188, .60) !important;
+}
+
+@media (max-width: 760px) {
+  .paper-noise {
+    opacity: .16 !important;
+  }
+
+  .paper-noise::before {
+    opacity: .40 !important;
+  }
+
+  .paper-noise::after {
+    opacity: .22 !important;
+  }
+}
+
+/* =========================================================
+   V53 — son
+   ========================================================= */
