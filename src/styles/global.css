@@ -6763,3 +6763,136 @@ main {
 /* =========================================================
    V46 — son
    ========================================================= */
+/* =========================================================
+   V47 — CTA SEMANTIC COLORS RETURN / SOFTER MEDIA FIELD
+   ========================================================= */
+
+:root {
+  --cta-poem-bg: #a36d66;
+  --cta-poem-border: #b47c74;
+  --cta-poem-hover: #b67a72;
+
+  --cta-prose-bg: #6e7f73;
+  --cta-prose-border: #819286;
+  --cta-prose-hover: #7d8f82;
+}
+
+/* Story area: less muddy, more matte and calm */
+.story-stream {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(40, 27, 21, .985) 0%,
+      rgba(34, 23, 18, .992) 46%,
+      rgba(28, 19, 15, 1) 100%
+    ) !important;
+  border: 1px solid rgba(241,230,215,.04) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.01),
+    0 14px 36px rgba(0,0,0,.08),
+    0 30px 74px rgba(0,0,0,.05) !important;
+}
+
+.story-stream::before,
+.story-stream::after,
+.story-scene::before {
+  display: none !important;
+  content: none !important;
+}
+
+/* Media background and shadow softened */
+.scene-media,
+.story-scene.is-revealed .scene-media,
+.scene-media:hover,
+.story-scene:hover .scene-media {
+  background: rgba(255,255,255,.01) !important;
+  border: 1px solid rgba(241,230,215,.055) !important;
+  box-shadow:
+    0 10px 22px rgba(0,0,0,.18),
+    0 22px 44px rgba(0,0,0,.10),
+    0 42px 76px rgba(0,0,0,.05) !important;
+}
+
+.scene-media picture {
+  background: rgba(255,255,255,.015) !important;
+}
+
+.scene-media::before,
+.scene-media::after,
+.scene-media picture::before,
+.scene-media picture::after,
+.scene-media > picture::before,
+.scene-media > picture::after,
+.story-stream .scene-media::before,
+.story-stream .scene-media::after {
+  display: none !important;
+  content: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+  opacity: 0 !important;
+}
+
+/* Generic CTA fallback */
+.read-link {
+  border-radius: 8px !important;
+  box-shadow:
+    0 8px 18px rgba(0,0,0,.18),
+    0 2px 5px rgba(0,0,0,.10) !important;
+}
+
+/* Poem CTA — soft dusty red */
+.story-scene[data-kind="poem"] .read-link {
+  color: #fbf3ea !important;
+  background: var(--cta-poem-bg) !important;
+  border-color: var(--cta-poem-border) !important;
+}
+
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  color: #fff7ef !important;
+  background: var(--cta-poem-hover) !important;
+  border-color: #ca8c83 !important;
+}
+
+/* Prose CTA — muted sage green */
+.story-scene[data-kind="prose"] .read-link {
+  color: #f7efe4 !important;
+  background: var(--cta-prose-bg) !important;
+  border-color: var(--cta-prose-border) !important;
+}
+
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  color: #fff8ed !important;
+  background: var(--cta-prose-hover) !important;
+  border-color: #90a395 !important;
+}
+
+.cta-arrow {
+  color: currentColor !important;
+}
+
+@media (max-width: 760px) {
+  .story-stream {
+    background:
+      linear-gradient(
+        180deg,
+        rgba(38, 26, 20, .992) 0%,
+        rgba(32, 22, 17, .996) 62%,
+        rgba(27, 19, 15, 1) 100%
+      ) !important;
+  }
+
+  .story-stream .scene-media,
+  .story-stream .story-scene.is-revealed .scene-media {
+    box-shadow:
+      0 10px 18px rgba(0,0,0,.16),
+      0 22px 40px rgba(0,0,0,.09),
+      0 36px 64px rgba(0,0,0,.045) !important;
+  }
+}
+
+/* =========================================================
+   V47 — son
+   ========================================================= */
