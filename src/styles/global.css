@@ -6896,3 +6896,323 @@ main {
 /* =========================================================
    V47 — son
    ========================================================= */
+
+/* =========================================================
+   V48 — CLEAN DARK BROWN + GOLD / SLATE BLUE
+   Çamur panel kaldırıldı; iki yeni net vurgu rengi.
+   ========================================================= */
+
+:root {
+  --paper: #17100c;
+  --paper-light: #f2e6d6;
+
+  --ink: #f2e6d6;
+  --ink-soft: #c9b7a0;
+
+  /* Yeni semantik vurgu renkleri */
+  --poem: #c5a064;      /* antik altın / amber */
+  --prose: #7f9bad;     /* tozlu slate blue */
+  --accent-mid: #a88769;
+
+  --line: rgba(242, 230, 214, .12);
+  --line-soft: rgba(242, 230, 214, .06);
+
+  --dark-bg: #15100c;
+  --dark-bg-2: #1a130f;
+  --dark-surface: #211813;
+}
+
+/* ---------------------------------------------------------
+   1) GENEL ZEMİN
+   Temiz koyu kahve. Büyük renk lekeleri yok.
+   --------------------------------------------------------- */
+
+html {
+  background: var(--dark-bg) !important;
+}
+
+body,
+.archive-page,
+main {
+  background:
+    linear-gradient(
+      180deg,
+      #19120e 0%,
+      #15100c 52%,
+      #120d0a 100%
+    ) !important;
+  color: var(--ink) !important;
+}
+
+/* doku çok hafif kalsın */
+.paper-noise {
+  opacity: .055 !important;
+}
+
+.paper-noise::before,
+.paper-noise::after {
+  opacity: .05 !important;
+}
+
+/* ---------------------------------------------------------
+   2) ANA İÇERİK ALANI
+   "Çamur panel" tamamen kaldırıldı.
+   --------------------------------------------------------- */
+
+.story-stream {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  animation: none !important;
+}
+
+.story-stream::before,
+.story-stream::after,
+.story-scene::before {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* sahneler de ayrı koyu lekeler üretmesin */
+.story-scene {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+/* yalnızca çok hafif ayırıcı */
+.story-scene::after {
+  display: block !important;
+  content: "" !important;
+  height: 1px !important;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(242,230,214,.05) 20%,
+      rgba(242,230,214,.05) 80%,
+      transparent 100%
+    ) !important;
+  opacity: 1 !important;
+}
+
+/* ---------------------------------------------------------
+   3) HEADER / FILTER
+   --------------------------------------------------------- */
+
+.site-header {
+  background: #201711 !important;
+  border-bottom: 1px solid rgba(242,230,214,.05) !important;
+}
+
+.archive-tools,
+.archive-toolbar {
+  background: rgba(30, 21, 16, .96) !important;
+  border-top: 1px solid rgba(242,230,214,.025) !important;
+  border-bottom: 1px solid rgba(242,230,214,.05) !important;
+}
+
+.brand {
+  color: #f3e8d9 !important;
+}
+
+.main-nav a,
+.filter {
+  color: #cbb89f !important;
+}
+
+/* filtrelerde tür renkleri */
+.filter.is-active {
+  color: #1d150f !important;
+  background: #a9896c !important;
+  border-color: #a9896c !important;
+}
+
+.filter-poem.is-active {
+  color: #20170f !important;
+  background: var(--poem) !important;
+  border-color: var(--poem) !important;
+}
+
+.filter-prose.is-active {
+  color: #11181c !important;
+  background: var(--prose) !important;
+  border-color: var(--prose) !important;
+}
+
+/* ---------------------------------------------------------
+   4) TYPOGRAPHY
+   --------------------------------------------------------- */
+
+.brand,
+.scene-copy h2,
+.scene-copy h2 a {
+  color: #f2e6d6 !important;
+}
+
+.scene-summary {
+  color: #c9b7a0 !important;
+}
+
+.story-scene[data-kind="poem"] .scene-copy::before {
+  background: var(--poem) !important;
+  opacity: .72 !important;
+}
+
+.story-scene[data-kind="prose"] .scene-copy::before {
+  background: var(--prose) !important;
+  opacity: .72 !important;
+}
+
+/* ---------------------------------------------------------
+   5) TÜR ETİKETLERİ
+   --------------------------------------------------------- */
+
+.story-scene[data-kind="poem"] .type-tag {
+  color: #e8cf9d !important;
+  background: rgba(197, 160, 100, .11) !important;
+  border-color: rgba(197, 160, 100, .28) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag {
+  color: #bdd0dc !important;
+  background: rgba(127, 155, 173, .11) !important;
+  border-color: rgba(127, 155, 173, .28) !important;
+}
+
+.story-scene[data-kind="poem"] .type-tag:hover {
+  background: rgba(197, 160, 100, .16) !important;
+  border-color: rgba(197, 160, 100, .38) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag:hover {
+  background: rgba(127, 155, 173, .16) !important;
+  border-color: rgba(127, 155, 173, .38) !important;
+}
+
+/* ---------------------------------------------------------
+   6) CTA
+   Net, kontrastlı, iki renkli ama uyumlu.
+   --------------------------------------------------------- */
+
+.read-link {
+  border-radius: 8px !important;
+  box-shadow:
+    0 7px 16px rgba(0,0,0,.18),
+    0 2px 5px rgba(0,0,0,.10) !important;
+}
+
+.story-scene[data-kind="poem"] .read-link {
+  color: #20170f !important;
+  background: var(--poem) !important;
+  border-color: var(--poem) !important;
+}
+
+.story-scene[data-kind="prose"] .read-link {
+  color: #10171b !important;
+  background: var(--prose) !important;
+  border-color: var(--prose) !important;
+}
+
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  background: #d0ad70 !important;
+  border-color: #d0ad70 !important;
+  color: #1c140e !important;
+}
+
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  background: #91adbd !important;
+  border-color: #91adbd !important;
+  color: #0f161a !important;
+}
+
+/* ---------------------------------------------------------
+   7) GÖRSEL ALANI
+   Lekesiz, backplate'siz, çok soft gölge.
+   --------------------------------------------------------- */
+
+.scene-media,
+.story-scene.is-revealed .scene-media,
+.scene-media:hover,
+.story-scene:hover .scene-media {
+  background: transparent !important;
+  border: 1px solid rgba(242,230,214,.055) !important;
+  border-radius: 8px !important;
+  box-shadow:
+    0 8px 18px rgba(0,0,0,.17),
+    0 20px 38px rgba(0,0,0,.095),
+    0 34px 62px rgba(0,0,0,.035) !important;
+  transform: none !important;
+}
+
+/* her türlü arka leke / stacked / glow katmanı kapalı */
+.scene-media::before,
+.scene-media::after,
+.scene-media picture::before,
+.scene-media picture::after,
+.scene-media > picture::before,
+.scene-media > picture::after,
+.story-stream .scene-media::before,
+.story-stream .scene-media::after {
+  display: none !important;
+  content: none !important;
+  background: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  opacity: 0 !important;
+}
+
+.scene-media picture {
+  background: #201813 !important;
+  border-radius: inherit !important;
+  overflow: hidden !important;
+  box-shadow: none !important;
+}
+
+/* ---------------------------------------------------------
+   8) LOAD MORE
+   --------------------------------------------------------- */
+
+.load-more {
+  color: #d1bea6 !important;
+  background: rgba(255,255,255,.015) !important;
+  border-color: rgba(242,230,214,.08) !important;
+  box-shadow: none !important;
+}
+
+.load-more:hover,
+.load-more:focus-visible {
+  color: #f2e6d6 !important;
+  background: rgba(255,255,255,.035) !important;
+  border-color: rgba(242,230,214,.14) !important;
+}
+
+/* ---------------------------------------------------------
+   9) MOBİL
+   --------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  .story-stream {
+    background: transparent !important;
+    border: 0 !important;
+    box-shadow: none !important;
+  }
+
+  .story-stream .scene-media,
+  .story-stream .story-scene.is-revealed .scene-media {
+    background: transparent !important;
+    box-shadow:
+      0 7px 16px rgba(0,0,0,.16),
+      0 18px 34px rgba(0,0,0,.085),
+      0 30px 52px rgba(0,0,0,.03) !important;
+  }
+}
+
+/* =========================================================
+   V48 — son
+   ========================================================= */
