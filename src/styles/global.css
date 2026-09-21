@@ -8484,3 +8484,135 @@ body::after {
 /* =========================================================
    V55 — son
    ========================================================= */
+
+/* =========================================================
+   V56 — NATURAL PAPER, NO STRIPES
+   ========================================================= */
+
+/* Arka plan: önceki dengeli koyu kahveye dön */
+html {
+  background: #241913 !important;
+}
+
+body,
+.archive-page,
+main {
+  background-color: #241913 !important;
+  background-image:
+    linear-gradient(
+      180deg,
+      #2b1e17 0%,
+      #261a14 52%,
+      #211711 100%
+    ) !important;
+  background-size: auto !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+}
+
+/* V54/V55'ten kalan tüm çizgisel kırışıklık katmanları kapalı */
+body::before,
+body::after,
+.paper-noise::before,
+.paper-noise::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Doku artık tek bir doğal, düşük-kontrastlı yüzey görseli */
+.paper-noise {
+  display: block !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 100 !important;
+  pointer-events: none !important;
+
+  opacity: .20 !important;
+  background-image: url('/media/paper-texture-v56.png') !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+
+  mix-blend-mode: soft-light !important;
+  filter: none !important;
+}
+
+/* ---------------------------------------------------------
+   CTA — üst filtrelerle aynı hafif outline stil,
+   fakat aynı rengin biraz daha açık tonu
+   --------------------------------------------------------- */
+
+.read-link,
+.story-scene[data-kind="poem"] .read-link,
+.story-scene[data-kind="prose"] .read-link {
+  background-image: none !important;
+  box-shadow: none !important;
+  filter: none !important;
+  border-radius: 9px !important;
+}
+
+/* şiir */
+.story-scene[data-kind="poem"] .read-link {
+  color: #e7c8ba !important;
+  background-color: rgba(190, 143, 122, .095) !important;
+  border-color: rgba(215, 174, 155, .36) !important;
+}
+
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  color: #f0d8cd !important;
+  background-color: rgba(190, 143, 122, .14) !important;
+  border-color: rgba(228, 192, 175, .46) !important;
+}
+
+/* düz yazı */
+.story-scene[data-kind="prose"] .read-link {
+  color: #dcdfca !important;
+  background-color: rgba(151, 155, 124, .095) !important;
+  border-color: rgba(187, 192, 156, .35) !important;
+}
+
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  color: #e9ecdc !important;
+  background-color: rgba(151, 155, 124, .14) !important;
+  border-color: rgba(204, 209, 175, .45) !important;
+}
+
+/* Görsellerde tek, sade gölge; ışık lekesi yok */
+.scene-media,
+.story-scene.is-revealed .scene-media,
+.scene-media:hover,
+.story-scene:hover .scene-media {
+  background: transparent !important;
+  border: 1px solid rgba(241,229,213,.045) !important;
+  box-shadow: 0 9px 22px rgba(0,0,0,.115) !important;
+  filter: none !important;
+  transform: none !important;
+}
+
+.scene-media::before,
+.scene-media::after,
+.scene-media picture::before,
+.scene-media picture::after,
+.scene-media > picture::before,
+.scene-media > picture::after,
+.story-stream .scene-media::before,
+.story-stream .scene-media::after {
+  display: none !important;
+  content: none !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  filter: none !important;
+  opacity: 0 !important;
+}
+
+@media (max-width: 760px) {
+  .paper-noise {
+    opacity: .17 !important;
+  }
+}
+
+/* =========================================================
+   V56 — son
+   ========================================================= */
