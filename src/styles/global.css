@@ -7801,3 +7801,143 @@ main {
 /* =========================================================
    V51 — son
    ========================================================= */
+
+
+/* =========================================================
+   V52 — WRINKLED PAPER BACKGROUND + LIGHTER CTA TONES
+   ========================================================= */
+
+:root {
+  --paper-deep: #33221b;
+  --paper-deep-2: #3a281f;
+  --paper-crease-light: rgba(255, 241, 224, 0.050);
+  --paper-crease-dark: rgba(0, 0, 0, 0.090);
+}
+
+html,
+body {
+  background-color: var(--paper-deep) !important;
+}
+
+body {
+  position: relative;
+  background-image:
+    radial-gradient(circle at 18% 14%, rgba(255, 232, 205, 0.050) 0%, rgba(255, 232, 205, 0) 34%),
+    radial-gradient(circle at 82% 20%, rgba(255, 228, 198, 0.040) 0%, rgba(255, 228, 198, 0) 30%),
+    radial-gradient(circle at 50% 82%, rgba(255, 235, 210, 0.030) 0%, rgba(255, 235, 210, 0) 34%),
+    linear-gradient(180deg, #38251d 0%, #2d1d17 100%) !important;
+  background-attachment: fixed !important;
+  isolation: isolate;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.62;
+  background-image:
+    repeating-linear-gradient(
+      11deg,
+      transparent 0px,
+      transparent 42px,
+      var(--paper-crease-light) 42px,
+      var(--paper-crease-light) 43px,
+      transparent 44px,
+      transparent 96px
+    ),
+    repeating-linear-gradient(
+      -13deg,
+      transparent 0px,
+      transparent 54px,
+      var(--paper-crease-dark) 54px,
+      var(--paper-crease-dark) 55px,
+      transparent 56px,
+      transparent 118px
+    ),
+    repeating-linear-gradient(
+      89deg,
+      rgba(255,255,255,0.015) 0px,
+      rgba(255,255,255,0.015) 1px,
+      transparent 2px,
+      transparent 29px
+    );
+  mix-blend-mode: soft-light;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.16;
+  background-image:
+    radial-gradient(circle at 20% 25%, rgba(255,255,255,0.22) 0 0.7px, transparent 1.2px),
+    radial-gradient(circle at 70% 35%, rgba(255,255,255,0.16) 0 0.8px, transparent 1.3px),
+    radial-gradient(circle at 46% 70%, rgba(255,255,255,0.18) 0 0.7px, transparent 1.2px),
+    radial-gradient(circle at 82% 78%, rgba(0,0,0,0.18) 0 0.8px, transparent 1.3px);
+  background-size: 180px 180px, 220px 220px, 200px 200px, 260px 260px;
+  mix-blend-mode: overlay;
+}
+
+/* ana taşıyıcıları zemin üstüne al */
+body > header,
+body > main,
+body > footer,
+.site-shell,
+.page-shell,
+.page,
+.masthead,
+.filters,
+.story-stream {
+  position: relative;
+  z-index: 1;
+}
+
+/* CTA — mevcut stillerin açık tonlu varyasyonu */
+.story-scene[data-kind="poem"] .read-link {
+  color: #ebcec0 !important;
+  background: rgba(189, 138, 116, 0.120) !important;
+  border-color: rgba(218, 178, 160, 0.42) !important;
+}
+
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  color: #f3ddd2 !important;
+  background: rgba(189, 138, 116, 0.165) !important;
+  border-color: rgba(231, 198, 183, 0.52) !important;
+}
+
+.story-scene[data-kind="prose"] .read-link {
+  color: #dde2cf !important;
+  background: rgba(144, 150, 116, 0.120) !important;
+  border-color: rgba(184, 192, 155, 0.40) !important;
+}
+
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  color: #ecf0de !important;
+  background: rgba(144, 150, 116, 0.165) !important;
+  border-color: rgba(205, 212, 178, 0.50) !important;
+}
+
+/* filtrelerle bütünlük için aktif/hover hafif netleşsin */
+.read-link {
+  box-shadow: none !important;
+}
+
+@media (max-width: 760px) {
+  body::before {
+    opacity: 0.52;
+  }
+
+  body::after {
+    opacity: 0.12;
+  }
+}
+
+/* =========================================================
+   V52 — son
+   ========================================================= */
