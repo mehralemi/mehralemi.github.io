@@ -8616,3 +8616,99 @@ body::after,
 /* =========================================================
    V56 — son
    ========================================================= */
+
+/* =========================================================
+   V57 — LIGHTER BROWN / QUIET PAPER TEXTURE
+   Daha açık kahve + yalnızca hissedilen, sade doku.
+   ========================================================= */
+
+:root {
+  --page-brown-top: #3b2a20;
+  --page-brown-mid: #35251d;
+  --page-brown-bottom: #302119;
+}
+
+html {
+  background: var(--page-brown-bottom) !important;
+}
+
+body,
+.archive-page,
+main {
+  background-color: var(--page-brown-bottom) !important;
+  background-image:
+    linear-gradient(
+      180deg,
+      var(--page-brown-top) 0%,
+      var(--page-brown-mid) 52%,
+      var(--page-brown-bottom) 100%
+    ) !important;
+  background-size: auto !important;
+  background-repeat: no-repeat !important;
+  background-attachment: fixed !important;
+}
+
+/* Texture artık sadece yüzey hissi */
+.paper-noise {
+  display: block !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 100 !important;
+  pointer-events: none !important;
+
+  opacity: .085 !important;
+  background-image: url('/media/paper-texture-v56.png') !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+
+  mix-blend-mode: soft-light !important;
+  filter: blur(.12px) contrast(.92) !important;
+}
+
+.paper-noise::before,
+.paper-noise::after,
+body::before,
+body::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Header/toolbar yeni daha açık zemine uyumlu */
+.site-header {
+  background: rgba(48, 33, 25, .96) !important;
+  border-bottom-color: rgba(241,229,213,.05) !important;
+}
+
+.archive-tools,
+.archive-toolbar {
+  background: rgba(44, 30, 23, .94) !important;
+  border-top-color: rgba(241,229,213,.025) !important;
+  border-bottom-color: rgba(241,229,213,.05) !important;
+}
+
+/* Görsellerde daha hafif gölge */
+.scene-media,
+.story-scene.is-revealed .scene-media,
+.scene-media:hover,
+.story-scene:hover .scene-media {
+  box-shadow:
+    0 8px 18px rgba(0,0,0,.09) !important;
+}
+
+@media (max-width: 760px) {
+  .paper-noise {
+    opacity: .07 !important;
+    filter: blur(.12px) contrast(.90) !important;
+  }
+
+  .story-stream .scene-media,
+  .story-stream .story-scene.is-revealed .scene-media {
+    box-shadow:
+      0 7px 16px rgba(0,0,0,.085) !important;
+  }
+}
+
+/* =========================================================
+   V57 — son
+   ========================================================= */
