@@ -9220,3 +9220,276 @@ hr {
 /* =========================================================
    V60 — son
    ========================================================= */
+
+/* =========================================================
+   V61 — AGED LITERARY PAPER
+   Daha eski, arşivlik, sararmış kâğıt hissi.
+   ========================================================= */
+
+:root {
+  --paper: #c2ad8f;
+  --paper-light: #e9dcc8;
+
+  --ink: #2e2922;
+  --ink-soft: #5b4e40;
+
+  --accent-mid: #6f5a46;
+  --poem: #8d5b4c;
+  --prose: #5f7065;
+
+  --line: rgba(81, 63, 46, .24);
+  --line-soft: rgba(81, 63, 46, .13);
+
+  --aged-paper-top: #cdb99a;
+  --aged-paper-mid: #c4ae8e;
+  --aged-paper-bottom: #b8a080;
+}
+
+/* ---------------------------------------------------------
+   ESKİ KÂĞIT ZEMİNİ
+   --------------------------------------------------------- */
+
+html {
+  background: var(--aged-paper-bottom) !important;
+  color: var(--ink) !important;
+}
+
+body,
+.archive-page,
+main {
+  color: var(--ink) !important;
+  background-color: var(--aged-paper-mid) !important;
+  background-image:
+    linear-gradient(
+      180deg,
+      rgba(205,185,154,.96) 0%,
+      rgba(196,174,142,.97) 52%,
+      rgba(184,160,128,.98) 100%
+    ) !important;
+}
+
+/* Gerçek aged-paper yüzeyi */
+.paper-noise {
+  display: block !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 100 !important;
+  pointer-events: none !important;
+
+  opacity: .30 !important;
+  background-image: url('/media/paper-texture-v61.png') !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+
+  mix-blend-mode: multiply !important;
+  filter: saturate(.72) contrast(.92) brightness(1.03) !important;
+}
+
+/* Modern pseudo efektler yok */
+.paper-noise::before,
+.paper-noise::after,
+body::before,
+body::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* ---------------------------------------------------------
+   HEADER — eski baskı / sayfa başlığı hissi
+   --------------------------------------------------------- */
+
+.site-header {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(205,185,154,.93),
+      rgba(196,174,142,.90)
+    ) !important;
+  border-bottom: 1px solid rgba(81,63,46,.17) !important;
+  box-shadow:
+    0 1px 0 rgba(255,255,255,.10),
+    0 7px 18px rgba(76,55,37,.045) !important;
+}
+
+.brand {
+  color: #312b24 !important;
+}
+
+.main-nav a {
+  color: #635344 !important;
+}
+
+/* ---------------------------------------------------------
+   FİLTRE ÇUBUĞU — cam değil, kâğıt etiket hissi
+   --------------------------------------------------------- */
+
+.archive-tools,
+.archive-toolbar {
+  background: rgba(196,174,142,.86) !important;
+  border-top: 1px solid rgba(81,63,46,.08) !important;
+  border-bottom: 1px solid rgba(81,63,46,.16) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+.filter {
+  color: #665443 !important;
+  background: rgba(245,231,207,.22) !important;
+  border: 1px solid rgba(94,72,53,.22) !important;
+  border-radius: 5px !important;
+  box-shadow: none !important;
+}
+
+.filter:hover {
+  color: #47392e !important;
+  background: rgba(245,231,207,.34) !important;
+  border-color: rgba(94,72,53,.34) !important;
+}
+
+.filter.is-active {
+  color: #efe1cf !important;
+  background: #715b47 !important;
+  border-color: #715b47 !important;
+}
+
+.filter-poem.is-active {
+  background: #8d5b4c !important;
+  border-color: #8d5b4c !important;
+}
+
+.filter-prose.is-active {
+  background: #5f7065 !important;
+  border-color: #5f7065 !important;
+}
+
+/* ---------------------------------------------------------
+   METİNLER
+   --------------------------------------------------------- */
+
+.scene-copy h2,
+.scene-copy h2 a,
+.story-title,
+.scene-title,
+h1, h2, h3 {
+  color: #302a23 !important;
+}
+
+.scene-summary,
+.story-excerpt,
+.scene-copy p {
+  color: #5b4e40 !important;
+}
+
+/* ---------------------------------------------------------
+   TÜR ETİKETLERİ — eski mat mürekkep hissi
+   --------------------------------------------------------- */
+
+.type-tag {
+  border-radius: 5px !important;
+  box-shadow: none !important;
+}
+
+.story-scene[data-kind="poem"] .type-tag {
+  color: #78493e !important;
+  background: rgba(141,91,76,.10) !important;
+  border-color: rgba(141,91,76,.30) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag {
+  color: #4d6057 !important;
+  background: rgba(95,112,101,.10) !important;
+  border-color: rgba(95,112,101,.30) !important;
+}
+
+/* ---------------------------------------------------------
+   CTA — modern parlak buton değil, mat baskı etiketi
+   --------------------------------------------------------- */
+
+.read-link {
+  border-radius: 5px !important;
+  box-shadow: none !important;
+}
+
+.story-scene[data-kind="poem"] .read-link {
+  color: #f0dfcd !important;
+  background: #8f5d50 !important;
+  border-color: #8f5d50 !important;
+}
+
+.story-scene[data-kind="prose"] .read-link {
+  color: #eee5d8 !important;
+  background: #63756a !important;
+  border-color: #63756a !important;
+}
+
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  background: #7e4f44 !important;
+  border-color: #7e4f44 !important;
+}
+
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  background: #55675e !important;
+  border-color: #55675e !important;
+}
+
+/* ---------------------------------------------------------
+   STORY SURFACE — ayrı modern panel hissini azalt
+   --------------------------------------------------------- */
+
+.story-stream {
+  background: rgba(239,224,200,.08) !important;
+  border: 1px solid rgba(81,63,46,.075) !important;
+  box-shadow: none !important;
+}
+
+.story-scene::after {
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(81,63,46,.11) 20%,
+      rgba(81,63,46,.11) 80%,
+      transparent 100%
+    ) !important;
+}
+
+/* Görseller: mat baskı / eski fotoğraf gibi düz gölge */
+.scene-media,
+.story-scene.is-revealed .scene-media,
+.scene-media:hover,
+.story-scene:hover .scene-media {
+  border-radius: 4px !important;
+  border-color: rgba(81,63,46,.11) !important;
+  box-shadow:
+    0 7px 18px rgba(63,44,29,.10) !important;
+}
+
+/* Mobilde aynı vintage his */
+@media (max-width: 760px) {
+  .paper-noise {
+    opacity: .25 !important;
+  }
+
+  .site-header {
+    background: rgba(205,185,154,.95) !important;
+  }
+
+  .archive-tools,
+  .archive-toolbar {
+    background: rgba(196,174,142,.91) !important;
+  }
+
+  .scene-media,
+  .story-scene.is-revealed .scene-media {
+    box-shadow:
+      0 6px 15px rgba(63,44,29,.09) !important;
+  }
+}
+
+/* =========================================================
+   V61 — son
+   ========================================================= */
