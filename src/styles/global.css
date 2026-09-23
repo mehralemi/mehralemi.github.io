@@ -8991,3 +8991,232 @@ hr {
 /* =========================================================
    V59 — son
    ========================================================= */
+
+/* =========================================================
+   V60 — DEEPER WARM CREAM / TAN
+   V59'dan belirgin şekilde daha koyu, fakat dark moda dönmeden.
+   ========================================================= */
+
+:root {
+  --paper: #c6b196;
+  --paper-light: #eadfce;
+  --ink: #2b241e;
+  --ink-soft: #5c4e42;
+
+  --accent-mid: #705b4a;
+  --poem: #8f5b50;
+  --prose: #587167;
+
+  --line: rgba(82, 67, 54, .22);
+  --line-soft: rgba(82, 67, 54, .12);
+
+  --page-warm-cream-top: #d1bea5;
+  --page-warm-cream-mid: #c7b194;
+  --page-warm-cream-bottom: #bda486;
+}
+
+/* ---------------------------------------------------------
+   GENEL ZEMİN — DAHA KOYU SICAK KREM / TAN
+   --------------------------------------------------------- */
+
+html {
+  background: var(--page-warm-cream-bottom) !important;
+  color: var(--ink) !important;
+}
+
+body,
+.archive-page,
+main {
+  color: var(--ink) !important;
+  background-color: var(--page-warm-cream-bottom) !important;
+  background-image:
+    linear-gradient(
+      180deg,
+      var(--page-warm-cream-top) 0%,
+      var(--page-warm-cream-mid) 55%,
+      var(--page-warm-cream-bottom) 100%
+    ) !important;
+}
+
+/* Doku korunuyor, biraz geri çekiliyor */
+.paper-noise {
+  opacity: .082 !important;
+  filter: blur(.22px) contrast(.78) brightness(1.02) !important;
+}
+
+/* ---------------------------------------------------------
+   HEADER / TOOLBAR
+   --------------------------------------------------------- */
+
+.site-header {
+  background: rgba(200, 179, 151, .94) !important;
+  border-bottom: 1px solid rgba(82,67,54,.13) !important;
+  box-shadow: 0 8px 20px rgba(74, 54, 39, .06) !important;
+}
+
+.archive-tools,
+.archive-toolbar {
+  background: rgba(194, 171, 142, .90) !important;
+  border-top-color: rgba(82,67,54,.08) !important;
+  border-bottom-color: rgba(82,67,54,.13) !important;
+}
+
+/* ---------------------------------------------------------
+   TYPOGRAPHY
+   --------------------------------------------------------- */
+
+.brand,
+.scene-title,
+.story-title,
+.scene-copy h2,
+.scene-copy h2 a,
+h1, h2, h3 {
+  color: var(--ink) !important;
+}
+
+.scene-summary,
+.story-excerpt,
+.scene-copy p,
+.main-nav a,
+.load-more,
+.more-button,
+.archive-empty {
+  color: var(--ink-soft) !important;
+}
+
+/* ---------------------------------------------------------
+   FILTERS
+   --------------------------------------------------------- */
+
+.filter {
+  color: #5f4d3f !important;
+  border-color: rgba(82,67,54,.18) !important;
+  background: rgba(255,255,255,.12) !important;
+}
+
+.filter:hover {
+  color: #3c3027 !important;
+  border-color: rgba(82,67,54,.30) !important;
+  background: rgba(255,255,255,.20) !important;
+}
+
+.filter.is-active {
+  color: #f5eadc !important;
+  background: var(--accent-mid) !important;
+  border-color: var(--accent-mid) !important;
+}
+
+.filter-poem.is-active {
+  color: #f8eee4 !important;
+  background: var(--poem) !important;
+  border-color: var(--poem) !important;
+}
+
+.filter-prose.is-active {
+  color: #f4eee6 !important;
+  background: var(--prose) !important;
+  border-color: var(--prose) !important;
+}
+
+/* ---------------------------------------------------------
+   TYPE TAGS
+   --------------------------------------------------------- */
+
+.type-tag {
+  background: rgba(255,255,255,.10) !important;
+  border-color: rgba(82,67,54,.16) !important;
+}
+
+.story-scene[data-kind="poem"] .type-tag {
+  color: #75483f !important;
+  background: rgba(143,91,80,.105) !important;
+  border-color: rgba(143,91,80,.28) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag {
+  color: #465f56 !important;
+  background: rgba(88,113,103,.105) !important;
+  border-color: rgba(88,113,103,.28) !important;
+}
+
+/* ---------------------------------------------------------
+   CTA — OKUNURLUK KORUNDU
+   --------------------------------------------------------- */
+
+.story-scene[data-kind="poem"] .read-link {
+  color: #f8eee6 !important;
+  background: #956057 !important;
+  border-color: #9f6a60 !important;
+}
+
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  color: #fff7ef !important;
+  background: #865249 !important;
+  border-color: #965f55 !important;
+}
+
+.story-scene[data-kind="prose"] .read-link {
+  color: #f5efe7 !important;
+  background: #607b70 !important;
+  border-color: #6d887d !important;
+}
+
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  color: #fff8f1 !important;
+  background: #536b62 !important;
+  border-color: #607970 !important;
+}
+
+/* ---------------------------------------------------------
+   STORY SURFACE / LINES
+   --------------------------------------------------------- */
+
+.story-stream {
+  background: rgba(255, 248, 239, .075) !important;
+  border: 1px solid rgba(82,67,54,.075) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.12),
+    0 18px 40px rgba(72,50,35,.045) !important;
+}
+
+.story-scene::after,
+.scene-divider,
+.section-line,
+hr {
+  border-color: rgba(82,67,54,.12) !important;
+}
+
+/* Görseller yeni zeminde biraz daha net ayrılsın */
+.scene-media,
+.story-scene.is-revealed .scene-media,
+.scene-media:hover,
+.story-scene:hover .scene-media {
+  border-color: rgba(82,67,54,.09) !important;
+  box-shadow: 0 10px 24px rgba(62,43,29,.13) !important;
+}
+
+@media (max-width: 760px) {
+  .paper-noise {
+    opacity: .07 !important;
+  }
+
+  .site-header {
+    background: rgba(200, 179, 151, .96) !important;
+  }
+
+  .archive-tools,
+  .archive-toolbar {
+    background: rgba(194, 171, 142, .94) !important;
+  }
+
+  .story-stream .scene-media,
+  .story-stream .story-scene.is-revealed .scene-media {
+    box-shadow: 0 8px 18px rgba(62,43,29,.115) !important;
+  }
+}
+
+/* =========================================================
+   V60 — son
+   ========================================================= */
