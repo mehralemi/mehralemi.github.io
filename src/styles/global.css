@@ -8712,3 +8712,96 @@ body::after {
 /* =========================================================
    V57 — son
    ========================================================= */
+
+
+/* =========================================================
+   V58 — WARM CREAM RETURN / SUBTLE WRINKLED PAPER
+   İlk krem hissine geri dönüş: sadece bir tık koyu.
+   Doku var ama bağırmıyor.
+   ========================================================= */
+
+:root {
+  --page-warm-cream-top: #e8dccb;
+  --page-warm-cream-mid: #e3d5c3;
+  --page-warm-cream-bottom: #ddceb9;
+}
+
+html {
+  background: var(--page-warm-cream-bottom) !important;
+}
+
+body,
+.archive-page,
+main {
+  background-color: var(--page-warm-cream-bottom) !important;
+  background-image:
+    linear-gradient(
+      180deg,
+      var(--page-warm-cream-top) 0%,
+      var(--page-warm-cream-mid) 56%,
+      var(--page-warm-cream-bottom) 100%
+    ) !important;
+  background-repeat: no-repeat !important;
+  background-size: auto !important;
+  background-attachment: fixed !important;
+}
+
+/* Buruşuk kâğıt hissi: hafif, sıcak, sade */
+.paper-noise {
+  display: block !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 100 !important;
+  pointer-events: none !important;
+  opacity: .105 !important;
+  background-image: url('/media/paper-texture-v56.png') !important;
+  background-size: cover !important;
+  background-repeat: no-repeat !important;
+  background-position: center center !important;
+  mix-blend-mode: multiply !important;
+  filter: blur(.22px) contrast(.80) brightness(1.04) !important;
+}
+
+.paper-noise::before,
+.paper-noise::after,
+body::before,
+body::after {
+  display: none !important;
+  content: none !important;
+}
+
+.site-header {
+  background: rgba(232, 220, 203, .92) !important;
+  border-bottom-color: rgba(120, 101, 89, .10) !important;
+}
+
+.archive-tools,
+.archive-toolbar {
+  background: rgba(228, 216, 199, .88) !important;
+  border-top-color: rgba(120, 101, 89, .06) !important;
+  border-bottom-color: rgba(120, 101, 89, .10) !important;
+}
+
+/* Görsel gölgeleri sade ve temiz kalsın */
+.scene-media,
+.story-scene.is-revealed .scene-media,
+.scene-media:hover,
+.story-scene:hover .scene-media {
+  box-shadow: 0 10px 24px rgba(60, 42, 28, .11) !important;
+}
+
+@media (max-width: 760px) {
+  .paper-noise {
+    opacity: .088 !important;
+    filter: blur(.2px) contrast(.78) brightness(1.035) !important;
+  }
+
+  .story-stream .scene-media,
+  .story-stream .story-scene.is-revealed .scene-media {
+    box-shadow: 0 8px 18px rgba(60, 42, 28, .10) !important;
+  }
+}
+
+/* =========================================================
+   V58 — son
+   ========================================================= */
