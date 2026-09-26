@@ -9688,3 +9688,217 @@ h1,h2,h3 {
 /* =========================================================
    V62 — son
    ========================================================= */
+
+/* =========================================================
+   V63 — TRUE CRUMPLED ARCHIVAL PAPER
+   Son üretilen gerçek buruşuk kâğıt dokusu ile tam entegrasyon.
+   ========================================================= */
+
+:root {
+  --paper: #bca17e;
+  --paper-light: #eadcc7;
+  --ink: #30291f;
+  --ink-soft: #5a4b3b;
+  --accent-mid: #695440;
+  --poem: #87584a;
+  --prose: #596b60;
+  --line: rgba(73,55,39,.25);
+  --line-soft: rgba(73,55,39,.14);
+}
+
+html {
+  background: #ac8f6c !important;
+  color: var(--ink) !important;
+}
+
+body,
+.archive-page,
+main {
+  color: var(--ink) !important;
+  background-color: #b89b76 !important;
+  background-image:
+    radial-gradient(ellipse at 50% 24%, rgba(239,220,190,.15) 0%, transparent 58%),
+    linear-gradient(180deg, #c3aa86 0%, #b79a75 56%, #aa8b68 100%) !important;
+  background-attachment: fixed !important;
+}
+
+/* Gerçek buruşuk yüzey: çizgisel CSS efekti değil, doğal texture */
+.paper-noise {
+  display: block !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 100 !important;
+  pointer-events: none !important;
+  opacity: .43 !important;
+  background-image: url('/media/paper-texture-v63.png') !important;
+  background-size: 900px 900px !important;
+  background-repeat: repeat !important;
+  background-position: 0 0 !important;
+  mix-blend-mode: soft-light !important;
+  filter: saturate(.58) contrast(.92) brightness(1.035) !important;
+}
+
+.paper-noise::before,
+.paper-noise::after,
+body::before,
+body::after {
+  display: none !important;
+  content: none !important;
+}
+
+.site-header {
+  background: rgba(191,165,129,.82) !important;
+  border-bottom: 1px solid rgba(73,55,39,.20) !important;
+  box-shadow: none !important;
+}
+
+.archive-tools,
+.archive-toolbar {
+  background: rgba(181,153,115,.76) !important;
+  border-top: 1px solid rgba(73,55,39,.09) !important;
+  border-bottom: 1px solid rgba(73,55,39,.18) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+
+.brand,
+.scene-copy h2,
+.scene-copy h2 a,
+h1,h2,h3 {
+  color: #30291f !important;
+}
+
+.main-nav a,
+.scene-summary,
+.scene-copy p {
+  color: #594a3a !important;
+}
+
+/* Daha eski baskı hissi; modern pill görünümünü azalt */
+.filter,
+.type-tag,
+.read-link,
+.load-more {
+  border-radius: 3px !important;
+  box-shadow: none !important;
+}
+
+.filter {
+  color: #5d4938 !important;
+  background: rgba(239,220,190,.13) !important;
+  border-color: rgba(73,55,39,.24) !important;
+}
+
+.filter:hover {
+  color: #3d3026 !important;
+  background: rgba(239,220,190,.24) !important;
+  border-color: rgba(73,55,39,.34) !important;
+}
+
+.filter.is-active {
+  color: #eadbc8 !important;
+  background: #695440 !important;
+  border-color: #695440 !important;
+}
+
+.filter-poem.is-active {
+  background: var(--poem) !important;
+  border-color: var(--poem) !important;
+}
+
+.filter-prose.is-active {
+  background: var(--prose) !important;
+  border-color: var(--prose) !important;
+}
+
+.story-scene[data-kind="poem"] .type-tag {
+  color: #75483e !important;
+  background: rgba(135,88,74,.08) !important;
+  border-color: rgba(135,88,74,.30) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag {
+  color: #495a52 !important;
+  background: rgba(89,107,96,.08) !important;
+  border-color: rgba(89,107,96,.30) !important;
+}
+
+.story-scene[data-kind="poem"] .read-link {
+  color: #ead9c5 !important;
+  background: #87584a !important;
+  border-color: #87584a !important;
+}
+
+.story-scene[data-kind="prose"] .read-link {
+  color: #e9dfd0 !important;
+  background: #596b60 !important;
+  border-color: #596b60 !important;
+}
+
+.story-stream {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.story-scene::after {
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(73,55,39,.15) 20%,
+    rgba(73,55,39,.15) 80%,
+    transparent 100%
+  ) !important;
+}
+
+/* Görseller eski baskı/fotoğraf gibi; çamur/glow yok */
+.scene-media,
+.story-scene.is-revealed .scene-media,
+.scene-media:hover,
+.story-scene:hover .scene-media {
+  border-radius: 2px !important;
+  border: 1px solid rgba(73,55,39,.18) !important;
+  background: transparent !important;
+  box-shadow:
+    2px 4px 0 rgba(76,54,35,.055),
+    0 7px 15px rgba(76,54,35,.075) !important;
+  transform: none !important;
+}
+
+.scene-media::before,
+.scene-media::after,
+.scene-media picture::before,
+.scene-media picture::after,
+.scene-media > picture::before,
+.scene-media > picture::after,
+.story-stream .scene-media::before,
+.story-stream .scene-media::after {
+  display: none !important;
+  content: none !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  filter: none !important;
+  opacity: 0 !important;
+}
+
+@media (max-width: 760px) {
+  .paper-noise {
+    opacity: .36 !important;
+    background-size: 760px 760px !important;
+  }
+
+  .site-header {
+    background: rgba(191,165,129,.87) !important;
+  }
+
+  .archive-tools,
+  .archive-toolbar {
+    background: rgba(181,153,115,.82) !important;
+  }
+}
+
+/* =========================================================
+   V63 — son
+   ========================================================= */
