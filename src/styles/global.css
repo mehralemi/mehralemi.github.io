@@ -10194,3 +10194,241 @@ body > main {
 /* =========================================================
    V64 — son
    ========================================================= */
+
+/* =========================================================
+   V65 — MUTED TEXT + CTA EXACTLY MATCHES TOP FILTER STYLE
+   ========================================================= */
+
+:root {
+  /* Aktif filtre/CTA yüzeyleri */
+  --ui-neutral-bg: #684f3a;
+  --ui-neutral-border: #755b44;
+  --ui-neutral-text: #c7b299;
+
+  --ui-poem-bg: #855149;
+  --ui-poem-border: #925d54;
+  --ui-poem-text: #cbb0a4;
+
+  --ui-prose-bg: #52685f;
+  --ui-prose-border: #5f756b;
+  --ui-prose-text: #c0c4af;
+
+  /* Açık kağıt üstündeki etiket metinleri */
+  --tag-poem-text: #74483f;
+  --tag-prose-text: #455950;
+}
+
+/* ---------------------------------------------------------
+   PARLAK BEYAZLARI TEMİZLE
+   --------------------------------------------------------- */
+
+.main-nav a {
+  color: #58483a !important;
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible {
+  color: #352b23 !important;
+}
+
+/* ---------------------------------------------------------
+   ÜST FİLTRELER
+   --------------------------------------------------------- */
+
+.filter {
+  min-height: 32px !important;
+  padding: 7px 12px !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-radius: 5px !important;
+  box-shadow: none !important;
+
+  font: 500 .62rem/1 var(--sans) !important;
+  letter-spacing: .045em !important;
+
+  color: #58483a !important;
+  background: rgba(247, 230, 205, .10) !important;
+  border-color: rgba(93, 71, 52, .24) !important;
+}
+
+.filter:hover,
+.filter:focus-visible {
+  color: #352b23 !important;
+  background: rgba(247, 230, 205, .20) !important;
+  border-color: rgba(93, 71, 52, .36) !important;
+}
+
+/* HEPSİ aktif */
+.filter.is-active {
+  color: var(--ui-neutral-text) !important;
+  background: var(--ui-neutral-bg) !important;
+  border-color: var(--ui-neutral-border) !important;
+}
+
+/* ŞİİR aktif */
+.filter-poem.is-active {
+  color: var(--ui-poem-text) !important;
+  background: var(--ui-poem-bg) !important;
+  border-color: var(--ui-poem-border) !important;
+}
+
+/* DÜZ YAZI aktif */
+.filter-prose.is-active {
+  color: var(--ui-prose-text) !important;
+  background: var(--ui-prose-bg) !important;
+  border-color: var(--ui-prose-border) !important;
+}
+
+/* Aktif filtre hover'da da beyaza dönmesin */
+.filter.is-active:hover,
+.filter.is-active:focus-visible {
+  color: var(--ui-neutral-text) !important;
+  background: #5f4836 !important;
+  border-color: #6d533e !important;
+}
+
+.filter-poem.is-active:hover,
+.filter-poem.is-active:focus-visible {
+  color: var(--ui-poem-text) !important;
+  background: #794841 !important;
+  border-color: #875149 !important;
+}
+
+.filter-prose.is-active:hover,
+.filter-prose.is-active:focus-visible {
+  color: var(--ui-prose-text) !important;
+  background: #485d54 !important;
+  border-color: #566b62 !important;
+}
+
+/* ---------------------------------------------------------
+   İÇERİK TÜR ETİKETLERİ
+   Açık zeminde soluk-beyaz yerine koyu, mat mürekkep.
+   --------------------------------------------------------- */
+
+.type-tag {
+  min-height: 30px !important;
+  padding: 6px 11px !important;
+  border-radius: 5px !important;
+  box-shadow: none !important;
+  font: 500 .62rem/1 var(--sans) !important;
+  letter-spacing: .04em !important;
+}
+
+.story-scene[data-kind="poem"] .type-tag {
+  color: var(--tag-poem-text) !important;
+  background: rgba(133,81,73,.075) !important;
+  border-color: rgba(133,81,73,.26) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag {
+  color: var(--tag-prose-text) !important;
+  background: rgba(82,104,95,.075) !important;
+  border-color: rgba(82,104,95,.26) !important;
+}
+
+.story-scene[data-kind="poem"] .type-tag:hover,
+.story-scene[data-kind="poem"] .type-tag:focus-visible {
+  color: #653c35 !important;
+  background: rgba(133,81,73,.115) !important;
+  border-color: rgba(133,81,73,.36) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag:hover,
+.story-scene[data-kind="prose"] .type-tag:focus-visible {
+  color: #394b43 !important;
+  background: rgba(82,104,95,.115) !important;
+  border-color: rgba(82,104,95,.36) !important;
+}
+
+/* Yazı sayfasındaki tür etiketi de parlak olmasın */
+.reading-page .type-tag {
+  color: #58483a !important;
+  background: rgba(104,79,58,.07) !important;
+  border-color: rgba(104,79,58,.24) !important;
+}
+
+/* ---------------------------------------------------------
+   METNİ OKU = ÜSTTEKİ AKTİF FİLTREYLE AYNI STİL
+   Fark sadece metin daha uzun olduğu için doğal genişlik.
+   --------------------------------------------------------- */
+
+.read-link,
+.story-scene[data-kind="poem"] .read-link,
+.story-scene[data-kind="prose"] .read-link {
+  min-width: 0 !important;
+  min-height: 32px !important;
+  padding: 7px 12px !important;
+
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 11px !important;
+
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-radius: 5px !important;
+
+  font: 500 .62rem/1 var(--sans) !important;
+  letter-spacing: .045em !important;
+
+  box-shadow: none !important;
+  filter: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+/* Şiir CTA = şiir aktif filtresi */
+.story-scene[data-kind="poem"] .read-link {
+  color: var(--ui-poem-text) !important;
+  background: var(--ui-poem-bg) !important;
+  border-color: var(--ui-poem-border) !important;
+}
+
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  color: var(--ui-poem-text) !important;
+  background: #794841 !important;
+  border-color: #875149 !important;
+  box-shadow: none !important;
+}
+
+/* Düz yazı CTA = düz yazı aktif filtresi */
+.story-scene[data-kind="prose"] .read-link {
+  color: var(--ui-prose-text) !important;
+  background: var(--ui-prose-bg) !important;
+  border-color: var(--ui-prose-border) !important;
+}
+
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  color: var(--ui-prose-text) !important;
+  background: #485d54 !important;
+  border-color: #566b62 !important;
+  box-shadow: none !important;
+}
+
+/* Ok da metinle aynı muted renkte */
+.read-link .cta-arrow,
+.cta-arrow {
+  color: currentColor !important;
+  opacity: .76 !important;
+}
+
+/* ---------------------------------------------------------
+   MOBİLDE DE AYNI
+   --------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  .filter,
+  .read-link,
+  .story-scene[data-kind="poem"] .read-link,
+  .story-scene[data-kind="prose"] .read-link {
+    min-height: 32px !important;
+    padding: 7px 11px !important;
+  }
+}
+
+/* =========================================================
+   V65 — son
+   ========================================================= */
