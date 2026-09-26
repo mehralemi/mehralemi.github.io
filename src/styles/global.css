@@ -10432,3 +10432,74 @@ body > main {
 /* =========================================================
    V65 — son
    ========================================================= */
+
+/* =========================================================
+   V66 — UNIFIED DARK-BROWN CTA
+   Tüm “metni oku” butonları tek koyu kahve ailesine geçti.
+   ========================================================= */
+
+:root {
+  --cta-brown: #5a4333;
+  --cta-brown-border: #674d3a;
+  --cta-brown-hover: #4b382b;
+  --cta-brown-hover-border: #594231;
+  --cta-brown-text: #d9c8b3;
+  --cta-brown-text-hover: #e3d3c0;
+}
+
+/* Tüm içerik türlerinde aynı CTA */
+.read-link,
+.story-scene[data-kind="poem"] .read-link,
+.story-scene[data-kind="prose"] .read-link {
+  color: var(--cta-brown-text) !important;
+  background: var(--cta-brown) !important;
+  border-color: var(--cta-brown-border) !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* Tüm içerik türlerinde aynı hover */
+.read-link:hover,
+.read-link:focus-visible,
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible,
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  color: var(--cta-brown-text-hover) !important;
+  background: var(--cta-brown-hover) !important;
+  border-color: var(--cta-brown-hover-border) !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.read-link .cta-arrow,
+.cta-arrow {
+  color: currentColor !important;
+  opacity: .78 !important;
+}
+
+/* Mobilde de birebir aynı */
+@media (max-width: 760px) {
+  .read-link,
+  .story-scene[data-kind="poem"] .read-link,
+  .story-scene[data-kind="prose"] .read-link {
+    color: var(--cta-brown-text) !important;
+    background: var(--cta-brown) !important;
+    border-color: var(--cta-brown-border) !important;
+  }
+
+  .read-link:hover,
+  .read-link:focus-visible,
+  .story-scene[data-kind="poem"] .read-link:hover,
+  .story-scene[data-kind="poem"] .read-link:focus-visible,
+  .story-scene[data-kind="prose"] .read-link:hover,
+  .story-scene[data-kind="prose"] .read-link:focus-visible {
+    color: var(--cta-brown-text-hover) !important;
+    background: var(--cta-brown-hover) !important;
+    border-color: var(--cta-brown-hover-border) !important;
+  }
+}
+
+/* =========================================================
+   V66 — son
+   ========================================================= */
