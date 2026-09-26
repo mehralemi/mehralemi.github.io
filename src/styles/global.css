@@ -9902,3 +9902,295 @@ h1,h2,h3 {
 /* =========================================================
    V63 — son
    ========================================================= */
+
+/* =========================================================
+   V64 — READABILITY + MUTED BUTTON TEXT + TEXTURE BEHIND CONTENT
+   ========================================================= */
+
+:root {
+  --ink: #30291f;
+  --ink-soft: #40342b;
+
+  /* Daha sakin, kırık-krem buton yazıları */
+  --button-text-neutral: #dfcfbb;
+  --button-text-poem: #d8c6b3;
+  --button-text-prose: #d8cfbd;
+
+  /* Biraz daha koyu buton yüzeyleri: düşük parlak yazıyla kontrast korunur */
+  --button-bg-neutral: #604d3b;
+  --button-bg-poem: #75483f;
+  --button-bg-prose: #465b51;
+}
+
+/* ---------------------------------------------------------
+   BURUŞUK DOKU ARTIK İÇERİĞİN ÜSTÜNE BİNMEZ
+   Görseller, metinler ve butonlar texture tarafından kirletilmez.
+   --------------------------------------------------------- */
+
+body {
+  position: relative !important;
+  isolation: isolate !important;
+}
+
+/* Body zemininin üstünde ama bütün gerçek içeriğin altında */
+.paper-noise {
+  z-index: -1 !important;
+  opacity: .39 !important;
+}
+
+/* main eski ortak background kuralını tekrar çizmesin;
+   body + texture tek yüzey olarak görünsün. */
+body > main {
+  background: transparent !important;
+}
+
+/* ---------------------------------------------------------
+   BAŞLIKLAR / ÖZETLER — SİLİK DEĞİL
+   --------------------------------------------------------- */
+
+.scene-copy h2,
+.scene-copy h2 a,
+.story-title,
+.scene-title,
+.reading-head h1,
+.about-copy h1,
+.prose h1,
+.prose h2,
+.prose h3 {
+  color: #2f2922 !important;
+}
+
+.scene-summary,
+.story-excerpt,
+.scene-copy > p:not(.eyebrow) {
+  color: #40342b !important;
+  opacity: 1 !important;
+  font-weight: 400 !important;
+  text-shadow: none !important;
+}
+
+/* ---------------------------------------------------------
+   UZUN METİN / HAKKINDA METNİ — DAHA OKUNAKLI
+   --------------------------------------------------------- */
+
+.prose {
+  color: #352d26 !important;
+  font-size: 1.10rem !important;
+  line-height: 1.90 !important;
+  font-weight: 400 !important;
+  text-shadow: none !important;
+}
+
+.prose p,
+.prose li {
+  color: inherit !important;
+  opacity: 1 !important;
+}
+
+.prose strong {
+  color: #2b251f !important;
+  font-weight: 600 !important;
+}
+
+.prose em {
+  color: #40362d !important;
+}
+
+.prose blockquote {
+  color: #4b3e33 !important;
+  border-left-color: rgba(117,72,63,.42) !important;
+}
+
+.prose a {
+  color: #5b4737 !important;
+  text-decoration-color: rgba(91,71,55,.45) !important;
+  text-underline-offset: .16em;
+}
+
+.prose a:hover,
+.prose a:focus-visible {
+  color: #30271f !important;
+  text-decoration-color: rgba(48,39,31,.72) !important;
+}
+
+.reading-end a {
+  color: #564536 !important;
+}
+
+.reading-end a:hover,
+.reading-end a:focus-visible {
+  color: #30271f !important;
+}
+
+/* ---------------------------------------------------------
+   NAV — HOVER'DA BEYAZ YOK
+   --------------------------------------------------------- */
+
+.main-nav a {
+  color: #59493b !important;
+}
+
+.main-nav a:hover,
+.main-nav a:focus-visible {
+  color: #332a22 !important;
+}
+
+.main-nav a::after {
+  background: #715847 !important;
+}
+
+/* ---------------------------------------------------------
+   ÜST FİLTRELER — BEYAZ YAZI YERİNE KIRIK, SICAK TONLAR
+   --------------------------------------------------------- */
+
+.filter {
+  color: #554638 !important;
+}
+
+.filter:hover,
+.filter:focus-visible {
+  color: #342b23 !important;
+}
+
+.filter.is-active {
+  color: var(--button-text-neutral) !important;
+  background: var(--button-bg-neutral) !important;
+  border-color: var(--button-bg-neutral) !important;
+}
+
+.filter-poem.is-active {
+  color: var(--button-text-poem) !important;
+  background: var(--button-bg-poem) !important;
+  border-color: var(--button-bg-poem) !important;
+}
+
+.filter-prose.is-active {
+  color: var(--button-text-prose) !important;
+  background: var(--button-bg-prose) !important;
+  border-color: var(--button-bg-prose) !important;
+}
+
+/* ---------------------------------------------------------
+   TYPE TAG — OKUNAKLI AMA MAT
+   --------------------------------------------------------- */
+
+.story-scene[data-kind="poem"] .type-tag {
+  color: #6f433a !important;
+  background: rgba(117,72,63,.095) !important;
+  border-color: rgba(117,72,63,.30) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag {
+  color: #40534b !important;
+  background: rgba(70,91,81,.095) !important;
+  border-color: rgba(70,91,81,.30) !important;
+}
+
+.reading-page .type-tag {
+  color: #554536 !important;
+  background: rgba(96,77,59,.08) !important;
+  border-color: rgba(96,77,59,.27) !important;
+}
+
+/* ---------------------------------------------------------
+   CTA — PARLAK BEYAZ YOK
+   Kırık-krem / doğal kağıt tonları kullanılır.
+   --------------------------------------------------------- */
+
+.story-scene[data-kind="poem"] .read-link {
+  color: var(--button-text-poem) !important;
+  background: var(--button-bg-poem) !important;
+  border-color: #805047 !important;
+}
+
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  color: #e1cebb !important;
+  background: #684039 !important;
+  border-color: #74483f !important;
+}
+
+.story-scene[data-kind="prose"] .read-link {
+  color: var(--button-text-prose) !important;
+  background: var(--button-bg-prose) !important;
+  border-color: #52675d !important;
+}
+
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  color: #e0d7c6 !important;
+  background: #3e5149 !important;
+  border-color: #495e54 !important;
+}
+
+/* load-more da aynı sakin dilde */
+.load-more {
+  color: #514235 !important;
+  border-color: rgba(73,55,39,.26) !important;
+}
+
+.load-more:hover,
+.load-more:focus-visible {
+  color: #30271f !important;
+  background: rgba(239,220,190,.20) !important;
+  border-color: rgba(73,55,39,.40) !important;
+}
+
+/* ---------------------------------------------------------
+   GÖRSELLER — BURUŞUK DOKU GÖRSELE DEĞMEZ
+   Texture zaten bütün içeriğin arkasında; görsel yüzeyi temizdir.
+   --------------------------------------------------------- */
+
+.scene-media,
+.reading-cover,
+.about-portrait,
+.prose img {
+  position: relative !important;
+  isolation: isolate !important;
+}
+
+.scene-media picture,
+.scene-media img,
+.reading-cover picture,
+.reading-cover img,
+.about-portrait img,
+.prose img {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Görselde ekstra texture / overlay katmanı kesinlikle yok */
+.scene-media::before,
+.scene-media::after,
+.scene-media picture::before,
+.scene-media picture::after {
+  display: none !important;
+  content: none !important;
+  opacity: 0 !important;
+  background: none !important;
+  filter: none !important;
+}
+
+/* ---------------------------------------------------------
+   MOBİL
+   --------------------------------------------------------- */
+
+@media (max-width: 760px) {
+  .paper-noise {
+    opacity: .33 !important;
+  }
+
+  .scene-summary {
+    color: #3d322a !important;
+  }
+
+  .prose {
+    color: #342c25 !important;
+    font-size: 1.06rem !important;
+    line-height: 1.88 !important;
+  }
+}
+
+/* =========================================================
+   V64 — son
+   ========================================================= */
