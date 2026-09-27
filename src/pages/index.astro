@@ -130,7 +130,7 @@ const kindFor = (type: string) => type === 'şiir' ? 'poem' : 'prose';
 
           <p class="scene-summary">{summary}</p>
 
-          <a class="read-link" href={`/yazilar/${entry.id}/`}>
+          <a class={`read-link read-link-${kindFor(entry.data.type)}`} href={`/yazilar/${entry.id}/`}>
             <span>metni oku</span>
             <span class="cta-arrow" aria-hidden="true">→</span>
           </a>

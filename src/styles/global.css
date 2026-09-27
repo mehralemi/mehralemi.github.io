@@ -10870,3 +10870,92 @@ a.read-link,
 /* =========================================================
    V70 — son
    ========================================================= */
+
+/* =========================================================
+   V71 — EXPLICIT CTA CLASSES / UNAMBIGUOUS STATES
+   NORMAL: poem red / prose green
+   HOVER: both brown
+   ========================================================= */
+
+:root {
+  --cta-poem-normal-bg: #855149;
+  --cta-poem-normal-border: #925d54;
+  --cta-poem-normal-text: #cbb0a4;
+
+  --cta-prose-normal-bg: #52685f;
+  --cta-prose-normal-border: #5f756b;
+  --cta-prose-normal-text: #c0c4af;
+
+  --cta-hover-brown-bg: #5a4333;
+  --cta-hover-brown-border: #674d3a;
+  --cta-hover-brown-text: #d8c6b0;
+}
+
+/* NORMAL — explicit class + :not(:hover) prevents old hover/state rules */
+.story-stream .read-link.read-link-poem:not(:hover):not(:focus-visible),
+.read-link.read-link-poem:not(:hover):not(:focus-visible) {
+  color: var(--cta-poem-normal-text) !important;
+  background: var(--cta-poem-normal-bg) !important;
+  background-color: var(--cta-poem-normal-bg) !important;
+  background-image: none !important;
+  border-color: var(--cta-poem-normal-border) !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.story-stream .read-link.read-link-prose:not(:hover):not(:focus-visible),
+.read-link.read-link-prose:not(:hover):not(:focus-visible) {
+  color: var(--cta-prose-normal-text) !important;
+  background: var(--cta-prose-normal-bg) !important;
+  background-color: var(--cta-prose-normal-bg) !important;
+  background-image: none !important;
+  border-color: var(--cta-prose-normal-border) !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* HOVER / KEYBOARD FOCUS — both become brown */
+.story-stream .read-link.read-link-poem:hover,
+.story-stream .read-link.read-link-poem:focus-visible,
+.story-stream .read-link.read-link-prose:hover,
+.story-stream .read-link.read-link-prose:focus-visible,
+.read-link.read-link-poem:hover,
+.read-link.read-link-poem:focus-visible,
+.read-link.read-link-prose:hover,
+.read-link.read-link-prose:focus-visible {
+  color: var(--cta-hover-brown-text) !important;
+  background: var(--cta-hover-brown-bg) !important;
+  background-color: var(--cta-hover-brown-bg) !important;
+  background-image: none !important;
+  border-color: var(--cta-hover-brown-border) !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.read-link.read-link-poem .cta-arrow,
+.read-link.read-link-prose .cta-arrow {
+  color: currentColor !important;
+  opacity: .78 !important;
+}
+
+@media (max-width: 760px) {
+  .story-stream .read-link.read-link-poem:not(:hover):not(:focus-visible),
+  .read-link.read-link-poem:not(:hover):not(:focus-visible) {
+    color: var(--cta-poem-normal-text) !important;
+    background: var(--cta-poem-normal-bg) !important;
+    background-color: var(--cta-poem-normal-bg) !important;
+    border-color: var(--cta-poem-normal-border) !important;
+  }
+
+  .story-stream .read-link.read-link-prose:not(:hover):not(:focus-visible),
+  .read-link.read-link-prose:not(:hover):not(:focus-visible) {
+    color: var(--cta-prose-normal-text) !important;
+    background: var(--cta-prose-normal-bg) !important;
+    background-color: var(--cta-prose-normal-bg) !important;
+    border-color: var(--cta-prose-normal-border) !important;
+  }
+}
+
+/* =========================================================
+   V71 — son
+   ========================================================= */
