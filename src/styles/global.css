@@ -10709,3 +10709,70 @@ a.read-link,
 /* =========================================================
    V68 — son
    ========================================================= */
+
+/* =========================================================
+   V69 — CTA NORMAL STATE = ACTIVE TYPE FILTER EXACTLY
+   Hover korunur; normal durum artık birebir filtre rengi.
+   ========================================================= */
+
+.story-stream .story-scene[data-kind="poem"] .read-link,
+.story-scene[data-kind="poem"] .read-link {
+  color: #cbb0a4 !important;
+  background: #855149 !important;
+  background-color: #855149 !important;
+  border-color: #925d54 !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.story-stream .story-scene[data-kind="prose"] .read-link,
+.story-scene[data-kind="prose"] .read-link {
+  color: #c0c4af !important;
+  background: #52685f !important;
+  background-color: #52685f !important;
+  border-color: #5f756b !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.story-stream .story-scene[data-kind="poem"] .read-link:hover,
+.story-stream .story-scene[data-kind="poem"] .read-link:focus-visible,
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible {
+  color: #cbb0a4 !important;
+  background: #794841 !important;
+  background-color: #794841 !important;
+  border-color: #875149 !important;
+}
+
+.story-stream .story-scene[data-kind="prose"] .read-link:hover,
+.story-stream .story-scene[data-kind="prose"] .read-link:focus-visible,
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  color: #c0c4af !important;
+  background: #485d54 !important;
+  background-color: #485d54 !important;
+  border-color: #566b62 !important;
+}
+
+@media (max-width: 760px) {
+  .story-stream .story-scene[data-kind="poem"] .read-link,
+  .story-scene[data-kind="poem"] .read-link {
+    color: #cbb0a4 !important;
+    background: #855149 !important;
+    background-color: #855149 !important;
+    border-color: #925d54 !important;
+  }
+
+  .story-stream .story-scene[data-kind="prose"] .read-link,
+  .story-scene[data-kind="prose"] .read-link {
+    color: #c0c4af !important;
+    background: #52685f !important;
+    background-color: #52685f !important;
+    border-color: #5f756b !important;
+  }
+}
+
+/* =========================================================
+   V69 — son
+   ========================================================= */
