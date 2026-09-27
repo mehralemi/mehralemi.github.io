@@ -11151,3 +11151,140 @@ a.read-link,
 /* =========================================================
    V73 — son
    ========================================================= */
+
+/* =========================================================
+   V74 — READING PAGE LEGIBILITY
+   İçerik sayfasında metin daha koyu, daha net ve daha rahat okunur.
+   ========================================================= */
+
+/* Okuma alanını biraz daha kontrollü genişlikte tut */
+.reading-main,
+.reading-page {
+  color: #2f2922 !important;
+}
+
+/* Ana metin gövdesi */
+.reading-page .prose,
+.prose {
+  color: #2f2922 !important;
+  font-size: 1.14rem !important;
+  line-height: 1.92 !important;
+  font-weight: 450 !important;
+  letter-spacing: .002em !important;
+  text-shadow: none !important;
+
+  max-width: 760px !important;
+}
+
+/* Paragraflar: siliklik yok */
+.reading-page .prose p,
+.prose p {
+  color: #2f2922 !important;
+  opacity: 1 !important;
+  margin: 0 0 1.45em !important;
+}
+
+/* Listeler */
+.reading-page .prose li,
+.prose li {
+  color: #2f2922 !important;
+  opacity: 1 !important;
+  line-height: 1.82 !important;
+}
+
+/* Şiir satırlarında da netlik */
+.reading-page .prose .poem-line,
+.reading-page .poem-body,
+.reading-page .poem-body p {
+  color: #2d2721 !important;
+  opacity: 1 !important;
+  font-weight: 450 !important;
+  line-height: 1.88 !important;
+}
+
+/* Alt başlıklar */
+.reading-page .prose h2,
+.reading-page .prose h3,
+.prose h2,
+.prose h3 {
+  color: #28231e !important;
+  opacity: 1 !important;
+  font-weight: 650 !important;
+}
+
+/* Vurgular */
+.reading-page .prose strong,
+.prose strong {
+  color: #211d19 !important;
+  font-weight: 700 !important;
+}
+
+.reading-page .prose em,
+.prose em {
+  color: #3b3129 !important;
+}
+
+/* Alıntılar */
+.reading-page .prose blockquote,
+.prose blockquote {
+  color: #44382f !important;
+  border-left-color: rgba(86, 65, 48, .45) !important;
+  background: rgba(255, 244, 225, .08) !important;
+}
+
+/* Linkler */
+.reading-page .prose a,
+.prose a {
+  color: #513f31 !important;
+  text-decoration-color: rgba(81, 63, 49, .48) !important;
+}
+
+.reading-page .prose a:hover,
+.reading-page .prose a:focus-visible,
+.prose a:hover,
+.prose a:focus-visible {
+  color: #2c241d !important;
+  text-decoration-color: rgba(44, 36, 29, .75) !important;
+}
+
+/* Yazıya dön linki */
+.reading-end,
+.reading-end a {
+  color: #514338 !important;
+  opacity: 1 !important;
+}
+
+.reading-end a:hover,
+.reading-end a:focus-visible {
+  color: #2f2922 !important;
+}
+
+/* Ayırıcı çizgi daha görünür */
+.reading-end {
+  border-top-color: rgba(82, 65, 50, .20) !important;
+}
+
+/* İçerik sayfasında buruşuk doku metin alanını bastırmasın */
+.reading-page .paper-noise,
+.reading-main .paper-noise {
+  opacity: .24 !important;
+}
+
+/* Mobil */
+@media (max-width: 760px) {
+  .reading-page .prose,
+  .prose {
+    font-size: 1.08rem !important;
+    line-height: 1.86 !important;
+    font-weight: 450 !important;
+  }
+
+  .reading-page .prose p,
+  .prose p {
+    margin-bottom: 1.35em !important;
+  }
+}
+
+/* =========================================================
+   V74 — son
+   ========================================================= */
