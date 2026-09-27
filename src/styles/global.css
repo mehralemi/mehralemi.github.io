@@ -10959,3 +10959,91 @@ a.read-link,
 /* =========================================================
    V71 — son
    ========================================================= */
+
+/* =========================================================
+   V72 — PERCEPTUAL CTA MATCH
+   CTA normal tonları, büyük yüzeyde filtreler kadar koyu
+   algılanacak şekilde bir kademe koyulaştırıldı.
+   Hover iki türde de kahve olarak kalır.
+   ========================================================= */
+
+:root {
+  /* Filtrelerle görsel eşleşme için CTA kompanzasyon tonları */
+  --cta-poem-visual-bg: #75473f;
+  --cta-poem-visual-border: #805047;
+  --cta-poem-visual-text: #bfa397;
+
+  --cta-prose-visual-bg: #465a52;
+  --cta-prose-visual-border: #52675e;
+  --cta-prose-visual-text: #b2b8a5;
+
+  --cta-hover-brown-bg: #5a4333;
+  --cta-hover-brown-border: #674d3a;
+  --cta-hover-brown-text: #d2c0aa;
+}
+
+/* NORMAL — ŞİİR */
+.story-stream .read-link.read-link-poem:not(:hover):not(:focus-visible),
+.read-link.read-link-poem:not(:hover):not(:focus-visible) {
+  color: var(--cta-poem-visual-text) !important;
+  background: var(--cta-poem-visual-bg) !important;
+  background-color: var(--cta-poem-visual-bg) !important;
+  border-color: var(--cta-poem-visual-border) !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* NORMAL — DÜZ YAZI */
+.story-stream .read-link.read-link-prose:not(:hover):not(:focus-visible),
+.read-link.read-link-prose:not(:hover):not(:focus-visible) {
+  color: var(--cta-prose-visual-text) !important;
+  background: var(--cta-prose-visual-bg) !important;
+  background-color: var(--cta-prose-visual-bg) !important;
+  border-color: var(--cta-prose-visual-border) !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* HOVER — İKİSİ DE KAHVE */
+.story-stream .read-link.read-link-poem:hover,
+.story-stream .read-link.read-link-poem:focus-visible,
+.story-stream .read-link.read-link-prose:hover,
+.story-stream .read-link.read-link-prose:focus-visible,
+.read-link.read-link-poem:hover,
+.read-link.read-link-poem:focus-visible,
+.read-link.read-link-prose:hover,
+.read-link.read-link-prose:focus-visible {
+  color: var(--cta-hover-brown-text) !important;
+  background: var(--cta-hover-brown-bg) !important;
+  background-color: var(--cta-hover-brown-bg) !important;
+  border-color: var(--cta-hover-brown-border) !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* Ok simgesi de daha sakin */
+.read-link.read-link-poem .cta-arrow,
+.read-link.read-link-prose .cta-arrow {
+  color: currentColor !important;
+  opacity: .68 !important;
+}
+
+@media (max-width: 760px) {
+  .story-stream .read-link.read-link-poem:not(:hover):not(:focus-visible),
+  .read-link.read-link-poem:not(:hover):not(:focus-visible) {
+    color: var(--cta-poem-visual-text) !important;
+    background: var(--cta-poem-visual-bg) !important;
+    border-color: var(--cta-poem-visual-border) !important;
+  }
+
+  .story-stream .read-link.read-link-prose:not(:hover):not(:focus-visible),
+  .read-link.read-link-prose:not(:hover):not(:focus-visible) {
+    color: var(--cta-prose-visual-text) !important;
+    background: var(--cta-prose-visual-bg) !important;
+    border-color: var(--cta-prose-visual-border) !important;
+  }
+}
+
+/* =========================================================
+   V72 — son
+   ========================================================= */
