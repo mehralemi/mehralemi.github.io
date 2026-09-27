@@ -10503,3 +10503,105 @@ body > main {
 /* =========================================================
    V66 — son
    ========================================================= */
+
+/* =========================================================
+   V67 — HARD OVERRIDE: ALL "METNİ OKU" CTA = ONE BROWN
+   Tür bazlı kırmızı/yeşil CTA ayrımı kesin olarak kapatıldı.
+   ========================================================= */
+
+:root {
+  --cta-unified-bg: #5a4333;
+  --cta-unified-border: #674d3a;
+  --cta-unified-text: #d8c6b0;
+
+  --cta-unified-hover-bg: #4b382b;
+  --cta-unified-hover-border: #594231;
+  --cta-unified-hover-text: #e1d0bc;
+}
+
+/* En yüksek pratik özgüllükle tüm ana sayfa CTA'larını sabitle */
+.story-stream .story-scene .read-link,
+.story-stream .story-scene[data-kind="poem"] .read-link,
+.story-stream .story-scene[data-kind="prose"] .read-link,
+.story-stream .story-scene.is-revealed .read-link,
+.story-stream .story-scene[data-kind="poem"].is-revealed .read-link,
+.story-stream .story-scene[data-kind="prose"].is-revealed .read-link,
+.story-scene .read-link,
+.story-scene[data-kind="poem"] .read-link,
+.story-scene[data-kind="prose"] .read-link,
+a.read-link,
+.read-link {
+  color: var(--cta-unified-text) !important;
+  background-color: var(--cta-unified-bg) !important;
+  background-image: none !important;
+  border-color: var(--cta-unified-border) !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* Hover / focus da tek kahve ailesinde */
+.story-stream .story-scene .read-link:hover,
+.story-stream .story-scene .read-link:focus-visible,
+.story-stream .story-scene[data-kind="poem"] .read-link:hover,
+.story-stream .story-scene[data-kind="poem"] .read-link:focus-visible,
+.story-stream .story-scene[data-kind="prose"] .read-link:hover,
+.story-stream .story-scene[data-kind="prose"] .read-link:focus-visible,
+.story-stream .story-scene.is-revealed .read-link:hover,
+.story-stream .story-scene.is-revealed .read-link:focus-visible,
+.story-scene .read-link:hover,
+.story-scene .read-link:focus-visible,
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible,
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible,
+a.read-link:hover,
+a.read-link:focus-visible,
+.read-link:hover,
+.read-link:focus-visible {
+  color: var(--cta-unified-hover-text) !important;
+  background-color: var(--cta-unified-hover-bg) !important;
+  background-image: none !important;
+  border-color: var(--cta-unified-hover-border) !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.story-stream .story-scene .read-link .cta-arrow,
+.story-scene .read-link .cta-arrow,
+.read-link .cta-arrow,
+.cta-arrow {
+  color: currentColor !important;
+  opacity: .78 !important;
+}
+
+/* Mobil için de aynı sabitleme */
+@media (max-width: 760px) {
+  .story-stream .story-scene .read-link,
+  .story-stream .story-scene[data-kind="poem"] .read-link,
+  .story-stream .story-scene[data-kind="prose"] .read-link,
+  .story-scene .read-link,
+  .story-scene[data-kind="poem"] .read-link,
+  .story-scene[data-kind="prose"] .read-link,
+  .read-link {
+    color: var(--cta-unified-text) !important;
+    background-color: var(--cta-unified-bg) !important;
+    background-image: none !important;
+    border-color: var(--cta-unified-border) !important;
+  }
+
+  .story-stream .story-scene .read-link:hover,
+  .story-stream .story-scene .read-link:focus-visible,
+  .story-scene .read-link:hover,
+  .story-scene .read-link:focus-visible,
+  .read-link:hover,
+  .read-link:focus-visible {
+    color: var(--cta-unified-hover-text) !important;
+    background-color: var(--cta-unified-hover-bg) !important;
+    background-image: none !important;
+    border-color: var(--cta-unified-hover-border) !important;
+  }
+}
+
+/* =========================================================
+   V67 — son
+   ========================================================= */
