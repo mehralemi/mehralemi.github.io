@@ -11047,3 +11047,107 @@ a.read-link,
 /* =========================================================
    V72 — son
    ========================================================= */
+
+/* =========================================================
+   V73 — STRONGER TYPE MARKERS
+   Şiir / düz yazı belirteçleri daha görünür ve okunaklı.
+   ========================================================= */
+
+:root {
+  --type-poem-ink: #6f3f36;
+  --type-poem-bg: rgba(122, 70, 59, .16);
+  --type-poem-border: rgba(111, 63, 54, .42);
+  --type-poem-line: #8a5147;
+
+  --type-prose-ink: #38564c;
+  --type-prose-bg: rgba(64, 91, 80, .16);
+  --type-prose-border: rgba(56, 86, 76, .42);
+  --type-prose-line: #55786c;
+}
+
+/* Etiketlerin ortak okunurluk ayarı */
+.type-tag {
+  min-height: 32px !important;
+  padding: 7px 12px !important;
+  border-width: 1px !important;
+  border-style: solid !important;
+  border-radius: 5px !important;
+
+  font: 600 .64rem/1 var(--sans) !important;
+  letter-spacing: .035em !important;
+
+  box-shadow:
+    inset 0 1px 0 rgba(255,255,255,.08) !important;
+  opacity: 1 !important;
+}
+
+/* ŞİİR */
+.story-scene[data-kind="poem"] .type-tag {
+  color: var(--type-poem-ink) !important;
+  background: var(--type-poem-bg) !important;
+  border-color: var(--type-poem-border) !important;
+}
+
+/* DÜZ YAZI */
+.story-scene[data-kind="prose"] .type-tag {
+  color: var(--type-prose-ink) !important;
+  background: var(--type-prose-bg) !important;
+  border-color: var(--type-prose-border) !important;
+}
+
+/* Hover’da daha da net, ama modern parlama yok */
+.story-scene[data-kind="poem"] .type-tag:hover,
+.story-scene[data-kind="poem"] .type-tag:focus-visible {
+  color: #5f342d !important;
+  background: rgba(122, 70, 59, .21) !important;
+  border-color: rgba(111, 63, 54, .56) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag:hover,
+.story-scene[data-kind="prose"] .type-tag:focus-visible {
+  color: #2f493f !important;
+  background: rgba(64, 91, 80, .21) !important;
+  border-color: rgba(56, 86, 76, .56) !important;
+}
+
+/* Etiket üstündeki kısa vurgu çizgisi de daha görünür */
+.story-scene[data-kind="poem"] .scene-copy::before {
+  width: 36px !important;
+  height: 2px !important;
+  background: var(--type-poem-line) !important;
+  opacity: .88 !important;
+}
+
+.story-scene[data-kind="prose"] .scene-copy::before {
+  width: 36px !important;
+  height: 2px !important;
+  background: var(--type-prose-line) !important;
+  opacity: .88 !important;
+}
+
+/* Okuma sayfasındaki tür etiketi de boğuk kalmasın */
+.reading-page .type-tag {
+  color: #4f4033 !important;
+  background: rgba(88, 68, 50, .12) !important;
+  border-color: rgba(88, 68, 50, .34) !important;
+  font-weight: 600 !important;
+}
+
+/* Mobilde de kontrast korunur */
+@media (max-width: 760px) {
+  .type-tag {
+    min-height: 32px !important;
+    padding: 7px 11px !important;
+    font-size: .64rem !important;
+  }
+
+  .story-scene[data-kind="poem"] .scene-copy::before,
+  .story-scene[data-kind="prose"] .scene-copy::before {
+    width: 34px !important;
+    height: 2px !important;
+  }
+}
+
+/* =========================================================
+   V73 — son
+   ========================================================= */
