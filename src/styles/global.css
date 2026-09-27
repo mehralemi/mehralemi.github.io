@@ -10776,3 +10776,97 @@ a.read-link,
 /* =========================================================
    V69 — son
    ========================================================= */
+
+/* =========================================================
+   V70 — FIX CTA STATE ORDER
+   NORMAL = type color (poem/prose)
+   HOVER  = unified brown
+   ========================================================= */
+
+:root {
+  --cta-hover-brown: #5a4333;
+  --cta-hover-brown-border: #674d3a;
+  --cta-hover-brown-text: #d8c6b0;
+}
+
+/* NORMAL — ŞİİR = aktif şiir filtresi */
+.story-stream .story-scene[data-kind="poem"] .read-link,
+.story-scene[data-kind="poem"] .read-link {
+  color: #cbb0a4 !important;
+  background: #855149 !important;
+  background-color: #855149 !important;
+  border-color: #925d54 !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* NORMAL — DÜZ YAZI = aktif düz yazı filtresi */
+.story-stream .story-scene[data-kind="prose"] .read-link,
+.story-scene[data-kind="prose"] .read-link {
+  color: #c0c4af !important;
+  background: #52685f !important;
+  background-color: #52685f !important;
+  border-color: #5f756b !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+/* HOVER — İKİSİ DE KAHVE */
+.story-stream .story-scene[data-kind="poem"] .read-link:hover,
+.story-stream .story-scene[data-kind="poem"] .read-link:focus-visible,
+.story-scene[data-kind="poem"] .read-link:hover,
+.story-scene[data-kind="poem"] .read-link:focus-visible,
+.story-stream .story-scene[data-kind="prose"] .read-link:hover,
+.story-stream .story-scene[data-kind="prose"] .read-link:focus-visible,
+.story-scene[data-kind="prose"] .read-link:hover,
+.story-scene[data-kind="prose"] .read-link:focus-visible {
+  color: var(--cta-hover-brown-text) !important;
+  background: var(--cta-hover-brown) !important;
+  background-color: var(--cta-hover-brown) !important;
+  border-color: var(--cta-hover-brown-border) !important;
+  box-shadow: none !important;
+  filter: none !important;
+}
+
+.read-link .cta-arrow,
+.cta-arrow {
+  color: currentColor !important;
+  opacity: .78 !important;
+}
+
+/* Mobilde de aynı sıralama */
+@media (max-width: 760px) {
+  .story-stream .story-scene[data-kind="poem"] .read-link,
+  .story-scene[data-kind="poem"] .read-link {
+    color: #cbb0a4 !important;
+    background: #855149 !important;
+    background-color: #855149 !important;
+    border-color: #925d54 !important;
+  }
+
+  .story-stream .story-scene[data-kind="prose"] .read-link,
+  .story-scene[data-kind="prose"] .read-link {
+    color: #c0c4af !important;
+    background: #52685f !important;
+    background-color: #52685f !important;
+    border-color: #5f756b !important;
+  }
+
+  .story-stream .story-scene[data-kind="poem"] .read-link:hover,
+  .story-stream .story-scene[data-kind="poem"] .read-link:focus-visible,
+  .story-stream .story-scene[data-kind="prose"] .read-link:hover,
+  .story-stream .story-scene[data-kind="prose"] .read-link:focus-visible,
+  .story-scene[data-kind="poem"] .read-link:hover,
+  .story-scene[data-kind="poem"] .read-link:focus-visible,
+  .story-scene[data-kind="prose"] .read-link:hover,
+  .story-scene[data-kind="prose"] .read-link:focus-visible {
+    color: var(--cta-hover-brown-text) !important;
+    background: var(--cta-hover-brown) !important;
+    background-color: var(--cta-hover-brown) !important;
+    border-color: var(--cta-hover-brown-border) !important;
+  }
+}
+
+/* =========================================================
+   V70 — son
+   ========================================================= */
