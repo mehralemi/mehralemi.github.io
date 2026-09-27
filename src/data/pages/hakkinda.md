@@ -1,6 +1,6 @@
 ---
 title: "hakkında"
-portrait: ""
+portrait: "/media/mehr-alemi-profile.jpg"
 ---
 
 mehr alemi; şiirlerin, düz yazıların, eski görüntülerin ve kişisel hafızanın bir araya geldiği görsel-edebî bir arşivdir.
