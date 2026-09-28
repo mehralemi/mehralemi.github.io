@@ -1,0 +1,23 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getEntry, render } from 'astro:content';
+
+const page = await getEntry('pages', 'hakkinda');
+if (!page) throw new Error('hakkında sayfası bulunamadı');
+const { Content } = await render(page);
+---
+<BaseLayout title="hakkında" pageClass="about-page">
+  <section class="about-shell">
+    {page.data.portrait && (
+      <figure class="about-portrait">
+        <img src={page.data.portrait} alt="mehr âlemi profil görseli" loading="eager" decoding="async" />
+      </figure>
+    )}
+    <div class="about-copy">
+      <h1>mehr âlemi</h1>
+      <div class="prose">
+        <Content />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('yazilar', ({ data }) => data.published);
+  return entries.map((entry) => ({
+    params: { id: entry.id },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+<BaseLayout
+  title={entry.data.title}
+  description={entry.data.excerpt || `${entry.data.type} — mehr âlemi`}
+  pageClass="reading-page"
+>
+  <article class="reading-shell">
+    <header class="reading-head">
+      <div class="reading-meta">
+        <span class="type-tag">{entry.data.type}</span>
+      </div>
+      <h1>{entry.data.title}</h1>
+    </header>
+
+    <figure class="reading-cover">
+      <picture>
+        {entry.data.mobileCover && (
+          <source media="(max-width: 700px)" srcset={entry.data.mobileCover} />
+        )}
+        <img src={entry.data.cover} alt="" decoding="async" />
+      </picture>
+    </figure>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <nav class="reading-end">
+      <a href="/">yazılara dön</a>
+    </nav>
+  </article>
+
+  <div class="reading-progress" aria-hidden="true"></div>
+
+  <script>
+    const bar = document.querySelector('.reading-progress');
+
+    const update = () => {
+      if (!bar) return;
+      const doc = document.documentElement;
+      const max = doc.scrollHeight - innerHeight;
+      const pct = max > 0 ? (scrollY / max) * 100 : 0;
+      bar.style.width = `${Math.min(100, Math.max(0, pct))}%`;
+    };
+
+    addEventListener('scroll', update, { passive: true });
+    addEventListener('resize', update);
+    update();
+  </script>
+</BaseLayout>

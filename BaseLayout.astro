@@ -9,17 +9,17 @@ interface Props {
 }
 
 const {
-  title = 'mehr alemi',
-  description = 'mehr alemi',
+  title = 'mehr âlemi',
+  description = 'mehr âlemi',
   pageClass = '',
 } = Astro.props;
 
 const site = await getEntry('pages', 'site');
-const siteTitle = site?.data.title || 'mehr alemi';
+const siteTitle = site?.data.title || 'mehr âlemi';
 const menuYazilar = site?.data.menuYazilar || 'yazılar';
 const menuHakkinda = site?.data.menuHakkinda || 'hakkında';
 
-const fullTitle = title === 'mehr alemi' ? siteTitle : `${title} — ${siteTitle}`;
+const fullTitle = title === 'mehr âlemi' ? siteTitle : `${title} — ${siteTitle}`;
 const siteOrigin = Astro.site?.toString().replace(/\/$/, '') || Astro.url.origin;
 const socialImage = `${siteOrigin}/media/mehr-alemi-profile.jpg`;
 const canonicalUrl = `${siteOrigin}${Astro.url.pathname}`;
@@ -42,7 +42,7 @@ const canonicalUrl = `${siteOrigin}${Astro.url.pathname}`;
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:image" content={socialImage} />
-    <meta property="og:image:alt" content="mehr alemi profil görseli" />
+    <meta property="og:image:alt" content="mehr âlemi profil görseli" />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={fullTitle} />
     <meta name="twitter:description" content={description} />
