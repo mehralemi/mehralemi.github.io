@@ -2,13 +2,13 @@
 
 Bu paket devir öncesi son site sürümüdür.
 
-Profil görseli siteye şu şekillerde işlendi:
-- header'da küçük marka görseli
-- hakkında sayfasında profil görseli
-- tarayıcı favicon / ana ekran ikonu
-- Open Graph ve Twitter paylaşım önizlemesi
+Profil görseli artık ana header'ın yanında gösterilmez. Bunun yerine:
+- favicon / tarayıcı ikonu
+- sosyal paylaşım önizleme görseli
+- hakkında sayfasındaki profil görseli
+- footer'da küçük arşiv mührü
 
-Site URL:
-https://mehralemi.github.io/
+olarak kullanılır.
 
-Devirde GitHub deposunun yeni hesaba aktarılması yeterlidir; GitHub Pages workflow proje içinde hazırdır.
+Bu kullanım, sitenin mevcut tipografik başlığını korur ve profil görselinin
+detaylı yapısını küçük bir header ikonuna sıkıştırmaz.
