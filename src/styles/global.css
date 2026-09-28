@@ -11294,14 +11294,14 @@ a.read-link,
    ========================================================= */
 
 .brand-lockup {
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: center;
   gap: 12px;
 }
 
 .site-mark {
-  display: block;
+  display: block !important;
   width: 50px;
   height: 50px;
   flex: 0 0 50px;
@@ -11454,3 +11454,94 @@ a.read-link,
 /* =========================================================
    FINAL V2 — son
    ========================================================= */
+
+
+/* =========================================================
+   FINAL V3 — profil görseli tekrar görünür biçimde header'da
+   ========================================================= */
+
+.site-header-inner {
+  min-height: 168px;
+  padding: 22px 0 18px;
+}
+
+.brand-lockup {
+  display: flex !important;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+
+.site-mark {
+  display: block !important;
+  width: 92px;
+  height: 92px;
+  text-decoration: none;
+  border-radius: 11px;
+  overflow: hidden;
+  box-shadow:
+    0 10px 28px rgba(73, 56, 39, .12),
+    0 2px 8px rgba(73, 56, 39, .06);
+  border: 1px solid rgba(95, 73, 51, .16);
+  background: rgba(255,255,255,.28);
+}
+
+.site-mark img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.brand {
+  font-size: clamp(2rem, 2.35vw, 2.5rem);
+}
+
+.main-nav {
+  margin-top: 14px;
+}
+
+.site-footer {
+  display: block !important;
+  text-align: center;
+}
+
+.footer-seal {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  .site-header-inner {
+    min-height: 146px;
+    padding: 18px 0 14px;
+  }
+
+  .brand-lockup {
+    gap: 11px;
+  }
+
+  .site-mark {
+    width: 74px;
+    height: 74px;
+    border-radius: 10px;
+  }
+
+  .brand {
+    font-size: 1.86rem;
+  }
+
+  .main-nav {
+    margin-top: 11px;
+  }
+}
+
+
+/* FINAL V4 — footer profile image removed */
+.footer-seal {
+  display: none !important;
+}
+.site-footer {
+  display: block !important;
+  text-align: center !important;
+}

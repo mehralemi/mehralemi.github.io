@@ -59,7 +59,18 @@ const canonicalUrl = `${siteOrigin}${Astro.url.pathname}`;
 
     <header class="site-header">
       <div class="site-header-inner">
-        <a class="brand" href="/">{siteTitle}</a>
+        <div class="brand-lockup">
+          <a class="site-mark" href="/" aria-label={`${siteTitle} ana sayfa`}>
+            <img
+              src="/media/mehr-alemi-profile-thumb.webp"
+              alt=""
+              width="92"
+              height="92"
+              decoding="async"
+            />
+          </a>
+          <a class="brand" href="/">{siteTitle}</a>
+        </div>
         <nav class="main-nav" aria-label="ana menü">
           <a href="/">{menuYazilar}</a>
           <a href="/hakkinda/">{menuHakkinda}</a>
@@ -72,16 +83,7 @@ const canonicalUrl = `${siteOrigin}${Astro.url.pathname}`;
     </main>
 
     <footer class="site-footer">
-      <a class="footer-seal" href="/" aria-label={`${siteTitle} ana sayfa`}>
-        <img
-          src="/media/mehr-alemi-profile-thumb.webp"
-          alt=""
-          width="82"
-          height="82"
-          loading="lazy"
-          decoding="async"
-        />
-      </a>
+      <span>{siteTitle}</span>
     </footer>
 
     <script is:inline>
