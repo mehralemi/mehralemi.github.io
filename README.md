@@ -1,4 +1,4 @@
-# mehr alemi
+# mehr âlemi
 
 Astro tabanlı statik edebiyat sitesi.
 
