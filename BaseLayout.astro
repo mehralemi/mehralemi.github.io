@@ -1,0 +1,93 @@
+---
+import '../styles/global.css';
+import { getEntry } from 'astro:content';
+
+interface Props {
+  title?: string;
+  description?: string;
+  pageClass?: string;
+}
+
+const {
+  title = 'mehr alemi',
+  description = 'mehr alemi',
+  pageClass = '',
+} = Astro.props;
+
+const site = await getEntry('pages', 'site');
+const siteTitle = site?.data.title || 'mehr alemi';
+const menuYazilar = site?.data.menuYazilar || 'yazılar';
+const menuHakkinda = site?.data.menuHakkinda || 'hakkında';
+
+const fullTitle = title === 'mehr alemi' ? siteTitle : `${title} — ${siteTitle}`;
+const siteOrigin = Astro.site?.toString().replace(/\/$/, '') || Astro.url.origin;
+const socialImage = `${siteOrigin}/media/mehr-alemi-profile.jpg`;
+const canonicalUrl = `${siteOrigin}${Astro.url.pathname}`;
+
+---
+<!doctype html>
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#b79a75" />
+    <title>{fullTitle}</title>
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="icon" type="image/png" sizes="256x256" href="/media/mehr-alemi-icon-256.png" />
+    <link rel="apple-touch-icon" href="/media/mehr-alemi-icon-256.png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={siteTitle} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:image" content={socialImage} />
+    <meta property="og:image:alt" content="mehr alemi profil görseli" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={fullTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImage} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Literata:opsz,wght@7..72,400;7..72,500&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class={pageClass}>
+    <div class="paper-noise" aria-hidden="true"></div>
+
+    <header class="site-header">
+      <div class="site-header-inner">
+        <div class="brand-lockup">
+          <a class="site-mark" href="/" aria-label={`${siteTitle} ana sayfa`}>
+            <img
+              src="/media/mehr-alemi-profile-thumb.webp"
+              alt=""
+              width="92"
+              height="92"
+              decoding="async"
+            />
+          </a>
+          <a class="brand" href="/">{siteTitle}</a>
+        </div>
+        <nav class="main-nav" aria-label="ana menü">
+          <a href="/">{menuYazilar}</a>
+          <a href="/hakkinda/">{menuHakkinda}</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <span>{siteTitle}</span>
+    </footer>
+
+    <script is:inline>
+      document.documentElement.classList.add('js');
+    </script>
+  </body>
+</html>

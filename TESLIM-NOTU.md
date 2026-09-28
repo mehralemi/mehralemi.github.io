@@ -1,14 +1,10 @@
 # teslim notu
 
-Bu paket devir öncesi son site sürümüdür.
+Bu sürümde profil görseli siteye tekrar görünür biçimde yerleştirildi.
 
-Profil görseli artık ana header'ın yanında gösterilmez. Bunun yerine:
-- favicon / tarayıcı ikonu
-- sosyal paylaşım önizleme görseli
-- hakkında sayfasındaki profil görseli
-- footer'da küçük arşiv mührü
-
-olarak kullanılır.
-
-Bu kullanım, sitenin mevcut tipografik başlığını korur ve profil görselinin
-detaylı yapısını küçük bir header ikonuna sıkıştırmaz.
+Uygulanan son yaklaşım:
+- profil görseli header içinde yeniden kullanıldı
+- ancak önceki gibi küçük, başlığın yanına sıkışmış ikon olarak değil
+- başlığın üstünde, daha görünür ve merkezde duran bir mühür / profil görseli olarak kullanıldı
+- favicon ve sosyal paylaşım görseli kullanımı korunmuştur
+- footer tekrar sade metin görünümüne döndürülmüştür
