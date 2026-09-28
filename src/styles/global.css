@@ -11723,3 +11723,306 @@ a.read-link,
 /* =========================================================
    FINAL V5 — son
    ========================================================= */
+
+/* =========================================================
+   FINAL V6 — mobil ekran son uyum düzeltmeleri
+   ========================================================= */
+
+/* Footer/filigran tamamen kaldırıldı */
+.site-footer {
+  display: none !important;
+}
+
+/* Üst logo: arka plansız, çerçevesiz, tam kare görsel ve daha büyük */
+.site-mark {
+  width: 104px !important;
+  height: 104px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+}
+.site-mark img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+}
+.site-mark:hover,
+.site-mark:focus-visible {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* Yazılara dön: ana arayüzdeki kahve filtre diliyle aynı, parlak değil */
+.reading-end a {
+  min-height: 44px !important;
+  padding: 10px 18px !important;
+  border-radius: 8px !important;
+  color: #4e3c2e !important;
+  background: rgba(132, 99, 69, .10) !important;
+  border: 1px solid rgba(101, 76, 53, .30) !important;
+  box-shadow: none !important;
+  font-size: .92rem !important;
+  font-weight: 500 !important;
+}
+.reading-end a:hover,
+.reading-end a:focus-visible {
+  color: #3f3025 !important;
+  background: rgba(132, 99, 69, .16) !important;
+  border-color: rgba(101, 76, 53, .42) !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+@media (max-width: 760px) {
+  .site-header-inner {
+    min-height: 166px !important;
+    padding: 18px 0 14px !important;
+  }
+  .site-mark {
+    width: 92px !important;
+    height: 92px !important;
+  }
+  .brand-lockup {
+    gap: 9px !important;
+  }
+}
+
+/* =========================================================
+   FINAL V6 — son
+   ========================================================= */
+
+/* =========================================================
+   FINAL V7 — keskin alt geçişi kaldır + logo köşe uyumu
+   ========================================================= */
+
+/*
+  Alt kısımda görülen keskin renk bandını kaldırmak için
+  kök ve body tek bir kâğıt zemini kullanır.
+  Doku ayrı sabit katmandır; içerik/görsellerin üstüne binmez.
+*/
+html {
+  min-height: 100% !important;
+  background: #b79a75 !important;
+}
+
+body,
+body.archive-page,
+body.reading-page,
+body.about-page {
+  min-height: 100dvh !important;
+  background-color: #b79a75 !important;
+  background-image:
+    radial-gradient(
+      ellipse at 50% 18%,
+      rgba(235, 216, 184, .12) 0%,
+      rgba(235, 216, 184, .05) 42%,
+      transparent 72%
+    ) !important;
+  background-repeat: no-repeat !important;
+  background-size: 100% 100% !important;
+  background-attachment: fixed !important;
+}
+
+/* Alt tarafta başka bir yüzey başlamasın */
+body > main,
+.story-stream,
+.reading-shell,
+.about-shell,
+.load-more-wrap {
+  background: transparent !important;
+}
+
+/*
+  Buruşuk kâğıt dokusu bütün viewport boyunca devam eder.
+  z-index 0: arka planın üstünde, gerçek içeriklerin altında.
+*/
+.paper-noise {
+  display: block !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 0 !important;
+  pointer-events: none !important;
+  opacity: .25 !important;
+  background-image: url('/media/paper-texture-v63.png') !important;
+  background-size: 760px 760px !important;
+  background-repeat: repeat !important;
+  background-position: 0 0 !important;
+  mix-blend-mode: soft-light !important;
+  filter: saturate(.55) contrast(.88) brightness(1.08) !important;
+}
+
+/* İçerik, texture'ın üzerinde kalır; görsellere doku değmez */
+.site-header,
+.archive-tools,
+body > main {
+  position: relative !important;
+  z-index: 1 !important;
+}
+
+/* Footer zaten kaldırılmıştı; olası eski kuralları da kesin kapat */
+.site-footer {
+  display: none !important;
+}
+
+/*
+  Logo: arka plansız kalır, fakat buton diliyle uyumlu
+  yumuşak bir köşe yarıçapına sahip olur.
+*/
+.site-mark {
+  width: 112px !important;
+  height: 112px !important;
+  padding: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 8px !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+}
+
+.site-mark img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  border-radius: 8px !important;
+  background: transparent !important;
+}
+
+/* Logo hover'ı da sakin kalsın */
+.site-mark:hover,
+.site-mark:focus-visible {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+@media (max-width: 760px) {
+  .paper-noise {
+    opacity: .22 !important;
+    background-size: 680px 680px !important;
+  }
+
+  .site-mark {
+    width: 100px !important;
+    height: 100px !important;
+    border-radius: 8px !important;
+  }
+
+  .site-mark img {
+    border-radius: 8px !important;
+  }
+}
+
+/* =========================================================
+   FINAL V7 — son
+   ========================================================= */
+
+/* =========================================================
+   FINAL V8 — TEK VE KESİNTİSİZ KÂĞIT DOKUSU
+   İçerik sonu / sayfa altı arasında doku ve renk farkı yok.
+   ========================================================= */
+
+/*
+  Texture artık ayrı bir overlay değil.
+  Doğrudan body zemininin parçası; böylece main bitince
+  başka bir doku katmanı görünmeye başlamaz.
+*/
+html {
+  min-height: 100% !important;
+  background-color: #b89b77 !important;
+  background-image: none !important;
+}
+
+body,
+body.archive-page,
+body.reading-page,
+body.about-page {
+  min-height: 100dvh !important;
+
+  background-color: #b89b77 !important;
+  background-image:
+    linear-gradient(
+      rgba(190, 163, 126, .54),
+      rgba(190, 163, 126, .54)
+    ),
+    url('/media/paper-texture-v63.png') !important;
+
+  background-repeat: repeat, repeat !important;
+  background-size: auto, 760px 760px !important;
+  background-position: 0 0, 0 0 !important;
+  background-attachment: scroll, scroll !important;
+}
+
+/*
+  Eski ayrı texture katmanı kapalı.
+  Böylece sayfa sonunda "ikinci yüzey" ortaya çıkmaz.
+*/
+.paper-noise,
+.paper-noise::before,
+.paper-noise::after {
+  display: none !important;
+  content: none !important;
+  opacity: 0 !important;
+  background: none !important;
+}
+
+/*
+  Bütün ana kaplar aynı body yüzeyini gösterecek.
+  Hiçbiri kendi renk/doku katmanını üretmeyecek.
+*/
+body > main,
+.archive-page main,
+.reading-page main,
+.about-page main,
+.story-stream,
+.story-scene,
+.reading-shell,
+.about-shell,
+.load-more-wrap,
+.reading-end {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Sayfanın sonunda gizli bir renk bandı üretmesin */
+body::before,
+body::after,
+main::before,
+main::after,
+.story-stream::before,
+.story-stream::after {
+  background: none !important;
+}
+
+/* Footer zaten görünmemeli */
+.site-footer {
+  display: none !important;
+}
+
+/* Mobilde de aynı doku yoğunluğu */
+@media (max-width: 760px) {
+  body,
+  body.archive-page,
+  body.reading-page,
+  body.about-page {
+    background-image:
+      linear-gradient(
+        rgba(190, 163, 126, .54),
+        rgba(190, 163, 126, .54)
+      ),
+      url('/media/paper-texture-v63.png') !important;
+    background-size: auto, 700px 700px !important;
+  }
+}
+
+/* =========================================================
+   FINAL V8 — son
+   ========================================================= */
