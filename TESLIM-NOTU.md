@@ -1,7 +1,11 @@
-# teslim notu
+# mehr âlemi — devir sürümü
 
-Son düzenleme:
-- profil görseli header içinde görünür biçimde kullanılmaya devam eder
-- favicon ve sosyal paylaşım görseli korunur
-- footer içindeki profil görseli kaldırılmıştır
-- footer sade metin olarak kalır
+Bu paket devir için son sürümdür.
+
+Son durum:
+- üst başlıkta logo/profil görseli kullanılmıyor
+- site adı her yerde `mehr âlemi` biçiminde
+- favicon ve sosyal paylaşım görseli korunmuştur
+- footer görünmez
+- ana sayfa, içerik sayfaları ve hakkında sayfası son onaylı görsel düzeni içerir
+- GitHub Pages deploy workflow proje içinde hazırdır

@@ -12362,3 +12362,51 @@ body > main,
 /* =========================================================
    FINAL V10 — son
    ========================================================= */
+
+/* =========================================================
+   FINAL V11 — HEADER LOGOSUZ / DEVİR SÜRÜMÜ
+   ========================================================= */
+
+/* Üst başlıktaki profil/logo görseli tamamen kaldırıldı. */
+.site-mark,
+.brand-lockup {
+  display: none !important;
+}
+
+.site-header-inner {
+  min-height: 104px !important;
+  padding: 20px 0 16px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.site-header .brand {
+  display: inline-block !important;
+  font-size: clamp(2rem, 2.35vw, 2.5rem) !important;
+  line-height: 1 !important;
+}
+
+.main-nav {
+  margin-top: 13px !important;
+}
+
+@media (max-width: 760px) {
+  .site-header-inner {
+    min-height: 94px !important;
+    padding: 17px 0 14px !important;
+  }
+
+  .site-header .brand {
+    font-size: 1.86rem !important;
+  }
+
+  .main-nav {
+    margin-top: 11px !important;
+  }
+}
+
+/* =========================================================
+   FINAL V11 — son
+   ========================================================= */

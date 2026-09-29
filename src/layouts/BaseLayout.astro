@@ -59,18 +59,7 @@ const canonicalUrl = `${siteOrigin}${Astro.url.pathname}`;
 
     <header class="site-header">
       <div class="site-header-inner">
-        <div class="brand-lockup">
-          <a class="site-mark" href="/" aria-label={`${siteTitle} ana sayfa`}>
-            <img
-              src="/media/mehr-alemi-profile-thumb.webp"
-              alt=""
-              width="92"
-              height="92"
-              decoding="async"
-            />
-          </a>
-          <a class="brand" href="/">{siteTitle}</a>
-        </div>
+        <a class="brand" href="/">{siteTitle}</a>
         <nav class="main-nav" aria-label="ana menü">
           <a href="/">{menuYazilar}</a>
           <a href="/hakkinda/">{menuHakkinda}</a>
