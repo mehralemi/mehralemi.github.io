@@ -1,3 +1,4 @@
+
 :root {
   --paper: #f1e6d5;
   --paper-light: #f8f0e5;
@@ -11922,4 +11923,200 @@ body > main {
 
 /* =========================================================
    FINAL V7 — son
+   ========================================================= */
+
+/* =========================================================
+   FINAL V8 — TEK VE KESİNTİSİZ KÂĞIT DOKUSU
+   İçerik sonu / sayfa altı arasında doku ve renk farkı yok.
+   ========================================================= */
+
+/*
+  Texture artık ayrı bir overlay değil.
+  Doğrudan body zemininin parçası; böylece main bitince
+  başka bir doku katmanı görünmeye başlamaz.
+*/
+html {
+  min-height: 100% !important;
+  background-color: #b89b77 !important;
+  background-image: none !important;
+}
+
+body,
+body.archive-page,
+body.reading-page,
+body.about-page {
+  min-height: 100dvh !important;
+
+  background-color: #b89b77 !important;
+  background-image:
+    linear-gradient(
+      rgba(190, 163, 126, .54),
+      rgba(190, 163, 126, .54)
+    ),
+    url('/media/paper-texture-v63.png') !important;
+
+  background-repeat: repeat, repeat !important;
+  background-size: auto, 760px 760px !important;
+  background-position: 0 0, 0 0 !important;
+  background-attachment: scroll, scroll !important;
+}
+
+/*
+  Eski ayrı texture katmanı kapalı.
+  Böylece sayfa sonunda "ikinci yüzey" ortaya çıkmaz.
+*/
+.paper-noise,
+.paper-noise::before,
+.paper-noise::after {
+  display: none !important;
+  content: none !important;
+  opacity: 0 !important;
+  background: none !important;
+}
+
+/*
+  Bütün ana kaplar aynı body yüzeyini gösterecek.
+  Hiçbiri kendi renk/doku katmanını üretmeyecek.
+*/
+body > main,
+.archive-page main,
+.reading-page main,
+.about-page main,
+.story-stream,
+.story-scene,
+.reading-shell,
+.about-shell,
+.load-more-wrap,
+.reading-end {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Sayfanın sonunda gizli bir renk bandı üretmesin */
+body::before,
+body::after,
+main::before,
+main::after,
+.story-stream::before,
+.story-stream::after {
+  background: none !important;
+}
+
+/* Footer zaten görünmemeli */
+.site-footer {
+  display: none !important;
+}
+
+/* Mobilde de aynı doku yoğunluğu */
+@media (max-width: 760px) {
+  body,
+  body.archive-page,
+  body.reading-page,
+  body.about-page {
+    background-image:
+      linear-gradient(
+        rgba(190, 163, 126, .54),
+        rgba(190, 163, 126, .54)
+      ),
+      url('/media/paper-texture-v63.png') !important;
+    background-size: auto, 700px 700px !important;
+  }
+}
+
+/* =========================================================
+   FINAL V8 — son
+   ========================================================= */
+
+/* =========================================================
+   FINAL V9 — TEK CANVAS / TEK DOKU
+   Doku yalnızca html/canvas katmanında çizilir.
+   Böylece main bittiğinde başka bir yüzey ortaya çıkmaz.
+   ========================================================= */
+
+html {
+  min-height: 100% !important;
+  background-color: #b89b77 !important;
+  background-image:
+    linear-gradient(
+      rgba(190, 163, 126, .54),
+      rgba(190, 163, 126, .54)
+    ),
+    url('/media/paper-texture-v63.png') !important;
+  background-repeat: repeat, repeat !important;
+  background-size: auto, 760px 760px !important;
+  background-position: 0 0, 0 0 !important;
+}
+
+/*
+  Body artık kendi zemininin hiçbir parçasını çizmez.
+  Sayfanın tamamı html'nin aynı tek kâğıt canvas'ını gösterir.
+*/
+body,
+body.archive-page,
+body.reading-page,
+body.about-page {
+  min-height: 100dvh !important;
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Eski texture/crease katmanlarını kesin kapat */
+.paper-noise,
+.paper-noise::before,
+.paper-noise::after,
+body::before,
+body::after {
+  display: none !important;
+  content: none !important;
+  opacity: 0 !important;
+  background: none !important;
+}
+
+/* İçerik taşıyıcılarının hiçbiri yeni zemin üretmesin */
+body > main,
+.archive-page main,
+.reading-page main,
+.about-page main,
+.story-stream,
+.story-scene,
+.reading-shell,
+.about-shell,
+.load-more-wrap,
+.reading-end {
+  background: transparent !important;
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+/* Eski dekoratif arka-plan pseudo katmanları da alt bölgede ton üretmesin */
+main::before,
+main::after,
+.story-stream::before,
+.story-stream::after {
+  background: none !important;
+  background-image: none !important;
+}
+
+/* Footer yok */
+.site-footer {
+  display: none !important;
+}
+
+/* Mobilde de aynı canvas; farklı texture ölçeği kullanmıyoruz */
+@media (max-width: 760px) {
+  html {
+    background-size: auto, 760px 760px !important;
+  }
+
+  body,
+  body.archive-page,
+  body.reading-page,
+  body.about-page {
+    background: transparent !important;
+  }
+}
+
+/* =========================================================
+   FINAL V9 — son
    ========================================================= */
