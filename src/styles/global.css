@@ -12120,3 +12120,245 @@ main::after,
 /* =========================================================
    FINAL V9 — son
    ========================================================= */
+
+/* =========================================================
+   FINAL V10 — DOKUYU GERİ ÇEK + KONTRASTI ARTIR
+   ========================================================= */
+
+:root {
+  --ink: #2b2119;
+  --ink-soft: #49382c;
+  --accent-mid: #654d3a;
+  --poem: #7b4942;
+  --prose: #465c53;
+  --line: rgba(72, 52, 36, .24);
+  --line-soft: rgba(72, 52, 36, .14);
+}
+
+html {
+  min-height: 100% !important;
+  background-color: #c2a47d !important;
+  background-image:
+    linear-gradient(
+      rgba(198, 170, 132, .81),
+      rgba(198, 170, 132, .81)
+    ),
+    url('/media/paper-texture-v63.png') !important;
+  background-repeat: repeat, repeat !important;
+  background-size: auto, 860px 860px !important;
+  background-position: 0 0, 0 0 !important;
+}
+
+body,
+body.archive-page,
+body.reading-page,
+body.about-page {
+  background: transparent !important;
+  color: var(--ink) !important;
+}
+
+.paper-noise,
+.paper-noise::before,
+.paper-noise::after {
+  display: none !important;
+}
+
+.brand,
+.scene-copy h2,
+.scene-copy h2 a,
+.reading-head h1,
+.about-copy h1,
+.prose h1,
+.prose h2,
+.prose h3 {
+  color: #2b2119 !important;
+}
+
+.scene-summary,
+.story-excerpt,
+.scene-copy > p:not(.eyebrow) {
+  color: #47362a !important;
+  opacity: 1 !important;
+  font-weight: 400 !important;
+}
+
+.reading-page .prose,
+.reading-page .prose p,
+.reading-page .prose li {
+  color: #33271f !important;
+  opacity: 1 !important;
+  font-weight: 400 !important;
+}
+
+.reading-page .prose {
+  font-size: clamp(1.08rem, 1rem + .18vw, 1.18rem) !important;
+  line-height: 1.92 !important;
+}
+
+.reading-page .prose strong,
+.reading-page .prose b {
+  color: #2b211a !important;
+  font-weight: 600 !important;
+}
+
+.reading-page .prose em {
+  color: #3d2f25 !important;
+}
+
+.filter {
+  color: #503d2f !important;
+  background: rgba(229, 207, 175, .12) !important;
+  border-color: rgba(86, 62, 43, .25) !important;
+}
+
+.filter:hover,
+.filter:focus-visible {
+  color: #30241c !important;
+  background: rgba(229, 207, 175, .23) !important;
+  border-color: rgba(86, 62, 43, .38) !important;
+}
+
+.filter.is-active {
+  color: #d8c5ad !important;
+  background: #654d3a !important;
+  border-color: #654d3a !important;
+}
+
+.filter-poem.is-active {
+  color: #d9beb3 !important;
+  background: #7b4942 !important;
+  border-color: #875149 !important;
+}
+
+.filter-prose.is-active {
+  color: #cbd0bd !important;
+  background: #465c53 !important;
+  border-color: #526960 !important;
+}
+
+.story-scene[data-kind="poem"] .type-tag {
+  color: #683a33 !important;
+  background: rgba(123,73,66,.14) !important;
+  border-color: rgba(104,58,51,.40) !important;
+}
+
+.story-scene[data-kind="prose"] .type-tag {
+  color: #344b43 !important;
+  background: rgba(70,92,83,.14) !important;
+  border-color: rgba(52,75,67,.40) !important;
+}
+
+.reading-page .type-tag {
+  color: #4c392b !important;
+  background: rgba(101,77,58,.10) !important;
+  border-color: rgba(76,57,43,.34) !important;
+}
+
+.story-scene[data-kind="poem"] .scene-copy::before {
+  background: #7b4942 !important;
+  opacity: .88 !important;
+}
+
+.story-scene[data-kind="prose"] .scene-copy::before {
+  background: #465c53 !important;
+  opacity: .88 !important;
+}
+
+.story-stream .read-link.read-link-poem:not(:hover):not(:focus-visible),
+.read-link.read-link-poem:not(:hover):not(:focus-visible) {
+  color: #d6baae !important;
+  background: #75453e !important;
+  border-color: #814d45 !important;
+}
+
+.story-stream .read-link.read-link-prose:not(:hover):not(:focus-visible),
+.read-link.read-link-prose:not(:hover):not(:focus-visible) {
+  color: #c7cdb9 !important;
+  background: #42574f !important;
+  border-color: #4e655b !important;
+}
+
+.story-stream .read-link.read-link-poem:hover,
+.story-stream .read-link.read-link-poem:focus-visible,
+.story-stream .read-link.read-link-prose:hover,
+.story-stream .read-link.read-link-prose:focus-visible,
+.read-link.read-link-poem:hover,
+.read-link.read-link-poem:focus-visible,
+.read-link.read-link-prose:hover,
+.read-link.read-link-prose:focus-visible {
+  color: #d8c5ad !important;
+  background: #594231 !important;
+  border-color: #654b38 !important;
+}
+
+.load-more,
+.reading-end a {
+  color: #4a372a !important;
+  background: rgba(228, 205, 171, .10) !important;
+  border-color: rgba(78, 56, 38, .30) !important;
+  box-shadow: none !important;
+}
+
+.load-more:hover,
+.load-more:focus-visible,
+.reading-end a:hover,
+.reading-end a:focus-visible {
+  color: #2f231b !important;
+  background: rgba(228, 205, 171, .22) !important;
+  border-color: rgba(78, 56, 38, .43) !important;
+  box-shadow: none !important;
+}
+
+.site-header {
+  background: rgba(196, 165, 126, .86) !important;
+}
+
+.archive-tools,
+.archive-toolbar {
+  background: rgba(190, 158, 120, .78) !important;
+  border-color: rgba(78,56,38,.16) !important;
+}
+
+body > main,
+.archive-page main,
+.reading-page main,
+.about-page main,
+.story-stream,
+.story-scene,
+.reading-shell,
+.about-shell,
+.load-more-wrap,
+.reading-end {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+.site-footer {
+  display: none !important;
+}
+
+@media (max-width: 760px) {
+  html {
+    background-image:
+      linear-gradient(
+        rgba(198, 170, 132, .83),
+        rgba(198, 170, 132, .83)
+      ),
+      url('/media/paper-texture-v63.png') !important;
+    background-size: auto, 820px 820px !important;
+  }
+
+  .scene-summary {
+    color: #453429 !important;
+  }
+
+  .reading-page .prose {
+    color: #32261e !important;
+    font-size: 1.07rem !important;
+    line-height: 1.88 !important;
+  }
+}
+
+/* =========================================================
+   FINAL V10 — son
+   ========================================================= */
