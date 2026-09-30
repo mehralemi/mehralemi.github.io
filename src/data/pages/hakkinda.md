@@ -12,6 +12,8 @@ zaman geçer, diller değişir, imparatorluklar yıkılır; fakat bazı kelimele
 
 mehr âlemi, sevginin, merakın, hikâyelerin ve hayatın küçük güzelliklerinin bir araya geldiği bir dünya olsun istedik.
 
-bazen bir kelimenin hikâyesini anlatacağız, bazen bir insanın, bir şehrin ya da unutulmuş bir geleneğin izini süreceğiz. geçmişe bakarken bugünün de içinde kalacağız. bildiklerimizden çok merak ettiklerimizle genişleyeceğiz.          belki de her güzel hikâyenin başladığı yerde, biraz mehr vardır:
+bazen bir kelimenin hikâyesini anlatacağız, bazen bir insanın, bir şehrin ya da unutulmuş bir geleneğin izini süreceğiz. geçmişe bakarken bugünün de içinde kalacağız. bildiklerimizden çok merak ettiklerimizle genişleyeceğiz.  
+
+belki de her güzel hikâyenin başladığı yerde, biraz mehr vardır:
 
 bir ışık                                                   bir bağ                                                  bir merak                                              bir sevgi...
