@@ -1,5 +1,5 @@
 ---
-title: hakkında
+title: hakkımızda
 portrait: /media/mehr-alemi-profile.jpg
 ---
 ***neden mehr?*** 
