@@ -1,5 +1,5 @@
 ---
-title: "mehr âlemi"
-menuYazilar: "yazılar"
-menuHakkinda: "hakkında"
+title: " "
+menuYazilar: yazılar
+menuHakkinda: hakkında
 ---
