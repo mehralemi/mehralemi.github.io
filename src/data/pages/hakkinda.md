@@ -1,5 +1,5 @@
 ---
-title: " neden mehr"
+title: neden mehr?
 portrait: /media/mehr-alemi-profile.jpg
 ---
 mehr, eski iran coğrafyasından bugüne uzanan kelimelerden biridir. farsçada; sevgi, muhabbet, şefkat ve gönül bağı anlamlarını taşırken, aynı zamanda güneş ve ışık ile ilişkilendirilir. kelimemizin kökleri ışıkla, dostlukla ve verilen sözle ilişkilendirilen mithra/mitra kavramına kadar uzanır.
@@ -14,4 +14,4 @@ bazen bir kelimenin hikâyesini anlatacağız, bazen bir insanın, bir şehrin y
 
 belki de her güzel hikâyenin başladığı yerde, biraz mehr vardır:
 
-bir ışık                                                   bir bağ                                                  bir merak                                              bir sevgi...
+bir ışık                                                    bir bağ                                                   bir merak                                               bir sevgi...
