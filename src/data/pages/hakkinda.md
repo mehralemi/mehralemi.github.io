@@ -1,9 +1,7 @@
 ---
-title: hakkında
+title: "mehr âlemi "
 portrait: /media/mehr-alemi-profile.jpg
 ---
-***mehr âlemi*** 
-
 mehr, eski iran coğrafyasından bugüne uzanan kelimelerden biridir. farsçada; sevgi, muhabbet, şefkat ve gönül bağı anlamlarını taşırken, aynı zamanda güneş ve ışık ile ilişkilendirilir. kelimemizin kökleri ışıkla, dostlukla ve verilen sözle ilişkilendirilen mithra/mitra kavramına kadar uzanır.
 
 mehr yalnızca bir sevme hâli değildir. birine gönülden bağlanmak kadar, karanlığın içinden süzülen bir ışık; bir dosta verilen söz kadar, insanın içinde sakladığı sıcaklıktır.
