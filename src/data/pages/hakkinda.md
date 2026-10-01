@@ -1,5 +1,5 @@
 ---
-title: bize dair
+title: biz'e dair
 portrait: /media/mehr-alemi-profile.jpg
 ---
 ***neden mehr?*** 
